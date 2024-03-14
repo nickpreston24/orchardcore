@@ -1,4 +1,4 @@
-drop table CalendarEvents;
+drop table if exists CalendarEvents;
 CREATE TABLE IF NOT EXISTS CalendarEvents
 (
     id            INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -8,8 +8,6 @@ CREATE TABLE IF NOT EXISTS CalendarEvents
     duration      time,
     created_at    date,
     last_modified date
-
-
 );
 
 INSERT INTO CalendarEvents(event_name)

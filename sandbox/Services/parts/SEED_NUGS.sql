@@ -1,4 +1,4 @@
-drop table parts;
+drop table if exists parts;
 create table if not exists parts
 (
     id           INTEGER PRIMARY KEY AUTOINCREMENT not null,

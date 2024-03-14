@@ -1,5 +1,4 @@
 using Hydro;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Orchard.Sandbox.Services;
 
 namespace Orchard.Sandbox.Pages.Sandbox;
