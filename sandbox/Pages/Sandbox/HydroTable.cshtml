@@ -1,0 +1,31 @@
+@model Orchard.Sandbox.Pages.Sandbox.HydroTable
+
+<div class="overflow-x-auto">
+    <table class="table">
+        <!-- head -->
+        <thead>
+        <tr>
+            <th>
+                <label>
+                    <input type="checkbox" class="checkbox"/>
+                </label>
+            </th>
+            @Model.Slot("headers")
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- row 1 -->
+        @Model.Slot()
+        </tbody>
+        <!-- foot -->
+        <tfoot>
+        <tr>
+            <th></th>
+            @Model.Slot("footers")
+            <th></th>
+        </tr>
+        </tfoot>
+
+    </table>
+</div>

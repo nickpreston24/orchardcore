@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="hydro-config"/>
+
+    <script defer src="~/hydro/hydro.js" asp-append-version="true"></script>
+    <script defer src="~/hydro/alpine.js" asp-append-version="true"></script>
+
+    <title>@ViewData["Title"] - Lock-N-Loadout</title>
+
+    <script src="https://unpkg.com/htmx.org@latest"
+            asp-fallback-src="~/lib/htmx.org/dist/htmx.min.js"
+            asp-fallback-test="window.htmx"
+            crossorigin="anonymous">
+        </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.min.js"
+            asp-fallback-src="~/lib/chartjs"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.47.0/dist/full.css" rel="stylesheet" type="text/css"/>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css"/>
+
+    <!-- Alpine Plugins -->
+    <script defer src='https://cdn.jsdelivr.net/npm/@@alpinejs/persist@3.x.x/dist/cdn.min.js'></script>
+
+    <meta charset='utf-8'/>
+    <script src='https://cdn.jsdelivr.net/npm/@@fullcalendar/core@6.1.11/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@@fullcalendar/daygrid@6.1.11/index.global.min.js'></script>
+
+
+</head>
+<body>
+<header>
+    <hydro-nav>
+        <slot name="links">
+            <li>
+                <a href="/">Homepage</a>
+            </li>
+            <li>
+                <a href="sandbox">Sandbox</a>
+            </li>
+            <li>
+                <a href="about">About</a>
+            </li>
+        </slot>
+    </hydro-nav>
+</header>
+<div class="container">
+    <main role="main" class="m-4">
+        @RenderBody()
+    </main>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

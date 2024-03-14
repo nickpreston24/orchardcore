@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- The following should embed every query file into the assembly
+        Credit:
+        https://stackoverflow.com/questions/69258345/add-all-files-in-folder-including-sub-dir-as-embedded-resource
+        -->
+        <EmbeddedResource Include="Services\**\*.sql"></EmbeddedResource>
+        <EmbeddedResource Include="Pages\**\*.sql"></EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Bogus" Version="35.5.0" />
+        <PackageReference Include="CodeMechanic.RazorHAT" Version="1.0.8" />
+        <PackageReference Include="Dapper" Version="2.1.35" />
+        <PackageReference Include="Htmx" Version="1.7.0" />
+        <PackageReference Include="Htmx.TagHelpers" Version="1.7.0" />
+        <PackageReference Include="Hydro" Version="0.11.0" />
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.2" />
+    </ItemGroup>
+
+</Project>

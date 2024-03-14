@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>preview</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Bogus" Version="35.5.0"/>
+        <PackageReference Include="CodeMechanic.Diagnostics" Version="1.0.3"/>
+        <PackageReference Include="CodeMechanic.Embeds" Version="1.0.0"/>
+        <PackageReference Include="CodeMechanic.FileSystem" Version="1.0.7"/>
+        <PackageReference Include="CodeMechanic.RazorHAT" Version="1.0.8"/>
+        <PackageReference Include="CodeMechanic.Reflection" Version="1.0.4"/>
+        <PackageReference Include="CodeMechanic.Regex" Version="1.0.2"/>
+        <PackageReference Include="CodeMechanic.Types" Version="1.0.7"/>
+        <PackageReference Include="Dapper" Version="2.1.35"/>
+        <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0"/>
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.3"/>
+    </ItemGroup>
+
+</Project>

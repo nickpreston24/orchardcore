@@ -1,0 +1,55 @@
+@model PartEditForm
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+<section>
+
+    <script>
+        function setup () {
+            foo: 'bar'    
+        }
+    </script>
+    <div x-data='setup()'>
+        <form hx-post hx-page="Index" hx-page-handler="UpdatePart" hx-swap="outerHTML"
+              class="form-horizontal needs-validation" _="on htmx:beforeSend set #submitButton.disabled to 'disabled'">
+            <div class="mb-3">
+                <label class="form-label" asp-for="EditedPart.name"></label>
+                <input type="text" class="form-control" asp-for="EditedPart.name">
+                <div class="invalid-feedback">
+                    <span asp-validation-for="EditedPart.name"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" asp-for="EditedPart.cost"></label>
+                <input type="text" class="form-control" asp-for="EditedPart.cost">
+                <div class="invalid-feedback">
+                    <span asp-validation-for="EditedPart.cost"></span>
+                </div>
+            </div>
+
+
+            <button
+                type="submit"
+                @* hx-page="Index" *@
+                @* hx-page-handler="UpdatePart" *@
+                @* hx-swap="outerHTML" *@
+                class="btn btn-primary"
+            
+                >
+                Update Part
+            </button>
+        </form>
+
+        @* <form hx-post method="post"> *@
+        @*     <button *@
+        @*         hx-page="Index" *@
+        @*         hx-page-handler="UpdatePart" *@
+        @*         hx-swap="outerHTML" *@
+        @*         class="btn btn-primary" *@
+        @*         asp-page-handler="Register"> *@
+        @*         Update Part *@
+        @*     </button> *@
+        @* </form> *@
+
+    </div>
+</section>

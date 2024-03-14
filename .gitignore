@@ -1,0 +1,16 @@
+.idea
+node_modules
+**/*/wwwroot/lib
+**/*.rest
+bin
+obj
+.migrations
+.idea
+out
+.env
+orchardcore.sln.DotSettings.user
+
+# No idea. I assume these are cached and generated?  Don't worry about them?
+*.po
+**/*/wwwroot/Default
+**/*/App_Data

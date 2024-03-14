@@ -1,0 +1,15 @@
+@model HydroFooter
+
+<footer class="footer footer-center p-10 bg-base-200 text-base-content rounded">
+    <nav class="grid grid-flow-col gap-4">
+        @Model.Slot("links")
+    </nav>
+    <nav>
+        <div class="grid grid-flow-col gap-4">
+            @Model.Slot("logos")
+        </div>
+    </nav>
+    <aside>
+        @Model.Slot("copyright")
+    </aside>
+</footer>

@@ -1,0 +1,64 @@
+@using Orchard.Sandbox.Services
+@using Hydro
+@using CodeMechanic.Diagnostics
+@using CodeMechanic.Types
+@model HydroPartsTable
+
+@{
+    var excluded_headers = new[] { "url", "imageurl", "id" };
+    var headers = typeof(Part)
+        .GetProperties()
+        .Select(x => x.Name)
+        .Except(excluded_headers);
+}
+
+<hydro-table>
+    <slot name="headers">
+        @foreach (var header_name in headers)
+        {
+            <th>@header_name</th>
+        }
+    </slot>
+
+    @foreach (var part in @Model.Parts)
+    {
+        <tr>
+            <th>
+                <label>
+                    <input type="checkbox" class="checkbox"/>
+                </label>
+            </th>
+            <td>
+                <div class="flex items-center gap-3">
+                    <div class="avatar">
+                        <div class="mask mask-squircle w-12 h-12">
+                            <img src="~/img/pewpewlogo.jpg" alt="Avatar Tailwind CSS Component"/>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-bold">@part.name</div>
+                        <div class="text-sm opacity-50">@part.id</div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                @part.manufacturer
+                <br/>
+                <span class="badge badge-ghost badge-sm">@part.kind</span>
+            </td>
+            <td>$@part.cost</td>
+            <th>
+                <a href="@part.url" target="_blank">
+                    <button class="btn btn-ghost btn-xs">details</button>
+                </a>
+            </th>
+        </tr>
+    }
+
+    <slot name="footers">
+        @foreach (var header_name in headers)
+        {
+            <th>@header_name</th>
+        }
+    </slot>
+</hydro-table>
