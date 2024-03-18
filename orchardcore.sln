@@ -11,11 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchard.Sandbox", "sandbox\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS.Web", "CMS.Web\CMS.Web.csproj", "{FB14DC86-05DF-4D3A-A86C-8DBFBE3A8869}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchardcore.Services", "Orchardcore.Services\Orchardcore.Services.csproj", "{C0B00AF5-D21A-454D-8B60-875A7210DFA9}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{0289A81A-1BB8-428E-8B91-D758AF5EB148}"
 	ProjectSection(SolutionItems) = preProject
 		scripts\bootstrap_cms.sh = scripts\bootstrap_cms.sh
+		scripts\packages.sh = scripts\packages.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "orchard-example", "orchard-example", "{3D420E8D-FFDB-4007-8C42-F5993D024FE1}"
@@ -77,10 +76,6 @@ Global
 		{FB14DC86-05DF-4D3A-A86C-8DBFBE3A8869}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB14DC86-05DF-4D3A-A86C-8DBFBE3A8869}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB14DC86-05DF-4D3A-A86C-8DBFBE3A8869}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C0B00AF5-D21A-454D-8B60-875A7210DFA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0B00AF5-D21A-454D-8B60-875A7210DFA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0B00AF5-D21A-454D-8B60-875A7210DFA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0B00AF5-D21A-454D-8B60-875A7210DFA9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E8141C3E-16FE-4BB3-B9E9-9544395F2DA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E8141C3E-16FE-4BB3-B9E9-9544395F2DA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8141C3E-16FE-4BB3-B9E9-9544395F2DA0}.Release|Any CPU.ActiveCfg = Release|Any CPU

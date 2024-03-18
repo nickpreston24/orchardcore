@@ -17,7 +17,7 @@ public interface INugsService
     Task<IEnumerable<Part>> GetAll();
     Task<List<Part>> Search(Part search);
     Task<Part> GetById(int id);
-    Task Create(Part model);
+    Task<int> Create(params Part[] model);
     Task Update(int id, Part model);
     Task Delete(int id);
 }
@@ -75,13 +75,16 @@ public class NugsService : INugsService
         throw new NotImplementedException();
     }
 
-    public async Task Create(Part model)
+    public async Task<int> Create(params Part[] model)
     {
         string sql = embeds.GetFileContents<NugsService>("create_part.sql");
-        model.Dump("creating part");
-        using var connection = CreateConnection();
-
-        var records = await connection.ExecuteAsync(sql, model);
+        // model.Dump("creating parts");
+        Console.WriteLine(sql.AsMultiInsert(10));
+        // using var connection = CreateConnection();
+        //
+        // var records = await connection.ExecuteAsync(sql, model);
+        // return records;
+        return default;
     }
 
     public async Task Update(int id, Part model)

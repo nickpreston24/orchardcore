@@ -12,3 +12,5 @@ where id = @id
    or manufacturer = @manufacturer
    OR manufacturer like '%' + @manufacturer + '%'
 ;
+
+-- select * from parts

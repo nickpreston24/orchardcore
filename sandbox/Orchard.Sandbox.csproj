@@ -22,18 +22,19 @@
     <!--    </ItemGroup>-->
 
     <ItemGroup>
-        <PackageReference Include="Bogus" Version="35.5.0"/>
-        <PackageReference Include="CodeMechanic.RazorHAT" Version="1.0.8"/>
-        <PackageReference Include="Dapper" Version="2.1.35"/>
-        <PackageReference Include="Htmx" Version="1.7.0"/>
-        <PackageReference Include="Htmx.TagHelpers" Version="1.7.0"/>
-        <PackageReference Include="Hydro" Version="0.11.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.2.0"/>
-        <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.3"/>
+        <PackageReference Include="Bogus" Version="35.5.0" />
+        <PackageReference Include="CodeMechanic.RazorHAT" Version="1.0.8" />
+        <PackageReference Include="CodeMechanic.Regex" Version="1.0.2" />
+        <PackageReference Include="Dapper" Version="2.1.35" />
+        <PackageReference Include="Htmx" Version="1.7.0" />
+        <PackageReference Include="Htmx.TagHelpers" Version="1.7.0" />
+        <PackageReference Include="Hydro" Version="0.11.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.3" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="Services\find_all_tablenames.sql"/>
+        <None Include="Services\find_all_tablenames.sql" />
     </ItemGroup>
 
 </Project>

@@ -14,8 +14,6 @@ public class Sandbox : PageModel
     public List<Part> Parts { get; set; } = new();
     public string Term { get; set; }
 
-
-    // [BindProperty]
     public Part EditPart { get; set; } = new();
 
     public Sandbox(ILogger<Sandbox> logger
@@ -65,29 +63,43 @@ public class Sandbox : PageModel
     {
         Console.WriteLine(nameof(OnGetCreatePart));
 
-        var part_names = new string[]
-        {
-            "DD 300 BLK PDW",
-            "DD 556 NATO MK18",
-            "MCMR-15 BCM 300 BLK Upper", "IWI Tavor X-95", "P90", "MCX Spear", "Honey Badger", "PPQ"
-        }.Shuffle();
-        var part_kinds = new string[] { "ar-15", "ar-10" }.Shuffle();
-        var part_manufacturers = new string[]
-        {
-            "Bravo Company", "Proof Research", "Aero Precision", "Faxon Firearms", "Smith & Wesson", "Dan Wesson",
-            "Kahr Arms", "IWI", "Sig Sauer", "Walther", "Q LLC"
-        }.Shuffle();
-        var part_costs = Enumerable.Range(5, 20).Select(x => x * 1000.00).ToArray().Shuffle();
-        var fakepart = new Part()
-        {
-            name = part_names.FirstOrDefault(),
-            cost = part_costs.FirstOrDefault(),
-            kind = part_kinds.FirstOrDefault(),
-            manufacturer = part_manufacturers.TakeFirstRandom()
-        };
+        var fakeparts = CreateFakeParts();
 
+        fakeparts.Dump();
         // Parts.Dump("all parts");
-        await nugsService.Create(fakepart.Dump("fp"));
-        return Content($"<b>Created part '{fakepart.name}'</b>");
+        int count = await nugsService.Create(fakeparts.Dump("fp"));
+        return Content($"<b>Created '{count}' parts</b>");
+    }
+
+    private static readonly string[] part_names = new string[]
+    {
+        "DD 300 BLK PDW",
+        "DD 556 NATO MK18",
+        "MCMR-15 BCM 300 BLK Upper", "IWI Tavor X-95", "P90", "MCX Spear", "Honey Badger", "PPQ", "Sig Rattler 300 BLK",
+        "JP Rifles .224 Valkyrie", "AWP"
+    }.Shuffle();
+
+    private static readonly string[] part_kinds = new string[] { "ar-15", "ar-10" }.Shuffle();
+
+    private static readonly string[] part_manufacturers = new string[]
+    {
+        "Bravo Company", "Proof Research", "Aero Precision", "Faxon Firearms", "Smith & Wesson", "Dan Wesson",
+        "Kahr Arms", "IWI", "Sig Sauer", "Walther", "Q LLC", "Remington", "Glock"
+    }.Shuffle();
+
+    private static readonly double[] part_costs = Enumerable.Range(5, 20).Select(x => x * 1000.00).ToArray().Shuffle();
+
+    private Part[] CreateFakeParts(int count = 1)
+    {
+        var fakepart = Enumerable.Range(1, 5).Select(index => new Part
+            {
+                id = index,
+                name = part_names.TakeFirstRandom(),
+                kind = part_kinds.TakeFirstRandom(),
+                manufacturer = part_manufacturers.TakeFirstRandom(),
+                cost = part_costs.TakeFirstRandom(),
+            })
+            .ToArray();
+        return fakepart;
     }
 }
