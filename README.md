@@ -48,14 +48,16 @@ I'm unsure of the events I'll need for this and what authentication will be requ
 
 ## Todos
 
-- [ ] Integrate the calendar into a CMS Module
+- [ ] Integrate the calendar into a CMS Modulethis
   - [ ] Invesigate how the calendar library wants you to use it.
   - [ ] Figure out how a CMS Module event lifecycle works.
 - [ ] Crud to finish and test:
   - [ ] Delete
+  - [ ] Bulk create (or single)
   - [ ] ...?
 - [ ] copy/paste the event calendar into a Hydro Component
   - [ ] Create a Hydro viewelement `hydro-event` with `hx-get` support
   - [ ] Wite the basic CRUD events described [here](https://docs.google.com/document/d/1JIHROJFNqIXdeoulxHi9pbp4Nphp2BuzLGBeGz-kyMo/edit)
   - [ ] Wire the eventcalender service into the calendar
   - [ ] Ensure the calendar easily loads onto the page from script with no `id` issues.
+  - [ ] If you have time, wrap each Hydro event in a custom Authorization context from Hydro, demonstrating you know how to secure the `/admin` path.
