@@ -2,13 +2,32 @@ using System.Reflection;
 using CodeMechanic.Embeds;
 using CodeMechanic.RazorHAT.Services;
 using Hydro.Configuration;
+using Orchard.Sandbox.Pages;
 using Orchard.Sandbox.Services;
+using Rizzy;
+using Rizzy.Antiforgery;
+using Rizzy.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddHydro();
+
+builder.AddRizzy(config =>
+    {
+        // config.RootComponent = typeof(IndexModel); //typeof(HtmxApp<AppLayout>);
+        // config.DefaultLayout = typeof(HtmxLayout<MainLayout>);
+        config.AntiforgeryStrategy = AntiforgeryStrategy.GenerateTokensPerPage;
+    })
+    .WithHtmxConfiguration(config => { config.SelfRequestsOnly = true; })
+    .WithHtmxConfiguration("articles", config =>
+    {
+        config.SelfRequestsOnly = true;
+        config.GlobalViewTransitions = true;
+    });
+
+
 var main_assembly = Assembly.GetExecutingAssembly();
 builder.Services.AddSingleton<IEmbeddedResourceQuery>(
     new EmbeddedResourceService(
@@ -44,5 +63,6 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.UseHydro(builder.Environment);
+app.UseRizzy();
 
 app.Run();

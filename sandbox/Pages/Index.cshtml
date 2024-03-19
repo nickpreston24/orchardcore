@@ -15,4 +15,12 @@
     </section>
 
     @* <button x-on:click="edits_enabled='true'"> toggle edit moed</button> *@
+
+    <h1>OOB Swap Test</h1>
+
+    <HtmxSwappable TargetId="alert-container" SwapStyle="SwapStyle.InnerHTML" Selector=".alert-message">
+        <div class="alert alert-info" role="alert">
+            This is an important message!
+        </div>
+    </HtmxSwappable>
 </div>
