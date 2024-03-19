@@ -1,5 +1,11 @@
 @model Orchard.Sandbox.Pages.Components.HydroCalendar
 
+@{
+    //https://chrisfrew.in/blog/serializing-and-deserializing-to-iso-8601-in-dotnet/
+    var initial_date = Model.InitialDate.ToString("o");
+    Console.WriteLine(initial_date);
+    string slot_duration = "02:00"; // 2 hours
+}
 <html>
 
 <head>
@@ -10,7 +16,9 @@
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
+            defaultView: 'agendaWeek',
+          // initialView: 'dayGridYear', // 'dayGridMonth',
+          initialDate: '@initial_date'
         });
         calendar.render();
       });

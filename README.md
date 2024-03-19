@@ -66,3 +66,22 @@ I'm unsure of the events I'll need for this and what authentication will be requ
   - [ ] Ensure the calendar easily loads onto the page from script with no `id` issues.
   - [ ] If you have time, wrap each Hydro event in a custom Authorization context from Hydro, demonstrating you know how to secure the `/admin` path.
   - [ ] If you have time, have the highlighted calendar boxes change on hover :)
+  - [ ] Extra:
+    - [ ] Try https://fullcalendar.io/docs/month-view making this a set of toggles in an optionspanel hydro component.
+  
+## User Stories 
+o As an Admin User 
+    I want a calendar module where I can add Events to show up on my Front-End Calendar So that end-users can see what activities are coming up and have passed 
+    And I will know that I am done when 
+    - [ ] I have a calendar content type on the /Admin that I can enter a new Event 
+    - [ ] I can Edit an Event 
+    - [ ] I can Add New Events 
+    - [ ] I can Delete an event 
+    - [ ] I can see a list of all events 
+o As a Front-End User 
+    I want a calendar module where I can view all Events 
+    So that I can see what activities are coming up and have passed 
+    And I will know that I am done when 
+    - [ ] I can visit a page /calendar and see a calendar with all published events
+    - [ ] When I can view the calendar in Month, Week, Day, and [Agenda Views](https://fullcalendar.io/docs/v3/agenda-view) 
+    - [x] When Navigate Forward and Backward on the Calendar to see Past Events and  upcoming events 

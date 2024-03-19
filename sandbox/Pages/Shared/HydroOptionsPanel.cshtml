@@ -1,0 +1,76 @@
+@using CodeMechanic.Types
+@model HydroOptionsPanel
+
+@{
+    var card_options = """{'foo': true, 'bar': false}""";
+
+    // var schedule_modes = """{type: 'Month', kinds: ['month', 'day', 'agenda', 'year']}""";
+    var schedule_kinds = new string[] { "month", "day", "agenda", "year" };
+
+    string save = "OnGetSave";
+}
+<section>
+
+    <div id="hydro_options" class="grid grid-rows-auto grid-col-3">
+
+        <h1>Options</h1>
+
+        <template id="schedule_kind" x-cloak x-for="[key, value] of Object.entries(@card_options)">
+
+            @* :class="{!value ?  'badge-ghost border-2 border-yellow-500':'border-2 border-yellow-500 badge-accent'}" *@
+            <button
+                x-on:click="card_options[key]=!value"
+                class="btn btn-primary join-item shadow-md shadow-secondary-400/50"
+                :class="{'border-2 border-secondary btn-ghost': !value, 'border-2    border-accent': value }">
+                <label
+                    x-text="key"
+                    class="form-label badge badge-sm"
+                    :asp-for='key'>
+                </label>
+
+                <input x-bind:name='key'
+                       x-bind:value='value'
+                       x-bind:checked="value"
+                       type="checkbox"
+                       :asp-for="key"
+                       class="form-control toggle toggle-primary">
+            </button>
+
+        </template>
+
+        <select class="select select-primary w-full max-w-xs">
+            <option disabled selected>Change Schedule Type</option>
+            @foreach (var kind in @schedule_kinds)
+            {
+                <option>@kind.ToCamelCase()</option>
+            }
+        </select>
+
+
+        <div class="card bg-base-200 w-80">
+            <div class="card-body">
+                <input placeholder="Email" class="input input-bordered"/>
+                <label class="label cursor-pointer">
+                    Accept terms of use zzz
+                    <input type="checkbox" class="toggle"/>
+                </label>
+                <label class="label cursor-pointer">
+                    Submit to newsletter zzz
+                    <input type="checkbox" class="toggle"/>
+                </label>
+                <button 
+                    hx-get
+                    hx-page="Index"
+                    hx-page-handler="@save"
+                    class="btn btn-neutral">Save</button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    @* <form action=""> *@
+    @*     <input type="text"> *@
+    @* </form> *@
+</section>

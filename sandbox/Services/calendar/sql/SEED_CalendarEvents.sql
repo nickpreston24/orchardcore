@@ -19,3 +19,5 @@ VALUES ('Upcoming Events', 'end-users can see what activities are coming up'),
 
 select *
 from CalendarEvents;
+
+-- delete from calendarevents where id > 0;

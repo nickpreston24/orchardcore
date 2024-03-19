@@ -9,4 +9,5 @@ public interface ICalendarEventService
     Task Update(int id, CalendarEvent model);
     Task Delete(int id);
     Task<int> SeedCalendar();
+    Task<int> CountExistingEvents();
 }

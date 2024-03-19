@@ -1,3 +1,5 @@
+using System.Data;
+using System.Data.SQLite;
 using System.Text;
 using System.Text.RegularExpressions;
 using Bogus;
@@ -18,12 +20,23 @@ public class CalendarEventService : ICalendarEventService
     public CalendarEventService(IEmbeddedResourceQuery embed_service)
     {
         embeds = (EmbeddedResourceService?)embed_service;
-        // SeedCalendar();
+    }
+
+    public async Task<int> CountExistingEvents()
+    {
+        using var connection = CreateConnection();
+
+        string sql = "select count (id) from CalendarEvents;";
+        int count = await connection.ExecuteScalarAsync<int>(sql);
+        return count;
     }
 
     public async Task<int> SeedCalendar()
     {
-        var connection = CreateConnection();
+        int LIMIT = 10;
+        int current_count = await CountExistingEvents();
+        if (current_count >= LIMIT)
+            return 0;
 
         // (demo) Run the embedded seed script to create table from scratch:
         // string tablequery = embeds.GetFileContents<CalendarEventService>("SEED_CalendarEvents.sql").Dump();
@@ -51,7 +64,11 @@ public class CalendarEventService : ICalendarEventService
     // I'm just showing off NSpecification because it can do LINQ and compound specs (using & and |, see: https://github.com/ASbeletsky/NSpecifications)
     private Spec<CalendarEvent> has_valid_id = new Spec<CalendarEvent>(e => e.id > -1);
 
-    private List<CalendarEvent> CreateFakeEvents(int count = 10)
+    private string
+        connectionString =
+            "Data Source=LocalDatabase.db"; // TODO: Obviously, we want to read this from .env in the future.
+
+    private List<CalendarEvent> CreateFakeEvents(int count = 3)
     {
         var index = 1;
 
@@ -60,16 +77,17 @@ public class CalendarEventService : ICalendarEventService
                 .RuleFor(o => o.last_modified, f => f.Date.Recent(100))
                 .RuleFor(o => o.created_at, f => f.Date.Recent(30))
                 .RuleFor(o => o.event_name, f => fake_event_names.TakeFirstRandom())
-                .RuleFor(o => o.event_name, f => fake_descriptions.TakeFirstRandom())
+                .RuleFor(o => o.description, f => fake_descriptions.TakeFirstRandom())
             ;
 
         var items = calendar_faker.Generate(count);
+        Console.WriteLine($"created {items.Count} fake events   ");
         return items;
     }
 
     public async Task<IEnumerable<CalendarEvent>> GetAll()
     {
-        string sql = embeds.GetFileContents<CalendarEventService>("get_all_calendar_events.sql").Dump();
+        string sql = embeds.GetFileContents<CalendarEventService>("get_all_calendar_events.sql");
         using var connection = CreateConnection();
         var calendarEvents = await connection.QueryAsync<CalendarEvent>(sql);
         return calendarEvents;
@@ -98,7 +116,8 @@ public class CalendarEventService : ICalendarEventService
     public async Task<int> Create(string sql_file_path, params CalendarEvent[] records)
     {
         string sql = embeds.GetFileContents<CalendarEventService>(sql_file_path);
-        records.Dump("creating parts");
+        Console.WriteLine($"creating {records.Length} records...");
+        // records.Dump("creating parts");
         // https://regex101.com/r/XyhgkI/1connection
         // string full =
         //     @"(?<insert_clause>insert\s*into\s\w+\s*\([\w,\s*]+\))\s*(?<values_clause>values\s*\([@\w,\s]+\)\s*\;?)$";
@@ -127,11 +146,19 @@ public class CalendarEventService : ICalendarEventService
 
         Console.WriteLine($"bulk sql for {records.Length} records :>> " + bulk_sql);
 
-        using var connection = CreateConnection();
+        // var conn = CreateConnection();
+        await using SQLiteConnection connection = new SQLiteConnection(connectionString);
+        connection.Open();
 
-        var record_count = connection.Execute(bulk_sql, records);
-        Console.WriteLine("RECORDS CREATED : " + record_count);
-        return record_count;
+        await using (SQLiteCommand cmd = connection.CreateCommand())
+        {
+            cmd.CommandText = bulk_sql;
+            cmd.CommandType = CommandType.Text;
+            var record_count = await cmd.ExecuteNonQueryAsync();
+            // var record_count = await connection.ExecuteSqlAsync(bulk_sql, records);
+            Console.WriteLine("RECORDS CREATED : " + record_count);
+            return record_count;
+        }
     }
 
     public Task Update(int id, CalendarEvent model)

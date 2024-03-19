@@ -1,4 +1,5 @@
 ﻿using CodeMechanic.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Orchard.Sandbox.Services;
 
@@ -20,6 +21,12 @@ public class IndexModel : PageModel
     public async Task OnGet()
     {
         await calendar_svc.SeedCalendar();
-        var events = (await calendar_svc.GetAll()).Dump("all calendar events");
+        var events = (await calendar_svc.GetAll()) /*.Dump("all calendar events")*/;
+    }
+
+    public async Task<IActionResult> OnGetSave()
+    {
+        Console.WriteLine(nameof(OnGetSave));
+        return Content("<alert>Saved!</alert>");
     }
 }
