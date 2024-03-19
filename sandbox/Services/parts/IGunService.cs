@@ -1,6 +1,3 @@
-using System.Data;
-using Microsoft.Data.SqlClient;
-
 namespace Orchard.Sandbox.Services;
 
 public interface IGunService

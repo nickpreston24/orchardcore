@@ -1,5 +1,3 @@
-using CodeMechanic.Types;
-
 namespace Orchard.Sandbox.Services;
 
 public class CalendarEvent
