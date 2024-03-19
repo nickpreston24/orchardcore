@@ -17,8 +17,8 @@ public class IndexModel : PageModel
         calendar_svc = calendarsvc;
     }
 
-    public void OnGet()
+    public async Task OnGet()
     {
-        calendar_svc.GetAll().Dump("all calendar events");
+        var events = (await calendar_svc.GetAll()).Dump("all calendar events");
     }
 }
