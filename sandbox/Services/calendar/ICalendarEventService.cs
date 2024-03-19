@@ -4,7 +4,8 @@ public interface ICalendarEventService
 {
     Task<IEnumerable<CalendarEvent>> GetAll();
     Task<CalendarEvent> GetById(int id);
-    Task Create(CalendarEvent model);
+    Task<int> Create(params CalendarEvent[] records);
+    Task<List<CalendarEvent>> Search(Part search);
     Task Update(int id, CalendarEvent model);
     Task Delete(int id);
 }
