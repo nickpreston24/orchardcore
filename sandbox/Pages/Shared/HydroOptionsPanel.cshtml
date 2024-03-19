@@ -5,7 +5,7 @@
     var card_options = """{'foo': true, 'bar': false}""";
 
     var schedule_kinds = new string[] { "month", "day", "agenda", "year" };
-   
+
     string save = "Save";
 }
 
@@ -37,7 +37,7 @@
     </template>
 
     <select class="select select-primary w-full max-w-xs">
-        <option disabled selected>Change Schedule Type</option>
+        <option disabled selected>-- Schedule Type --</option>
         @foreach (var kind in @schedule_kinds)
         {
             <option>@kind.ToCamelCase()</option>
