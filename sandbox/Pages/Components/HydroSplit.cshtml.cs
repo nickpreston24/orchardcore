@@ -8,6 +8,7 @@ namespace Orchard.Sandbox.Pages.Components;
 public class HydroSplit : HydroView
 {
     public SplitOrientation Orientation { get; set; } = SplitOrientation.Horizontal;
+    public uint gap { get; set; }
 }
 
 public class SplitOrientation : Enumeration

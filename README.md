@@ -45,6 +45,8 @@ I'm unsure of the events I'll need for this and what authentication will be requ
 * DaisyUI - For pretty visuals similar to bootstrap and for ease of copy/pasted UI components that work out of the box.  Can do Bootstrap 4, but this was a faster way to iterate and test.
 * Alpinejs - supports hydro
 * HTMX - in place of CMS events (for now).
+  * Also, the calendar has some premium events for their boxes, so to get around that, I can give those boxes super-powers and still have events in vanilla Razor Pages.  🎉
+* CodeMechanic  - my personal set of Nuget packages I used to iterate quickly.  A `nuget.config` is provided, so all you have to do is a `dotnet restore` or `dotnet add package <packagename>` for any missing `CodeMechanic.*` dependencies.
 
 ## Todos
 
@@ -53,6 +55,7 @@ I'm unsure of the events I'll need for this and what authentication will be requ
     - [ ] https://fullcalendar.io/docs/date-clicking-selecting
   - [ ] Figure out how a CMS Module event lifecycle works.
 - [ ] Crud to finish and test:
+  - [ ] Get all events w/ 'published' status; Requiremen: "I can visit a page /calendar and see a calendar with all published events"
   - [ ] Delete
   - [ ] Bulk create (or single)
   - [ ] ...?

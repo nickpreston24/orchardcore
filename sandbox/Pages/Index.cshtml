@@ -1,5 +1,13 @@
 ﻿@page
+@using Orchard.Sandbox.Pages.Components
 @model IndexModel
 
+<split params="@(new HydroSplit { gap = 4 })">
+    <hydro name="HydroCalendar"/>
 
-<hydro name="HydroCalendar"/>
+    <div>
+        <form action="">
+            <input type="text">
+        </form>
+    </div>
+</split>

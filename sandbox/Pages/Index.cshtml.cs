@@ -19,6 +19,7 @@ public class IndexModel : PageModel
 
     public async Task OnGet()
     {
+        await calendar_svc.SeedCalendar();
         var events = (await calendar_svc.GetAll()).Dump("all calendar events");
     }
 }

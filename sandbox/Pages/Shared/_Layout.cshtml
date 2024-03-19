@@ -53,6 +53,7 @@
 </header>
 <div class="container">
     <main role="main" class="m-4">
+        @* <breadcrumbs></breadcrumbs> *@
         @RenderBody()
     </main>
 </div>
@@ -62,5 +63,12 @@
 <script src="~/js/site.js" asp-append-version="true"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
+<hydro-footer>
+    <slot name="links">
+        <a class="link link-accent" href="/">Homepage</a>
+        <a class="link link-accent" href="sandbox">Sandbox</a>
+        <a class="link link-accent" href="about">About</a>
+    </slot>
+</hydro-footer>
 </body>
 </html>

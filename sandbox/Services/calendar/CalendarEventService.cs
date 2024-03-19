@@ -24,16 +24,18 @@ public class CalendarEventService : ICalendarEventService
     public async Task<int> SeedCalendar()
     {
         var connection = CreateConnection();
-        string tablequery = embeds.GetFileContents<CalendarEventService>("SEED_CalendarEvents.sql").Dump();
 
-        await connection.ExecuteAsync(tablequery);
+        // (demo) Run the embedded seed script to create table from scratch:
+        // string tablequery = embeds.GetFileContents<CalendarEventService>("SEED_CalendarEvents.sql").Dump();
+        // int count_from_script = await connection.ExecuteAsync(tablequery);
+
+        // (demo) Create fake events using ebmedded sql and C#
         var fake_events = CreateFakeEvents().ToArray();
+        var count_from_fakes = await Create("create_calendar_event.sql", fake_events);
 
-        var local_query = embeds.GetFileContents<CalendarEventService>("create_calendar_event.sql");
-
-        var count = await Create(fake_events);
-        Console.WriteLine($"{count} row(s) inserted.");
-        return count;
+        int total_count = count_from_fakes; // + count_from_script;
+        Console.WriteLine($"{total_count} row(s) inserted.");
+        return total_count;
     }
 
     private static string[] fake_event_names = new string[]
@@ -44,6 +46,10 @@ public class CalendarEventService : ICalendarEventService
         "Eat Dinner with the queen", "Build the Taj Mahal in one day",
         "Reinvent the wheel and build a time machine set to the stone age", "Found SpaceX before Elon Musk does..."
     };
+
+    // Any validation logic can go here. 
+    // I'm just showing off NSpecification because it can do LINQ and compound specs (using & and |, see: https://github.com/ASbeletsky/NSpecifications)
+    private Spec<CalendarEvent> has_valid_id = new Spec<CalendarEvent>(e => e.id > -1);
 
     private List<CalendarEvent> CreateFakeEvents(int count = 10)
     {
@@ -81,21 +87,6 @@ public class CalendarEventService : ICalendarEventService
         var events_found =
             await connection.QueryAsync<CalendarEvent>("select * from CalendarEvents where id = @id");
 
-        // Any validation logic can go here.  I'm just showing off what can easily be done.
-        var has_valid_id = new Spec<CalendarEvent>(e => e.id > -1 && e.id == id);
-
-        // There should only ever be ONE event with this specific Id.
-        // This can easily be changed, if there's an edge case where we have duplicates in a merge or migration.
-        // I'm just showing off NSpecification because it can do LINQ and compound specs (using & and |, see: https://github.com/ASbeletsky/NSpecifications)
-        bool valid_event = events_found.Where(has_valid_id).SingleOrDefault() != default;
-
-        if (valid_event)
-        {
-            // Perform the actual deletion
-            var deleted_event_id =
-                await connection.ExecuteAsync("delete from CalendarEvents where id = @id", new { id = id });
-        }
-
         return events_found.SingleOrDefault();
     }
 
@@ -104,11 +95,11 @@ public class CalendarEventService : ICalendarEventService
         throw new NotImplementedException();
     }
 
-    public async Task<int> Create(params CalendarEvent[] records)
+    public async Task<int> Create(string sql_file_path, params CalendarEvent[] records)
     {
-        string sql = embeds.GetFileContents<CalendarEventService>("create_part.sql");
+        string sql = embeds.GetFileContents<CalendarEventService>(sql_file_path);
         records.Dump("creating parts");
-        // https://regex101.com/r/XyhgkI/1
+        // https://regex101.com/r/XyhgkI/1connection
         // string full =
         //     @"(?<insert_clause>insert\s*into\s\w+\s*\([\w,\s*]+\))\s*(?<values_clause>values\s*\([@\w,\s]+\)\s*\;?)$";
         string values_clause = @"(?<values_clause>values\s*\([@\w,\s]+\)\s*\;?)$";
@@ -123,19 +114,15 @@ public class CalendarEventService : ICalendarEventService
             .ToList()
             .Aggregate(new StringBuilder("values ")
                     .Prepend(updated_sql)
-                    .Prepend("begin transaction; \n")
                 , (builder, calendarEvent) =>
                 {
                     builder.Append("(");
-                    builder.Append($"'{calendarEvent.id}', ");
-                    builder.Append($"{calendarEvent.event_name}, ");
-                    builder.Append($"'{calendarEvent.description}', ");
-                    builder.Append($"'{calendarEvent.created_at}'");
+                    builder.Append($"'{calendarEvent.event_name}', ");
+                    builder.Append($"'{calendarEvent.description}' ");
                     builder.AppendLine("),");
-                    return builder; //.RemoveFromEnd(2);
+                    return builder;
                 })
             .RemoveFromEnd(2)
-            .AppendLine("\n commit;")
             .ToString();
 
         Console.WriteLine($"bulk sql for {records.Length} records :>> " + bulk_sql);
@@ -152,8 +139,19 @@ public class CalendarEventService : ICalendarEventService
         throw new NotImplementedException();
     }
 
-    public Task Delete(int id)
+    public async Task Delete(int id)
     {
-        throw new NotImplementedException();
+        var events_found = await GetById(id);
+        bool valid_event = events_found.Is(has_valid_id);
+
+        var connection = CreateConnection();
+
+        // Perform the actual deletion
+        if (valid_event)
+        {
+            var result =
+                await connection.ExecuteAsync("delete from CalendarEvents where id = @id", new { id = id });
+            // return result;
+        }
     }
 }

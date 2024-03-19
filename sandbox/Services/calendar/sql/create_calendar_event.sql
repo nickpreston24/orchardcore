@@ -1,2 +1,2 @@
-INSERT INTO CalendarEvents(id, event_name, description)
-VALUES (@id, @event_name, @description);
+INSERT INTO CalendarEvents (event_name, description)
+VALUES (@event_name, @description);
