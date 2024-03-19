@@ -46,3 +46,16 @@ I'm unsure of the events I'll need for this and what authentication will be requ
 * Alpinejs - supports hydro
 * HTMX - in place of CMS events (for now).
 
+## Todos
+
+- [ ] Integrate the calendar into a CMS Module
+  - [ ] Invesigate how the calendar library wants you to use it.
+  - [ ] Figure out how a CMS Module event lifecycle works.
+- [ ] Crud to finish and test:
+  - [ ] Delete
+  - [ ] ...?
+- [ ] copy/paste the event calendar into a Hydro Component
+  - [ ] Create a Hydro viewelement `hydro-event` with `hx-get` support
+  - [ ] Wite the basic CRUD events described [here](https://docs.google.com/document/d/1JIHROJFNqIXdeoulxHi9pbp4Nphp2BuzLGBeGz-kyMo/edit)
+  - [ ] Wire the eventcalender service into the calendar
+  - [ ] Ensure the calendar easily loads onto the page from script with no `id` issues.
