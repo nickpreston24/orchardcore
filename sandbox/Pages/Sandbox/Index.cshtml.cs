@@ -30,6 +30,16 @@ public class Sandbox : PageModel
         EditPart = Parts.FirstOrDefault();
     }
 
+
+    public async Task<IActionResult> OnGetRenderCalendar()
+    {
+        Console.WriteLine(nameof(OnGetRenderCalendar));
+        // return Content("<b>Hello, there!</b>");
+        return Partial("_RenderCalendar");
+
+        // return Content("<alpine-calendar><hydro name=\"HydroCalendar\"/> </alpine-calendar>");
+    }
+
     public async Task<IActionResult> OnPostUpdatePart()
     {
         Console.WriteLine("hello from " + nameof(OnPostUpdatePart));

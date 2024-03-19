@@ -1,6 +1,7 @@
 ﻿using CodeMechanic.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Orchard.Sandbox.Pages.Components;
 using Orchard.Sandbox.Services;
 
 namespace Orchard.Sandbox.Pages;
@@ -28,5 +29,14 @@ public class IndexModel : PageModel
     {
         Console.WriteLine(nameof(OnGetSave));
         return Content("<alert>Saved!</alert>");
+    }
+
+    public async Task<IActionResult> OnGetRepaintCalendar()
+    {
+        Console.WriteLine(nameof(OnGetRepaintCalendar));
+        // return Content("<hydro class='border-2 border-red' name=\"HydroCalendar\" />");
+        // return Partial("~/Pages/Sandbox/_RenderCalendar", default);
+
+        return Content("replaced!");
     }
 }

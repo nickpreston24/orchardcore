@@ -6,26 +6,68 @@
     Console.WriteLine(initial_date);
     string slot_duration = "02:00"; // 2 hours
 }
-<html>
+<div id="self">
 
-<head>
-    <meta charset='utf-8'/>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-    <script>
+    <div>
+        @* <meta charset='utf-8'/> *@
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+        <script>
 
-      document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             defaultView: 'agendaWeek',
           // initialView: 'dayGridYear', // 'dayGridMonth',
-          initialDate: '@initial_date'
+          initialDate: '@initial_date',
+            
+           dateClick: function(info) {
+              console.log('Clicked on: ' + info.dateStr);
+              console.log('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+              console.log('Current view: ' + info.view.type);
+              // change the day's background color just for fun
+              info.dayEl.style.backgroundColor = 'red';
+              
+              // console.log('edits? :>> ' + edits_enabled);
+              // console.log('edits?    :>> ' + document.edits_enabled);
+              // console.log('edits? :>> ' + window.edits_enabled);
+              // edits_enabled = !edits_enabled;
+              
+              // alpinejs
+              // edits_enabled = true;
+            }
         });
-        calendar.render();
-      });
-
+        
+        // calendar.on('dateClick', function(info) {
+        //     console.log('clicked on ' + info.dateStr);
+        //    
+        //     // edits_enabled = true;
+        // });
+          
+        function render() {
+            console.log('rendering calendar ...');
+            calendar.render();
+        }
+        render();
+        window.render= render;
+    });
+    
     </script>
-</head>
 
-<div id="calendar"></div>
+        <button x-on:click="render" class="btn btn-ghost">Refresh</button>
 
-</html>
+        @* hx-target="#self" *@
+        <button
+            x-show="true"
+            hx-get
+            hx-page="Index"
+            hx-page-handler="RepaintCalendar"
+            hx-swap="outerHTML"
+            class="btn btn-ghost">
+            Repaint
+        </button>
+
+    </div>
+
+    <div id="calendar"></div>
+
+</div>

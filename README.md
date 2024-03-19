@@ -17,7 +17,7 @@ run `reinstall_dotnet.sh` if you're running Linux debian.
 
 I use these to run the applications.
 
-To run my CMS attempt run the `run_cms.sh` bash file.
+To run my CMS attempt run the `run_cms_web.sh` bash file.
 To run my vanilla Razor project, run `run_sandbox.sh` file.
 
 Of course, you can always `cd` into either the `CMS.Web` and `sandbox` folders respectively and run `dotnet run watch` if you want.
@@ -74,6 +74,7 @@ o As an Admin User
     I want a calendar module where I can add Events to show up on my Front-End Calendar So that end-users can see what activities are coming up and have passed 
     And I will know that I am done when 
     - [ ] I have a calendar content type on the /Admin that I can enter a new Event 
+        *** This will require knowledge I don't have yet.
     - [ ] I can Edit an Event 
     - [ ] I can Add New Events 
     - [ ] I can Delete an event 

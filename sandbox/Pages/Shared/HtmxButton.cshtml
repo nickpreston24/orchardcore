@@ -1,0 +1,18 @@
+@using CodeMechanic.Types
+@model Orchard.Sandbox.Pages.Shared.HtmxButton
+
+<button
+    hx-get
+    hx-page="@Model.HxPage"
+    hx-page-handler="@Model.HxPageHandler"
+    hx-swap="@Model.HxSwap"
+    class="@Model.classname">
+    @if (Model.Text.NotEmpty())
+    {
+        @Model.Text
+    }
+    else
+    {
+        @Model.Slot()
+    }
+</button>

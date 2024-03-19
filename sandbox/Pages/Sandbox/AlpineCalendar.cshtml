@@ -1,0 +1,49 @@
+@* @page *@
+@model AlpineCalendar
+
+
+<html>
+
+<head>
+    <meta charset='utf-8'/>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            defaultView: 'agendaWeek',
+            
+           dateClick: function(info) {
+              console.log('Clicked on: ' + info.dateStr);
+              console.log('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+              console.log('Current view: ' + info.view.type);
+              // change the day's background color just for fun
+              info.dayEl.style.backgroundColor = 'red';
+              
+         
+            }
+        });
+        
+        // calendar.on('dateClick', function(info) {
+        //     console.log('clicked on ' + info.dateStr);
+        //    
+        //     // edits_enabled = true;
+        // });
+          
+        function render() {
+            console.log('rendering calendar ...');
+            calendar.render();
+        }
+        render();
+        window.render= render;
+    });
+    
+    </script>
+
+
+</head>
+
+<div id="calendar"></div>
+
+</html>
