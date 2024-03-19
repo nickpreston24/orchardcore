@@ -11,19 +11,20 @@ public static class SqliteExtensions
         RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace;
 
     // https://regex101.com/r/NaKq56/1
-    private static Regex find_insert_values =
+    private static Regex insert_values_clause =
         new Regex(@"(?<values_expression>values\s*\((?<raw_variables>[@\w\s,?]+)\);?)", options);
 
     // 
     private static Regex hydrate_insert_values = new Regex(@"", options);
 
-    public static string AsMultiInsert(this string query, int limit)
+    public static string AsMultiInsert(this string query, int limit = 1)
     {
-        int max_limit = 1000 * 1000; // set with whatever.
+        int max_limit = 1000; // set with whatever.
+        
         if (limit > max_limit)
             throw new ArgumentOutOfRangeException(limit + $" may not be more than {max_limit}");
 
-        string update = query.Repeat(find_insert_values);
+        string update = query.Repeat(insert_values_clause);
         return update;
     }
 

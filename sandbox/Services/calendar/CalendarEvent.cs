@@ -4,14 +4,8 @@ namespace Orchard.Sandbox.Services;
 
 public class CalendarEvent
 {
-    public CalendarEvent(string id, string eventName = "")
-    {
-        this.id = id.ToInt();
-        event_name = eventName;
-    }
-
     public string event_name { get; set; } = string.Empty;
-
+    public string description { get; set; } = string.Empty;
     public int id { get; set; }
     public DateTime start_date { get; set; }
     public DateTime end_date { get; set; }

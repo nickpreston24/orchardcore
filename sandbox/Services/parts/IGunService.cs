@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Orchard.Sandbox.Services;
 
-public interface INugsService
+public interface IGunService
 {
     Task<IEnumerable<Part>> GetAll();
     Task<List<Part>> Search(Part search);

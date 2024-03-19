@@ -21,48 +21,42 @@ public class CalendarEventService : ICalendarEventService
         // SeedCalendar();
     }
 
-    public async Task SeedCalendar()
+    public async Task<int> SeedCalendar()
     {
         var connection = CreateConnection();
-        string tablequery = embeds.GetFileContents<CalendarEventService>("create_calendar_events_table.sql").Dump();
+        string tablequery = embeds.GetFileContents<CalendarEventService>("SEED_CalendarEvents.sql").Dump();
 
         await connection.ExecuteAsync(tablequery);
-        List<CalendarEvent> fake_events = CreateFakeEvents();
+        var fake_events = CreateFakeEvents().ToArray();
 
-        var insert_query = embeds.GetFileContents<CalendarEventService>("create_calendar_event.sql")
-                .Dump()
-            ;
+        var local_query = embeds.GetFileContents<CalendarEventService>("create_calendar_event.sql");
 
-        var seed = fake_events
-                .TakeRandom(10)
-                // .Dump("faked events")
-                .ToList()
-            ;
-
-        var rowsAffected = await connection.ExecuteAsync(insert_query,
-            new { event_name = "ZZZ Projects", id = 12 }
-        );
-        Console.WriteLine($"{rowsAffected} row(s) inserted.");
+        var count = await Create(fake_events);
+        Console.WriteLine($"{count} row(s) inserted.");
+        return count;
     }
+
+    private static string[] fake_event_names = new string[]
+        { "Eat Dinner", "Build the Taj Mahal", "Reinvent the wheel", "Found SpaceX" };
+
+    private static string[] fake_descriptions = new string[]
+    {
+        "Eat Dinner with the queen", "Build the Taj Mahal in one day",
+        "Reinvent the wheel and build a time machine set to the stone age", "Found SpaceX before Elon Musk does..."
+    };
 
     private List<CalendarEvent> CreateFakeEvents(int count = 10)
     {
         var index = 1;
+
         var calendar_faker = new Faker<CalendarEvent>()
-                .CustomInstantiator(f => new CalendarEvent(index++.ToString()))
+                .CustomInstantiator(f => new CalendarEvent())
                 .RuleFor(o => o.last_modified, f => f.Date.Recent(100))
                 .RuleFor(o => o.created_at, f => f.Date.Recent(30))
-                // .RuleFor(o => o.NameStyle, r.Bool())
-                // .RuleFor(o => o.Phone, f => f.Person.Phone)
-                .RuleFor(o => o.event_name, f => f.Name.FirstName())
-            // .RuleFor(o => o.LastName, f => f.Term.LastName())
-            // .RuleFor(o => o.Title, f => f.Term.Prefix(f.Person.Gender))
-            // .RuleFor(o => o.Suffix, f => f.Term.Suffix())
-            // .RuleFor(o => o.MiddleName, f => f.Term.FirstName())
-            // .RuleFor(o => o.EmailAddress, (f,u) => f.Internet.Email(u,FirstName, u.LastName))
-            // .RuleFor(o => o.SalesPerson, f => f.Term.FullName())
-            // .RuleFor(o => o.CompanyName, f => f.Company.CompanyName())
+                .RuleFor(o => o.event_name, f => fake_event_names.TakeFirstRandom())
+                .RuleFor(o => o.event_name, f => fake_descriptions.TakeFirstRandom())
             ;
+
         var items = calendar_faker.Generate(count);
         return items;
     }
@@ -130,13 +124,13 @@ public class CalendarEventService : ICalendarEventService
             .Aggregate(new StringBuilder("values ")
                     .Prepend(updated_sql)
                     .Prepend("begin transaction; \n")
-                , (builder, part) =>
+                , (builder, calendarEvent) =>
                 {
                     builder.Append("(");
-                    // builder.Append($"'{part.Name}', ");
-                    // builder.Append($"{part.Cost}, ");
-                    // builder.Append($"'{part.Kind}', ");
-                    // builder.Append($"'{part.Manufacturer}'");
+                    builder.Append($"'{calendarEvent.id}', ");
+                    builder.Append($"{calendarEvent.event_name}, ");
+                    builder.Append($"'{calendarEvent.description}', ");
+                    builder.Append($"'{calendarEvent.created_at}'");
                     builder.AppendLine("),");
                     return builder; //.RemoveFromEnd(2);
                 })

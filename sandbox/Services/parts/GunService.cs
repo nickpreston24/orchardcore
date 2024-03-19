@@ -11,7 +11,7 @@ namespace Orchard.Sandbox.Services;
 /// This sample Service may be @injected anywhere in any Orchardcore UI module or API.
 /// See README.md for explanation.
 /// </summary>
-public class GunService : INugsService
+public class GunService : IGunService
 {
     private readonly EmbeddedResourceService embeds;
 

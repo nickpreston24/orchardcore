@@ -11,12 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchard.Sandbox", "sandbox\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS.Web", "CMS.Web\CMS.Web.csproj", "{FB14DC86-05DF-4D3A-A86C-8DBFBE3A8869}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{0289A81A-1BB8-428E-8B91-D758AF5EB148}"
-	ProjectSection(SolutionItems) = preProject
-		scripts\bootstrap_cms.sh = scripts\bootstrap_cms.sh
-		scripts\packages.sh = scripts\packages.sh
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "orchard-example", "orchard-example", "{3D420E8D-FFDB-4007-8C42-F5993D024FE1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4F623AA7-5C69-4BB5-AC6E-EFBD82D6AC1A}"

@@ -22,7 +22,7 @@ builder.Services.AddSingleton<IEmbeddedResourceQuery>(
 
 
 builder.Services.AddSingleton<ICalendarEventService, CalendarEventService>();
-builder.Services.AddSingleton<INugsService, GunService>();
+builder.Services.AddSingleton<IGunService, GunService>();
 
 var app = builder.Build();
 

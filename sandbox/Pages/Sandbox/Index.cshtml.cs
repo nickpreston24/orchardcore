@@ -10,23 +10,23 @@ namespace Orchard.Sandbox.Pages.Sandbox;
 public class Sandbox : PageModel
 {
     private readonly ILogger<Sandbox> _logger;
-    private readonly INugsService nugsService;
+    private readonly IGunService gunService;
     public List<Part> Parts { get; set; } = new();
     public string Term { get; set; }
 
     public Part EditPart { get; set; } = new();
 
     public Sandbox(ILogger<Sandbox> logger
-        , INugsService nugsService
+        , IGunService gunService
     )
     {
         _logger = logger;
-        this.nugsService = nugsService;
+        this.gunService = gunService;
     }
 
     public async Task OnGet()
     {
-        Parts = (await nugsService.GetAll()).ToList();
+        Parts = (await gunService.GetAll()).ToList();
         EditPart = Parts.FirstOrDefault();
     }
 
@@ -34,7 +34,7 @@ public class Sandbox : PageModel
     {
         Console.WriteLine("hello from " + nameof(OnPostUpdatePart));
         // var updates =
-        await nugsService.Update(1, EditPart);
+        await gunService.Update(1, EditPart);
         return Content("hello from " + nameof(OnPostUpdatePart));
     }
 
@@ -43,7 +43,7 @@ public class Sandbox : PageModel
     {
         Console.WriteLine($"Searching for '{Term}'");
         // int _id = Term.ToInt();
-        var found = await nugsService.Search(new Part()
+        var found = await gunService.Search(new Part()
         {
             name = Term,
             id = Term.ToInt(),
@@ -67,7 +67,7 @@ public class Sandbox : PageModel
 
         fakeparts.Dump();
         // Parts.Dump("all parts");
-        int count = await nugsService.Create(fakeparts.Dump("fp"));
+        int count = await gunService.Create(fakeparts.Dump("fp"));
         return Content($"<b>Created '{count}' parts</b>");
     }
 

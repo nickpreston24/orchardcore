@@ -1,0 +1,6 @@
+@model HydroFlex
+@{
+    var classname = Model.Orientation.ToString();
+}
+
+<div class="@classname">@Model.Slot()</div>
