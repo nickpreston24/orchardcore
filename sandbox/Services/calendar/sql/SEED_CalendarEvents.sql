@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS CalendarEvents
     last_modified date
 );
 
-INSERT INTO CalendarEvents(event_name)
+INSERT INTO CalendarEvents (event_name, description)
 VALUES ('Upcoming Events', 'end-users can see what activities are coming up'),
        ('Passed Events', 'end-users can see what activities have passsed'),
        ('Update Victor on changes', '...')

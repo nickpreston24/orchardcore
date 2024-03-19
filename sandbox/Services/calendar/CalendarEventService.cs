@@ -71,7 +71,7 @@ public class CalendarEventService : ICalendarEventService
 
     private SqliteConnection CreateConnection()
     {
-        var conn = new SqliteConnection("Data Source=Nugs.db");
+        var conn = new SqliteConnection("Data Source=LocalDatabase.db");
         return conn;
     }
 
