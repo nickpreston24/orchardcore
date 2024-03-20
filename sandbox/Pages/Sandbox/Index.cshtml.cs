@@ -75,7 +75,7 @@ public class Sandbox : PageModel
 
         var fakeparts = CreateFakeParts();
 
-        fakeparts.Dump();
+        // fakeparts.Dump();
         // Parts.Dump("all parts");
         int count = await gunService.Create(fakeparts.Dump("fp"));
         return Content($"<b>Created '{count}' parts</b>");

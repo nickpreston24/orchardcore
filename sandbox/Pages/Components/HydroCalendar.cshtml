@@ -6,18 +6,18 @@
 @{
     //https://chrisfrew.in/blog/serializing-and-deserializing-to-iso-8601-in-dotnet/
     var calendar_events = @Model.Events
-        .Dump("events")
+        // .Dump("events")
         .Select(ev => ev
             .Map(e => new
             {
                 id = e.id,
                 title = e.event_name,
-                start = e.start_date.Dump("startdate format :>> "), // e.start_date,
+                start = e.start_date,
                 allDay = true
             }))
         .ToArray();
     string json = JsonConvert.SerializeObject(calendar_events);
-    Console.WriteLine("json :>> " + json);
+    // Console.WriteLine("json :>> " + json);
 
 }
 

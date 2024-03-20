@@ -21,7 +21,7 @@ public class SampleMarkdownService
 
         var all_markdown_headers = new Grepper() { FileSearchMask = "*.md", FileSearchLinePattern = "^#*" }
                 .GetMatchingFiles() // returns IEnumerable<GrepResult>
-                .Dump("debug") //  dumps as JSON to console, then returns T as-is. great for debugging in prod.
+                // .Dump("debug") //  dumps as JSON to console, then returns T as-is. great for debugging in prod.
                 .Select(file => File.ReadAllText(file.FilePath)) // Read all text (duh)
                 .Select(text => text.Extract<MarkdownHeader>(MarkdownHeader.HeaderPattern))
             ;

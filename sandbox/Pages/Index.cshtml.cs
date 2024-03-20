@@ -1,13 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CodeMechanic.Diagnostics;
+using CodeMechanic.Types;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Orchard.Sandbox.Services;
 
 namespace Orchard.Sandbox.Pages;
 
+[BindProperties]
 public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
     private readonly ICalendarEventService calendar_svc;
+
+
+    public DateTime InitialDate { get; set; } = DateTime.UtcNow;
+    public int Count { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public int Duration { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     public IndexModel(ILogger<IndexModel> logger
         , ICalendarEventService calendarsvc
@@ -23,11 +33,34 @@ public class IndexModel : PageModel
         var events = (await calendar_svc.GetAll()) /*.Dump("all calendar events")*/;
     }
 
+
+    public async Task<IActionResult> OnPutSaveEvent()
+    {
+        Console.WriteLine(nameof(OnPutSaveEvent));
+        return Content("<alert>Saved!</alert>");
+    }
+
+    public async Task<IActionResult> OnPostSaveEvent()
+    {
+        Console.WriteLine(nameof(OnPostSaveEvent));
+        var to_save = new CalendarEvent()
+        {
+            event_name = Name,
+            duration = TimeSpan.FromMinutes(Duration),
+            start_date = InitialDate
+        };
+        to_save.Dump(nameof(to_save), ignoreNulls: true);
+
+        var row_count = await calendar_svc.Create("create_calendar_event.sql", to_save.AsArray());
+
+        return Content($"<alert>Saved {to_save.event_name}!</alert>");
+    }
+
     public async Task<IActionResult> OnGetSave()
     {
         Console.WriteLine(nameof(OnGetSave));
         return Content("<alert>Saved!</alert>");
-    }   
+    }
 
     public async Task<IActionResult> OnGetRepaintCalendar()
     {

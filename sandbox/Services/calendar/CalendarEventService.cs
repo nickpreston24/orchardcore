@@ -39,7 +39,7 @@ public class CalendarEventService : ICalendarEventService
             return 0;
 
         // (demo) Run the embedded seed script to create table from scratch:
-        string tablequery = embeds.GetFileContents<CalendarEventService>("SEED_CalendarEvents.sql").Dump();
+        string tablequery = embeds.GetFileContents<CalendarEventService>("SEED_CalendarEvents.sql");
         int count_from_script = await CreateConnection().ExecuteAsync(tablequery);
 
         // (demo) Create fake events using embedded sql and C#
@@ -120,7 +120,7 @@ public class CalendarEventService : ICalendarEventService
 
     public async Task<int> Create(string sql_file_path, params CalendarEvent[] records)
     {
-        records.Select(x => x.start_date).Dump("dates");
+        // records.Select(x => x.start_date).Dump("dates");
 
 
         string sql = embeds.GetFileContents<CalendarEventService>(sql_file_path);

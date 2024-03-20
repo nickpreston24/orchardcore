@@ -1,0 +1,47 @@
+@model IndexModel
+
+<section>
+
+    <div>
+        <span x-text="index"></span>
+        <span x-text="next_event.title"></span>
+    </div>
+    <form hx-post method="post">
+
+        <div class="mb-3">
+            <label
+                x-model="next_event.title"
+                :value="next_event.title"
+                class="form-label" asp-for="Name">
+            </label>
+            <input type="text" class="form-control" asp-for="Name">
+            <div class="invalid-feedback">
+                <span asp-validation-for="Name"></span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="Duration"></label>
+            <input type="text" class="form-control" asp-for="Duration">
+            <div class="invalid-feedback">
+                <span asp-validation-for="Duration"></span>
+            </div>
+        </div>
+
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="Description"></label>
+            <input type="text" class="form-control" asp-for="Description">
+            <div class="invalid-feedback">
+                <span asp-validation-for="Description"></span>
+            </div>
+        </div>
+        <button
+            hx-swap="outerHTML"
+            class="btn btn-primary"
+            asp-page-handler="SaveEvent">
+            Save 2
+        </button>
+    </form>
+
+</section>

@@ -33,7 +33,7 @@ public static class SqliteExtensions
         Console.WriteLine($"before: '{query}'");
 
         var valuestrings = query.Extract<ValuesSql>(repeat_pattern).FirstOrDefault();
-        valuestrings.Dump(nameof(valuestrings));
+        // valuestrings.Dump(nameof(valuestrings));
 
 
         string updated_query =
@@ -60,7 +60,7 @@ public static class SqliteExtensions
         var prop_names = props.Select(x => x.Name).ToArray();
 
         var value_vars = Regex.Split(@",", query);
-        value_vars.Dump(nameof(value_vars));
+        // value_vars.Dump(nameof(value_vars));
 
         return query;
     }

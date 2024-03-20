@@ -15,28 +15,78 @@
 
 <section id="hydro_options" class="grid grid-rows-auto grid-col-3">
 
-    <h1>Options</h1>
-
+    @* <h1>Options</h1> *@
+ 
+   
 
     <div>
-        <div class="flex flex-col">
-            <div>
-                <strong x-text="index"></strong>
-                <button x-on:click="index = index + 1">Add</button>
-            </div>
-            @* Initial Date: <strong>@Model.InitialDate</strong> *@
-            <label for="">Pick a Date</label>
-            <input asp-for="InitialDate" hydro-bind:input x-on:focus="$el.select()"/>
 
-            <span x-text="date_value"></span>
-            <pre x-text="next_event.title"></pre>
-        </div>
+        @* <div class="flex flex-col"> *@
+        @* <div> *@
+        @*     <strong x-text="index"></strong> *@
+        @*     <button x-on:click="index = index + 1">Add</button> *@
+        @* </div> *@
+        @* Initial Date: <strong>@Model.InitialDate</strong> *@
 
-        <button
-            class="btn btn-primary"
-            hydro-on:click="@(() => Model.Update(Param.JS("edits_enabled = !edits_enabled")))">
-            Update content
-        </button>
+
+        @* hx-post hx-page="Index" hx-page-handler="Validate" *@
+        @* hx-swap="outerHTML" *@
+        @* _="on htmx:beforeSend set #submitButton.disabled to 'disabled'" *@
+
+        @* <form *@
+        @*     class="form-horizontal needs-validation"> *@
+        @*     <div class="mb-3"> *@
+        @*         <label class="form-label" asp-for="Name"></label> *@
+        @*         <input type="text" class="form-control" asp-for="Name"> *@
+        @*         <div class="invalid-feedback"> *@
+        @*             <span hydro-bind:input asp-validation-for="Name"></span> *@
+        @*         </div> *@
+        @*     </div> *@
+        @* *@
+        @*     <div class="mb-3"> *@
+        @*         <label class="form-label" asp-for="Duration"></label> *@
+        @*         <input type="text" class="form-control" asp-for="Duration"> *@
+        @*         <div class="invalid-feedback"> *@
+        @*             <span hydro-bind:input asp-validation-for="Duration"></span> *@
+        @*         </div> *@
+        @*     </div> *@
+        @* *@
+        @*     <div class="mb-3"> *@
+        @*         <label class="form-label" asp-for="InitialDate"></label> *@
+        @*         <input class="form-control" asp-for="InitialDate" hydro-bind:input x-on:focus="$el.select()"/> *@
+        @*         <div class="invalid-feedback"> *@
+        @*             <span asp-validation-for="InitialDate"></span> *@
+        @*         </div> *@
+        @*     </div> *@
+        @* *@
+        @*     <div class="control"> *@
+        @*         <button *@
+        @* *@
+        @*             hydro-on:click="@(() => Model.SaveEvent("blah"))" *@
+        @*             id="submitButton" class="btn btn-primary"> *@
+        @*             <span class="htmx-indicator"> *@
+        @*                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> *@
+        @*                 <span class="visually-hidden">Loading...</span> *@
+        @*             </span> *@
+        @*             Submit *@
+        @*         </button> *@
+        @* *@
+        @* *@
+        @*         @Html.AntiForgeryToken() *@
+        @*     </div> *@
+        @* *@
+        @* </form> *@
+
+
+        @* <span x-text="date_value"></span> *@
+        @* <pre x-text="next_event.title"></pre> *@
+        @* </div> *@
+
+        @* <button *@
+        @*     class="btn btn-primary" *@
+        @*     hydro-on:click="@(() => Model.Update(Param.JS("let foo = 'bar'")))"> *@
+        @*     Save *@
+        @* </button> *@
 
         @* Count: <strong>@Model.Count</strong> *@
         @* <button hydro-on:click="@(() => Model.Set(20))"> *@
@@ -49,32 +99,31 @@
     </div>
 
 
-    <div x-if="false">
+    <div>
 
-        <template
-            x-cloak
-            id="schedule_kind" x-cloak x-for="[key, value] of Object.entries(@card_options)">
-
-            @* :class="{!value ?  'badge-ghost border-2 border-yellow-500':'border-2 border-yellow-500 badge-accent'}" *@
-            <button
-                x-on:click="card_options[key]=!value"
-                class="btn btn-primary join-item shadow-md shadow-secondary-400/50"
-                :class="{'border-2 border-secondary btn-ghost': !value, 'border-2    border-accent': value }">
-                <label
-                    x-text="key"
-                    class="form-label badge badge-sm"
-                    :asp-for='key'>
-                </label>
-
-                <input x-bind:name='key'
-                       x-bind:value='value'
-                       x-bind:checked="value"
-                       type="checkbox"
-                       :asp-for="key"
-                       class="form-control toggle toggle-primary">
-            </button>
-
-        </template>
+        @* <template *@
+        @*     id="schedule_kind" x-cloak x-for="[key, value] of Object.entries(@card_options)"> *@
+        @* *@
+        @*     $1$ :class="{!value ?  'badge-ghost border-2 border-yellow-500':'border-2 border-yellow-500 badge-accent'}" #1# *@
+        @*     <button *@
+        @*         x-on:click="card_options[key]=!value" *@
+        @*         class="btn btn-primary join-item shadow-md shadow-secondary-400/50" *@
+        @*         :class="{'border-2 border-secondary btn-ghost': !value, 'border-2    border-accent': value }"> *@
+        @*         <label *@
+        @*             x-text="key" *@
+        @*             class="form-label badge badge-sm" *@
+        @*             :asp-for='key'> *@
+        @*         </label> *@
+        @* *@
+        @*         <input x-bind:name='key' *@
+        @*                x-bind:value='value' *@
+        @*                x-bind:checked="value" *@
+        @*                type="checkbox" *@
+        @*                :asp-for="key" *@
+        @*                class="form-control toggle toggle-primary"> *@
+        @*     </button> *@
+        @* *@
+        @* </template> *@
     </div>
 
 
@@ -109,23 +158,23 @@
                         Submit to newsletter zzz
                         <input type="checkbox" class="toggle"/>
                     </label>
-                    <button
-                        hx-get
-                        hx-page="Index"
-                        hx-page-handler="@save"
-                        class="btn btn-neutral">
-                        Save
-                    </button>
+                    @* <button *@
+                    @*     hx-get *@
+                    @*     hx-page="Index" *@
+                    @*     hx-page-handler="@save" *@
+                    @*     class="btn btn-neutral"> *@
+                    @*     Save *@
+                    @* </button> *@
 
 
-                    <button
-                        x-show="edits_enabled"
-                        hx-get
-                        hx-page="Index"
-                        hx-page-handler="Edit"
-                        class="btn btn-neutral">
-                        Update
-                    </button>
+                    @* <button *@
+                    @*     x-show="edits_enabled" *@
+                    @*     hx-get *@
+                    @*     hx-page="Index" *@
+                    @*     hx-page-handler="Edit" *@
+                    @*     class="btn btn-neutral"> *@
+                    @*     Update *@
+                    @* </button> *@
                     <label for="">edits on?</label>
                     <span x-text="edits_enabled"></span>
 

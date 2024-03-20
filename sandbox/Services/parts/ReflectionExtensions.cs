@@ -54,7 +54,7 @@ public static class ReflectionExtensions
 
                 property_cache.Add(objType, properties);
 
-                property_cache.Count.Dump("propcache size");
+                // property_cache.Count.Dump("propcache size");
             }
         }
 

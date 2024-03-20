@@ -14,7 +14,8 @@
         index: 0,
         date_value: Date.now, 
         next_event: {
-            title: 'csharp event',
+            title: '',
+            Description: '',
             start: Date.now,
             allDay: true
         },
@@ -30,7 +31,10 @@
     </section>
 
     <section class="w-1/3">
-        <hydro name="HydroOptionsPanel"/>
+
+        @* <partial name="_CreateEventForm" model="@Model"></partial> *@
+
+        @* <hydro name="HydroOptionsPanel"/> *@
     </section>
 
 </div>
