@@ -8,7 +8,7 @@
 <section>
 
     <div>
-        <span x-text="index"></span>
+        @* <span x-text="index"></span> *@
         <span x-text="next_event.title"></span>
     </div>
     @* @@submit.prevent="console.log('submitted')" *@
@@ -46,7 +46,7 @@
         <button
             hx-swap="outerHTML"
             class="btn btn-primary"
-            asp-page-handler="SaveEvent">
+            asp-page-handler="@Model.CurrentAction.Handler">
             Save
         </button>
 

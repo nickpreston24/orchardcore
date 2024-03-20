@@ -38,7 +38,6 @@
 
         <button class="btn btn-accent" x-on:click="options_panel.show_add_form=true">Add</button>
         <button class="btn btn-error" x-on:click="">Danger Zone</button>
-        <label for="">show edit form? <span x-text="options_panel.show_add_form"></span> </label>
         <div x-show="options_panel.show_add_form">
             <partial name="_CreateEventForm" model="@Model"></partial>
         </div>

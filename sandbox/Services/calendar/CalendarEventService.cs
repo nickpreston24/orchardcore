@@ -80,6 +80,7 @@ public class CalendarEventService : ICalendarEventService
                 .RuleFor(o => o.start_date, f => f.Date.Recent(365)
                     // .Add(TimeSpan.FromDays(days.TakeFirstRandom()))
                 )
+                .RuleFor(o => o.end_date, f => f.Date.Recent(-7))
                 .RuleFor(o => o.event_name, f => fake_event_names.TakeFirstRandom())
                 .RuleFor(o => o.description, f => fake_descriptions.TakeFirstRandom())
             ;
@@ -144,7 +145,9 @@ public class CalendarEventService : ICalendarEventService
                     builder.Append("(");
                     builder.Append($" '{calendarEvent.event_name}', ");
                     builder.Append($" '{calendarEvent.description}', ");
-                    builder.Append($" '{calendarEvent.start_date.ToString("yyyy/MM/dd")}'");
+                    builder.Append($" '{calendarEvent.status}', ");
+                    builder.Append($" '{calendarEvent.start_date.ToString("yyyy/MM/dd")}', ");
+                    builder.Append($" '{calendarEvent.end_date.ToString("yyyy/MM/dd")}'");
                     builder.AppendLine("),");
                     return builder;
                 })
