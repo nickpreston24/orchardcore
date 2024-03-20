@@ -13,21 +13,21 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddHydro();
-
-builder.AddRizzy(config =>
-    {
-        config.RootComponent = typeof(HtmxApp<AppLayout>); //typeof(HtmxApp<AppLayout>);
-        config.DefaultLayout = typeof(HtmxApp<MainLayout>);  // typeof(HtmxLayout<MainLayout>);
-
-        // config.DefaultLayout = typeof(_Page_Pages_Shared__Layout_cshtml);
-        config.AntiforgeryStrategy = AntiforgeryStrategy.GenerateTokensPerPage;
-    })
-    .WithHtmxConfiguration(config => { config.SelfRequestsOnly = true; })
-    .WithHtmxConfiguration("articles", config =>
-    {
-        config.SelfRequestsOnly = true;
-        config.GlobalViewTransitions = true;
-    });
+//
+// builder.AddRizzy(config =>
+//     {
+//         config.RootComponent = typeof(HtmxApp<AppLayout>); //typeof(HtmxApp<AppLayout>);
+//         config.DefaultLayout = typeof(HtmxApp<MainLayout>);  // typeof(HtmxLayout<MainLayout>);
+//
+//         // config.DefaultLayout = typeof(_Page_Pages_Shared__Layout_cshtml);
+//         config.AntiforgeryStrategy = AntiforgeryStrategy.GenerateTokensPerPage;
+//     })
+//     .WithHtmxConfiguration(config => { config.SelfRequestsOnly = true; })
+//     .WithHtmxConfiguration("articles", config =>
+//     {
+//         config.SelfRequestsOnly = true;
+//         config.GlobalViewTransitions = true;
+//     });
 
 
 var main_assembly = Assembly.GetExecutingAssembly();
@@ -65,6 +65,6 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.UseHydro(builder.Environment);
-app.UseRizzy();
+// app.UseRizzy();
 
 app.Run();

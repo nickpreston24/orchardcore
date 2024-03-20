@@ -11,10 +11,12 @@ CREATE TABLE IF NOT EXISTS CalendarEvents
     last_modified date
 );
 
-INSERT INTO CalendarEvents (event_name, description)
-VALUES ('Upcoming Events', 'end-users can see what activities are coming up'),
-       ('Passed Events', 'end-users can see what activities have passsed'),
-       ('Update Victor on changes', '...')
+INSERT INTO CalendarEvents (event_name, description, start_date)
+VALUES ('Upcoming Events', 'end-users can see what activities are coming up', date('now')),
+       ('Passed Events', 'end-users can see what activities have passsed', date('now')),
+       ('Update Victor on changes', '...', date('now'))
+--        ('Update Victor on changes', '...', '2024-03-19')
+
 ;
 
 select *

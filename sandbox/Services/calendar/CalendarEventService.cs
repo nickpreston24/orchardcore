@@ -39,10 +39,10 @@ public class CalendarEventService : ICalendarEventService
             return 0;
 
         // (demo) Run the embedded seed script to create table from scratch:
-        // string tablequery = embeds.GetFileContents<CalendarEventService>("SEED_CalendarEvents.sql").Dump();
-        // int count_from_script = await connection.ExecuteAsync(tablequery);
+        string tablequery = embeds.GetFileContents<CalendarEventService>("SEED_CalendarEvents.sql").Dump();
+        int count_from_script = await CreateConnection().ExecuteAsync(tablequery);
 
-        // (demo) Create fake events using ebmedded sql and C#
+        // (demo) Create fake events using embedded sql and C#
         var fake_events = CreateFakeEvents().ToArray();
         var count_from_fakes = await Create("create_calendar_event.sql", fake_events);
 
@@ -60,6 +60,8 @@ public class CalendarEventService : ICalendarEventService
         "Reinvent the wheel and build a time machine set to the stone age", "Found SpaceX before Elon Musk does..."
     };
 
+    private static int[] days = Enumerable.Range(-30, 30).ToArray();
+
     // Any validation logic can go here. 
     // I'm just showing off NSpecification because it can do LINQ and compound specs (using & and |, see: https://github.com/ASbeletsky/NSpecifications)
     private Spec<CalendarEvent> has_valid_id = new Spec<CalendarEvent>(e => e.id > -1);
@@ -75,13 +77,16 @@ public class CalendarEventService : ICalendarEventService
         var calendar_faker = new Faker<CalendarEvent>()
                 .CustomInstantiator(f => new CalendarEvent())
                 .RuleFor(o => o.last_modified, f => f.Date.Recent(100))
-                .RuleFor(o => o.created_at, f => f.Date.Recent(30))
+                .RuleFor(o => o.start_date, f => f.Date.Recent(15)
+                    // .Add(TimeSpan.FromDays(days.TakeFirstRandom()))
+                )
                 .RuleFor(o => o.event_name, f => fake_event_names.TakeFirstRandom())
                 .RuleFor(o => o.description, f => fake_descriptions.TakeFirstRandom())
             ;
 
         var items = calendar_faker.Generate(count);
         Console.WriteLine($"created {items.Count} fake events   ");
+        // items.Dump("faked");
         return items;
     }
 
@@ -115,6 +120,9 @@ public class CalendarEventService : ICalendarEventService
 
     public async Task<int> Create(string sql_file_path, params CalendarEvent[] records)
     {
+        records.Select(x => x.start_date).Dump("dates");
+
+
         string sql = embeds.GetFileContents<CalendarEventService>(sql_file_path);
         Console.WriteLine($"creating {records.Length} records...");
         // records.Dump("creating parts");
@@ -136,8 +144,12 @@ public class CalendarEventService : ICalendarEventService
                 , (builder, calendarEvent) =>
                 {
                     builder.Append("(");
-                    builder.Append($"'{calendarEvent.event_name}', ");
-                    builder.Append($"'{calendarEvent.description}' ");
+                    builder.Append($" '{calendarEvent.event_name}', ");
+                    builder.Append($" '{calendarEvent.description}', ");
+                    builder.Append(
+                        $" '{calendarEvent.start_date
+                            .Dump("original date").ToString("yyyy/MM/dd")
+                            .Dump("formatted date")}'");
                     builder.AppendLine("),");
                     return builder;
                 })
