@@ -57,7 +57,7 @@ I'm unsure of the events I'll need for this and what authentication will be requ
 - [ ] Crud to finish and test:
   - [ ] Get all events w/ 'published' status; Requiremen: "I can visit a page /calendar and see a calendar with all published events"
   - [ ] Delete
-  - [ ] Bulk create (or single)
+  - [x] Bulk create (or single)
   - [ ] ...?
 - [x] copy/paste the event calendar into a Hydro Component [!afraidtoask]()
   - [ ] Create a Hydro viewelement `hydro-event` with `hx-get` support
@@ -68,6 +68,7 @@ I'm unsure of the events I'll need for this and what authentication will be requ
   - [ ] If you have time, have the highlighted calendar boxes change on hover :)
   - [ ] Extra:
     - [ ] Try https://fullcalendar.io/docs/month-view making this a set of toggles in an optionspanel hydro component.
+    - [ ] When user selects an event, toggle `calendar_options.enabled` and show the form.
   
 ## User Stories 
 o As an Admin User 
@@ -76,7 +77,8 @@ o As an Admin User
     - [ ] I have a calendar content type on the /Admin that I can enter a new Event 
         *** This will require knowledge I don't have yet.
     - [ ] I can Edit an Event 
-    - [ ] I can Add New Events 
+      - [ ] BONUS? - https://htmx.org/examples/bulk-update/ Bulk update multiple events
+    - [x] I can Add New Events 
     - [ ] I can Delete an event 
     - [ ] I can see a list of all events 
 o As a Front-End User 

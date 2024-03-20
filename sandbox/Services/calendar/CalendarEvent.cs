@@ -4,6 +4,7 @@ public class CalendarEvent
 {
     public string event_name { get; set; } = string.Empty;
     public string description { get; set; } = string.Empty;
+    public string status { get; set; } = string.Empty;
     public int id { get; set; }
     public DateTime start_date { get; set; }
     public DateTime end_date { get; set; }

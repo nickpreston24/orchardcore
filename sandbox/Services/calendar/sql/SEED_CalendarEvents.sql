@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS CalendarEvents
     id            INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     event_name    text,
     description   text,
+    status        text,
     start_date    date,
     end_date      date,
     duration      time,

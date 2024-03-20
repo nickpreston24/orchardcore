@@ -113,7 +113,7 @@ public class CalendarEventService : ICalendarEventService
         return events_found.SingleOrDefault();
     }
 
-    public Task<List<CalendarEvent>> Search(Part search)
+    public Task<List<CalendarEvent>> Search(CalendarEvent search)
     {
         throw new NotImplementedException();
     }
@@ -122,10 +122,8 @@ public class CalendarEventService : ICalendarEventService
     {
         // records.Select(x => x.start_date).Dump("dates");
 
-
         string sql = embeds.GetFileContents<CalendarEventService>(sql_file_path);
         Console.WriteLine($"creating {records.Length} records...");
-        // records.Dump("creating parts");
         // https://regex101.com/r/XyhgkI/1connection
         // string full =
         //     @"(?<insert_clause>insert\s*into\s\w+\s*\([\w,\s*]+\))\s*(?<values_clause>values\s*\([@\w,\s]+\)\s*\;?)$";
@@ -189,5 +187,13 @@ public class CalendarEventService : ICalendarEventService
                 await connection.ExecuteAsync("delete from CalendarEvents where id = @id", new { id = id });
             // return result;
         }
+    }
+
+    public async Task<int> DeleteAll()
+    {
+        string query = "delete from CalendarEvents where id > 0;";
+        var connection = CreateConnection();
+        int rows_deleted = await connection.ExecuteAsync(query);
+        return rows_deleted;
     }
 }

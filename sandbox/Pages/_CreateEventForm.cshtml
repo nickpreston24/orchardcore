@@ -1,12 +1,19 @@
 @model IndexModel
 
+
+@* resources: 
+    https://alpinejs.dev/directives/on
+    https://alpinejs.dev/essentials/events
+ *@
 <section>
 
     <div>
         <span x-text="index"></span>
         <span x-text="next_event.title"></span>
     </div>
-    <form hx-post method="post">
+    @* @@submit.prevent="console.log('submitted')" *@
+    <form
+        hx-post method="post">
 
         <div class="mb-3">
             <label
@@ -40,8 +47,16 @@
             hx-swap="outerHTML"
             class="btn btn-primary"
             asp-page-handler="SaveEvent">
-            Save 2
+            Save
         </button>
+
     </form>
+    @* @@click.stop *@
+    <button
+        x-on:click="options_panel.show_add_form=false"
+        class="btn btn-secondary">
+        Cancel
+    </button>
+
 
 </section>

@@ -12,7 +12,6 @@ public class IndexModel : PageModel
     private readonly ILogger<IndexModel> _logger;
     private readonly ICalendarEventService calendar_svc;
 
-
     public DateTime InitialDate { get; set; } = DateTime.UtcNow;
     public int Count { get; set; }
     public string Name { get; set; } = string.Empty;
@@ -34,9 +33,10 @@ public class IndexModel : PageModel
     }
 
 
-    public async Task<IActionResult> OnPutSaveEvent()
+    public async Task<IActionResult> OnGetPublishedEvents()
     {
-        Console.WriteLine(nameof(OnPutSaveEvent));
+        Console.WriteLine(nameof(OnGetPublishedEvents));
+        var results = await calendar_svc.Search(new CalendarEvent() { status = "published" });
         return Content("<alert>Saved!</alert>");
     }
 
@@ -46,6 +46,7 @@ public class IndexModel : PageModel
         var to_save = new CalendarEvent()
         {
             event_name = Name,
+            description = Description,
             duration = TimeSpan.FromMinutes(Duration),
             start_date = InitialDate
         };
@@ -53,7 +54,7 @@ public class IndexModel : PageModel
 
         var row_count = await calendar_svc.Create("create_calendar_event.sql", to_save.AsArray());
 
-        return Content($"<alert>Saved {to_save.event_name}!</alert>");
+        return Content($"<alert>Saved {to_save.event_name} at {to_save.start_date}!</alert>");
     }
 
     public async Task<IActionResult> OnGetSave()

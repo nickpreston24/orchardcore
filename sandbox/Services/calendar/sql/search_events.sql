@@ -14,6 +14,7 @@ where id = @id
   Samples
   
   select * from CalendarEvents where description like '%Taj%' or event_name like 'E%'
+   select * from CalendarEvents where status = 'published' or status like '%pub%'
 -- select * from CalendarEvents
   
  */
