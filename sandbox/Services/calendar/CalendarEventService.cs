@@ -33,7 +33,7 @@ public class CalendarEventService : ICalendarEventService
 
     public async Task<int> SeedCalendar()
     {
-        int LIMIT = 10;
+        int LIMIT = 20;
         int current_count = await CountExistingEvents();
         if (current_count >= LIMIT)
             return 0;
@@ -43,7 +43,7 @@ public class CalendarEventService : ICalendarEventService
         int count_from_script = await CreateConnection().ExecuteAsync(tablequery);
 
         // (demo) Create fake events using embedded sql and C#
-        var fake_events = CreateFakeEvents().ToArray();
+        var fake_events = CreateFakeEvents(300).ToArray();
         var count_from_fakes = await Create("create_calendar_event.sql", fake_events);
 
         int total_count = count_from_fakes; // + count_from_script;
@@ -77,7 +77,7 @@ public class CalendarEventService : ICalendarEventService
         var calendar_faker = new Faker<CalendarEvent>()
                 .CustomInstantiator(f => new CalendarEvent())
                 .RuleFor(o => o.last_modified, f => f.Date.Recent(100))
-                .RuleFor(o => o.start_date, f => f.Date.Recent(15)
+                .RuleFor(o => o.start_date, f => f.Date.Recent(365)
                     // .Add(TimeSpan.FromDays(days.TakeFirstRandom()))
                 )
                 .RuleFor(o => o.event_name, f => fake_event_names.TakeFirstRandom())
@@ -146,10 +146,7 @@ public class CalendarEventService : ICalendarEventService
                     builder.Append("(");
                     builder.Append($" '{calendarEvent.event_name}', ");
                     builder.Append($" '{calendarEvent.description}', ");
-                    builder.Append(
-                        $" '{calendarEvent.start_date
-                            .Dump("original date").ToString("yyyy/MM/dd")
-                            .Dump("formatted date")}'");
+                    builder.Append($" '{calendarEvent.start_date.ToString("yyyy/MM/dd")}'");
                     builder.AppendLine("),");
                     return builder;
                 })

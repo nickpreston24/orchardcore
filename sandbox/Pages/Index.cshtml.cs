@@ -1,7 +1,5 @@
-﻿using CodeMechanic.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Orchard.Sandbox.Pages.Components;
 using Orchard.Sandbox.Services;
 
 namespace Orchard.Sandbox.Pages;

@@ -1,9 +1,6 @@
 ﻿@page
-@using Orchard.Sandbox.Pages.Components
 @using Orchard.Sandbox.Services
-@using CodeMechanic.Types
 @using Hydro.TagHelpers
-@using Newtonsoft.Json
 @model IndexModel
 @inject ICalendarEventService calendar_service
 
@@ -36,30 +33,6 @@
         <hydro name="HydroOptionsPanel"/>
     </section>
 
-    @* <button x-on:click="edits_enabled='true'"> toggle edit moed</button> *@
-
-
-
-
-
-
-
-
-
-
-
-    @* <h1 x-show="false">OOB Swap Test</h1> *@
-    @* *@
-    @* <HtmxSwappable *@
-    @*     x-show="false" *@
-    @*     TargetId="alert-container" SwapStyle="SwapStyle.InnerHTML" Selector=".alert-message"> *@
-    @*     <div class="alert alert-info" role="alert"> *@
-    @*         This is an important message! *@
-    @*     </div> *@
-    @*     <div class="alert alert-info" role="alert"> *@
-    @*         This is ALSO an important message! *@
-    @*     </div> *@
-    @* </HtmxSwappable> *@
 </div>
 
 

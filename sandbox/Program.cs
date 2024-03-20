@@ -1,34 +1,17 @@
 using System.Reflection;
 using CodeMechanic.Embeds;
+using CodeMechanic.FileSystem;
 using CodeMechanic.RazorHAT.Services;
 using Hydro.Configuration;
-using Orchard.Sandbox.Pages.Shared;
 using Orchard.Sandbox.Services;
-using Rizzy;
-using Rizzy.Antiforgery;
-using Rizzy.Components;
 
 var builder = WebApplication.CreateBuilder(args);
+
+DotEnv.Load();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddHydro();
-//
-// builder.AddRizzy(config =>
-//     {
-//         config.RootComponent = typeof(HtmxApp<AppLayout>); //typeof(HtmxApp<AppLayout>);
-//         config.DefaultLayout = typeof(HtmxApp<MainLayout>);  // typeof(HtmxLayout<MainLayout>);
-//
-//         // config.DefaultLayout = typeof(_Page_Pages_Shared__Layout_cshtml);
-//         config.AntiforgeryStrategy = AntiforgeryStrategy.GenerateTokensPerPage;
-//     })
-//     .WithHtmxConfiguration(config => { config.SelfRequestsOnly = true; })
-//     .WithHtmxConfiguration("articles", config =>
-//     {
-//         config.SelfRequestsOnly = true;
-//         config.GlobalViewTransitions = true;
-//     });
-
 
 var main_assembly = Assembly.GetExecutingAssembly();
 builder.Services.AddSingleton<IEmbeddedResourceQuery>(
@@ -65,6 +48,5 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.UseHydro(builder.Environment);
-// app.UseRizzy();
 
 app.Run();
