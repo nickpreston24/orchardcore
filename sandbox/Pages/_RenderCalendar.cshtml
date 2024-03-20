@@ -1,0 +1,86 @@
+@using Orchard.Sandbox.Pages.Components
+
+
+<html>
+
+<head>
+    <meta charset='utf-8'/>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            // defaultView: 'agendaWeek',
+            initialView: 'dayGridMonth',
+                headerToolbar: {
+                  center: 'addEventButton'
+                },
+                customButtons: {
+                  addEventButton: {
+                    text: 'add event...',
+                    click: function() {
+                        
+                         // htmx.ajax('GET', 'RepaintCalendar', {})
+
+                      // var dateStr = prompt('Enter a date in YYYY-MM-DD format');
+                      // var date = new Date(dateStr + 'T00:00:00'); // will be in local time
+                      //
+                      // if (!isNaN(date.valueOf())) { // valid?
+                      //     var calevent = {
+                      //                      title: 'dynamic event',
+                      //                      start: date,
+                      //                      allDay: true
+                      //                    };
+                      //   calendar.addEvent(calevent);
+                      //  
+                      //
+                      //  
+                      //   // alert('Great. Now, update your database...');
+                      // } else {
+                      //   // alert('Invalid date.');
+                      // }
+                    }
+                  }
+                }
+             });
+        
+        calendar.on('dateClick', function(info) {
+             console.log('Clicked on: ' + info.dateStr);
+             console.log('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+             console.log('Current view: ' + info.view.type);
+             // change the day's background color just for fun
+             // info.dayEl.style.backgroundColor = 'red';
+             
+             
+                    
+            // edits_enabled = true;
+        });
+        
+        function add_htmx_attributes(element) {
+            element.setAttribute("hx-get", "");
+            element.setAttribute("hx-target", '#result');
+            element.setAttribute("hx-page", 'Index');
+            element.setAttribute("hx-page-handler", 'RepaintCalendar');
+        }
+        
+        function render() {
+            console.log('rendering calendar ...');
+            calendar.render();
+        }
+        render();
+        var addeventbtnEl = document.getElementsByClassName( 'fc-addEventButton-button fc-button fc-button-primary')[0]
+
+        add_htmx_attributes(addeventbtnEl)
+        // window.render= render;
+        // window.add_htmx_attributes = add_htmx_attributes;
+    });
+    
+    </script>
+
+</head>
+
+<div id="calendar"></div>
+
+</html>

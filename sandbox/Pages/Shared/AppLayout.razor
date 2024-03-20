@@ -1,0 +1,34 @@
+@using Rizzy.Components
+@using Rizzy.Framework.Services
+@inherits LayoutComponentBase
+@inject RzViewContext ViewContext
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <HtmxConfigHeadOutlet/>
+    <base href="/"/>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="RizzyDemo.styles.css"/>
+
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <RzHeadOutlet/>
+
+    <script defer src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <!--<script src="https://unpkg.com/htmx.org@2.0.0-alpha1/dist/htmx.min.js"></script>-->
+
+    <script defer src="https://unpkg.com/idiomorph@0.3.0"></script>
+    <script defer src="_content/Rizzy/js/blazor-streaming.js"></script>
+</head>
+<body>
+@Body
+
+<HtmxAntiforgeryScript/>
+<script src="_content/Rizzy/js/aspnet-validation.js"></script>
+<script type="text/javascript">
+	const v = new aspnetValidation.ValidationService();
+	v.bootstrap({ watch: true });
+</script>
+</body>
+</html>

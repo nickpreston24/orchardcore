@@ -1,0 +1,33 @@
+@inherits LayoutComponentBase
+
+<div class="page">
+    <div id="sidebar" class="sidebar">
+        <NavMenu/>
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <div id="time" hx-get="/home/time" hx-trigger="every 1s"></div>
+            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+        </div>
+
+        <div id="alert" class="container my-2">
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+
+@code
+{
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

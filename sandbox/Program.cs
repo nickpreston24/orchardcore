@@ -2,7 +2,6 @@ using System.Reflection;
 using CodeMechanic.Embeds;
 using CodeMechanic.RazorHAT.Services;
 using Hydro.Configuration;
-using Orchard.Sandbox.Pages;
 using Orchard.Sandbox.Pages.Shared;
 using Orchard.Sandbox.Services;
 using Rizzy;
@@ -17,8 +16,10 @@ builder.Services.AddHydro();
 
 builder.AddRizzy(config =>
     {
-        config.RootComponent = typeof(HtmxApp<_Layout>); //typeof(HtmxApp<AppLayout>);
-        config.DefaultLayout = typeof(HtmxApp<_Layout>);  // typeof(HtmxLayout<MainLayout>);
+        config.RootComponent = typeof(HtmxApp<AppLayout>); //typeof(HtmxApp<AppLayout>);
+        config.DefaultLayout = typeof(HtmxApp<MainLayout>);  // typeof(HtmxLayout<MainLayout>);
+
+        // config.DefaultLayout = typeof(_Page_Pages_Shared__Layout_cshtml);
         config.AntiforgeryStrategy = AntiforgeryStrategy.GenerateTokensPerPage;
     })
     .WithHtmxConfiguration(config => { config.SelfRequestsOnly = true; })

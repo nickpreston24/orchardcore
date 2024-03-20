@@ -29,7 +29,7 @@ public class IndexModel : PageModel
     {
         Console.WriteLine(nameof(OnGetSave));
         return Content("<alert>Saved!</alert>");
-    }
+    }   
 
     public async Task<IActionResult> OnGetRepaintCalendar()
     {
