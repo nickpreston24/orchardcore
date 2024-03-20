@@ -30,46 +30,21 @@
         document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var data = @Html.Raw(@json);
-        console.log('data :>> ' + data);
         var calendar = new FullCalendar.Calendar(calendarEl, {
             // defaultView: 'agendaWeek',
             initialView: 'dayGridMonth',
             timeZone: 'UTC',
             events: data,
-
-            // events: 'JSON.parse(@json)'
-            // events: JSON.parse(@json)
-            // events: [
-            //           {
-            //             "id": 8016,
-            //             "title": "Found SpaceX before Elon Musk does...",
-            //             "start": "2024-03-19",
-            //             "allDay": true
-            //           }
-            //         ]
-                    
-            // events: '[{"id":8016,"title":"Found SpaceX before Elon Musk does...","start":"2024-03-19","allDay":true}]'
-            // events: [
-            //     {
-            //       id: 'a',
-            //       title: 'my event',
-            //       start: '2024-03-19'
-            //     }
-            //   ]
-                // headerToolbar: {
-                //   center: 'addEventButton'
-                // },               
-             });
+         });
         
         calendar.on('dateClick', function(info) {
              console.log('Clicked on: ' + info.dateStr);
              console.log('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
              console.log('Current view: ' + info.view.type);
                     
-            // edits_enabled = true;
+            edits_enabled = true;
             let event_selected = {
                 date: info.dateStr
-                
             }
             selected_event = event_selected;
         });

@@ -7,7 +7,7 @@ using Orchard.Sandbox.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-DotEnv.Load();
+// DotEnv.Load();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
