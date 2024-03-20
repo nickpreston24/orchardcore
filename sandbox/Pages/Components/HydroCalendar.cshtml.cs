@@ -8,6 +8,11 @@ public class HydroCalendar : HydroComponent
     public int Count { get; set; }
     public bool edits_enabled { get; set; }
 
+    public void Update(string newValue)
+    {
+        // Console.WriteLine(newValue);
+    }
+    
     public void Set(int newValue)
     {
         Count = newValue;
