@@ -42,7 +42,7 @@ public class CalendarEventService : ICalendarEventService
         int count_from_script = await CreateConnection().ExecuteAsync(tablequery);
 
         // (demo) Create fake events using embedded sql and C#
-        var fake_events = CreateFakeEvents(300).ToArray();
+        var fake_events = CreateFakeEvents(LIMIT).ToArray();
         var count_from_fakes = await Create("create_calendar_event.sql", fake_events);
 
         int total_count = count_from_fakes; // + count_from_script;
