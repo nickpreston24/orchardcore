@@ -1,0 +1,31 @@
+@using Orchard.Sandbox.Services
+@model HydroEventList
+@inject ICalendarEventService calendar
+@{
+    var calendar_events = Model.CalendarEvents;
+}
+
+<div class="grid grid-cols-2 grid-rows-auto">
+    <div>
+        @foreach (var item in calendar_events)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus iste quam quas. Adipisci delectus dignissimos in reiciendis saepe. Odio perferendis suscipit tenetur voluptate! Atque debitis impedit iusto quis reiciendis velit?</p>
+                </div>
+                <div class="card-footer">
+                    <button
+                        class="badge">
+                        👍
+                        Add
+                    </button>
+                    <button class="badge">
+                        🗑️
+                        Delete
+                    </button>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

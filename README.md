@@ -68,7 +68,11 @@ I'm unsure of the events I'll need for this and what authentication will be requ
   - [ ] If you have time, have the highlighted calendar boxes change on hover :)
   - [ ] Extra:
     - [ ] Try https://fullcalendar.io/docs/month-view making this a set of toggles in an optionspanel hydro component.
-    - [ ] When user selects an event, toggle `calendar_options.enabled` and show the form.
+    - [x] When user selects an event, toggle it and show the form.
+      - [x] Add
+      - [x] Danger Zone
+      - [ ] Search?
+      - [ ] ???
   
 ## User Stories 
 o As an Admin User 
@@ -77,7 +81,6 @@ o As an Admin User
     - [ ] I have a calendar content type on the /Admin that I can enter a new Event 
         *** This will require knowledge I don't have yet.
     - [ ] I can Edit an Event 
-      - [ ] BONUS? - https://htmx.org/examples/bulk-update/ Bulk update multiple events
     - [x] I can Add New Events 
     - [ ] I can Delete an event 
     - [ ] I can see a list of all events 

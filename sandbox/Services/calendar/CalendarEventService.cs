@@ -113,9 +113,13 @@ public class CalendarEventService : ICalendarEventService
         return events_found.SingleOrDefault();
     }
 
-    public Task<List<CalendarEvent>> Search(CalendarEvent search)
+    public async Task<List<CalendarEvent>> Search(CalendarEvent search)
     {
-        throw new NotImplementedException();
+        string sql = embeds.GetFileContents<CalendarEventService>("search_events.sql");
+        // search.Dump(nameof(search));
+        using var connection = CreateConnection();
+        var records = await connection.QueryAsync<CalendarEvent>(sql, search);
+        return records.ToList();
     }
 
     public async Task<int> Create(string sql_file_path, params CalendarEvent[] records)
