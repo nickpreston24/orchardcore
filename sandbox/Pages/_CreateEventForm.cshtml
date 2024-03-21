@@ -46,17 +46,17 @@
         <button
             hx-swap="outerHTML"
             class="btn btn-primary"
-            asp-page-handler="@Model.CurrentAction.Handler">
-            Save
+            asp-page-handler="SaveEvent">
+            <span x-text="current_handler"></span>
         </button>
 
     </form>
     @* @@click.stop *@
-    <button
-        x-on:click="options_panel.show_add_form=false"
-        class="btn btn-secondary">
-        Cancel
-    </button>
+    @* <button *@
+    @*     x-on:click="options_panel.show_add_form=false" *@
+    @*     class="btn btn-secondary"> *@
+    @*     Cancel *@
+    @* </button> *@
 
 
 </section>

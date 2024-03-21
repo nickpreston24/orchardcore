@@ -31,9 +31,8 @@ public class CalendarEventService : ICalendarEventService
         return count;
     }
 
-    public async Task<int> SeedCalendar()
+    public async Task<int> SeedCalendar(int LIMIT = 20)
     {
-        int LIMIT = 20;
         int current_count = await CountExistingEvents();
         if (current_count >= LIMIT)
             return 0;

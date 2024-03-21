@@ -17,7 +17,6 @@ public class IndexModel : PageModel
     public string Name { get; set; } = string.Empty;
     public int Duration { get; set; }
     public string Description { get; set; } = string.Empty;
-    public HxHandlerAction CurrentAction { get; set; }
 
     public IndexModel(ILogger<IndexModel> logger
         , ICalendarEventService calendarsvc
@@ -33,6 +32,11 @@ public class IndexModel : PageModel
         var events = (await calendar_svc.GetAll()) /*.Dump("all calendar events")*/;
     }
 
+    public async Task<IActionResult> OnGetDeleteAll()
+    {
+        var count = await calendar_svc.DeleteAll();
+        return Content($"<alert>{count} rows were permanently deleted!</alert>");
+    }
 
     public async Task<IActionResult> OnGetPublishedEvents()
     {
@@ -40,6 +44,9 @@ public class IndexModel : PageModel
         var results = await calendar_svc.Search(new CalendarEvent() { status = "published" });
         return Content("<alert>Saved!</alert>");
     }
+
+
+    public async Task<IActionResult> OnGetCreateForm() => Partial("_CreateEventForm", this);
 
     public async Task<IActionResult> OnPostSaveEvent()
     {
@@ -76,33 +83,31 @@ public class IndexModel : PageModel
 
         return Content("replaced!");
     }
-}
 
-/// <summary>
-/// I'm using this special Enumeration to let us easily recycle our form(s),
-/// rather than making a form for every little change.
-///
-/// Usage: Set the handler name to the function you wish to call.  Removes `On*` verbs for you.
-/// </summary>
-public class HxHandlerAction : Enumeration
-{
-    // The name of the handler for an hx-page-handler attribute
-    public string Handler { get; set; } = string.Empty;
-
-    public static HxHandlerAction Add = new HxHandlerAction(1, nameof(Add));
-    public static HxHandlerAction Edit = new HxHandlerAction(2, nameof(Edit));
-    public static HxHandlerAction Delete = new HxHandlerAction(3, nameof(Delete));
-    public static HxHandlerAction Search = new HxHandlerAction(4, nameof(Search));
-
-    public HxHandlerAction(int id, string name, string handler_name = "OnGet") : base(id, name)
-    {
-        // intentional, do not remove.  Let the dev set this name, and blow up if he does not.
-        Handler = (handler_name.NotEmpty() ? handler_name : throw new ArgumentNullException(nameof(handler_name)))
-            // TODO: modifiy the replaces to be regex replacing the START of the method name, just to be perfectly accurate
-            .Replace("OnGet", "")
-            .Replace("OnPatch", "")
-            .Replace("OnDelete", "")
-            .Replace("OnUpdate", "")
-            .Replace("OnPost", "");
-    }
+    // public class CalendarHandler : HxHandler
+    // {
+    //     public static CalendarHandler OnGetSave = new CalendarHandler(1, nameof(OnGetSave), nameof(OnGetSave));
+    //
+    //     public static implicit operator CalendarHandler(string handler)
+    //     {
+    //         Console.WriteLine("searching for hanlder : " + handler);
+    //         var found = GetAll<CalendarHandler>()
+    //             .Dump("all handlers")
+    //             .SingleOrDefault(x =>
+    //                 x.Name
+    //                     .Dump("hanldername").Equals(handler, StringComparison.InvariantCultureIgnoreCase)
+    //             );
+    //
+    //         if (found == default)
+    //         {
+    //             throw new Exception($"No handler with name {handler} found!");
+    //         }
+    //
+    //         return new CalendarHandler(found.Id, found.Name, found.Handler);
+    //     }
+    //
+    //     public CalendarHandler(int id, string name, string handler_name = "OnGet") : base(id, name, handler_name)
+    //     {
+    //     }
+    // }
 }
