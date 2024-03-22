@@ -16,6 +16,7 @@ public class IndexModel : PageModel
     public int Count { get; set; }
     public string Name { get; set; } = string.Empty;
     public int Duration { get; set; }
+    
     public string Description { get; set; } = string.Empty;
 
     public IndexModel(ILogger<IndexModel> logger
@@ -62,11 +63,19 @@ public class IndexModel : PageModel
         to_save.Dump(nameof(to_save), ignoreNulls: true);
 
         var row_count = await calendar_svc.Create("create_calendar_event.sql", to_save.AsArray());
+        var all_events = await calendar_svc.GetAll();
+        return Page();
+        // return Partial("_HydroCalendar", all_events.ToArray());
+        // return Content(
+        //     $"<alert>Saved {to_save.event_name} at {to_save.start_date}!</alert>"
+        //     // + @"<script>$dispatch('notice', {type: 'success', text: '🔥 Success!'})</script>" // See: hydrotoast.cs
+        // );
+    }
 
-        return Content(
-            $"<alert>Saved {to_save.event_name} at {to_save.start_date}!</alert>"
-            // + @"<script>$dispatch('notice', {type: 'success', text: '🔥 Success!'})</script>" // See: hydrotoast.cs
-        );
+    public async Task<IActionResult> OnPostSave()
+    {
+        Console.WriteLine(nameof(OnPostSave));
+        return Page();
     }
 
     public async Task<IActionResult> OnGetSave()

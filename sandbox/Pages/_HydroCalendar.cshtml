@@ -1,0 +1,8 @@
+@using CodeMechanic.Diagnostics
+@model Orchard.Sandbox.Services.CalendarEvent[]
+
+
+<h1>hello from _HydroCalendar partial!</h1>
+<p>@Model.Length</p>
+
+<hydro name="HydroCalendar" params="@(new { Events = @Model })"/>

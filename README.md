@@ -83,7 +83,7 @@ o As an Admin User
     - [ ] I can Edit an Event 
     - [x] I can Add New Events 
     - [ ] I can Delete an event 
-    - [ ] I can see a list of all events 
+    - [x] I can see a list of all events 
 o As a Front-End User 
     I want a calendar module where I can view all Events 
     So that I can see what activities are coming up and have passed 

@@ -13,7 +13,10 @@
     </div>
     @* @@submit.prevent="console.log('submitted')" *@
     <form
-        hx-post method="post">
+        hx-post method="post"
+        hx-swap="outerHTML"
+        hx-target="#calendar_container"
+        hx-page="Index">
 
         <div class="mb-3">
             <label
@@ -28,10 +31,10 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label" asp-for="Duration"></label>
-            <input type="text" class="form-control" asp-for="Duration">
+            <label class="form-label" asp-for="InitialDate"></label>
+            <input type="datetime-local" class="form-control" asp-for="InitialDate">
             <div class="invalid-feedback">
-                <span asp-validation-for="Duration"></span>
+                <span asp-validation-for="InitialDate"></span>
             </div>
         </div>
 
@@ -43,6 +46,8 @@
                 <span asp-validation-for="Description"></span>
             </div>
         </div>
+        @* hx-select-oob="#calendar_container" *@
+        @* hx-select="#calendar_container" *@
         <button
             hx-swap="outerHTML"
             class="btn btn-primary"
@@ -58,5 +63,18 @@
     @*     Cancel *@
     @* </button> *@
 
+
+    @* hx-select-oob="#calendar_container" *@
+    @* hx-select="#calendar_container" *@
+    @* <button *@
+    @*     class="btn btn-primary" *@
+    @*     hx-get *@
+    @*     hx-swap-oob="true" *@
+    @* *@
+    @*     hx-target="#calendar_container" *@
+    @*     hx-page-handler="Save"> *@
+    @* *@
+    @*     OOB Swap *@
+    @* </button> *@
 
 </section>

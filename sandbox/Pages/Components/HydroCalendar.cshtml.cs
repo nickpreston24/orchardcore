@@ -9,9 +9,6 @@ public class HydroCalendar : HydroComponent
 
 // public DateTime InitialDate { get; set; } = DateTime.UtcNow;
 // public int Count { get; set; }
-// public bool edits_enabled { get; set public DateTime InitialDate { get; set; } = DateTime.UtcNow;
-// public int Count { get; set; }
-// public bool edits_enabled { get; set; }
 //
 // public void Update(string newValue)
 // {
