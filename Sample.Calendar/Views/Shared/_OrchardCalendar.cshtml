@@ -41,91 +41,56 @@
 }
 
 
-<section>
+<section x-data="setup_orchard_calendar()">
+
+    <pre>Current View Mode: <span x-text="current_calendar_mode"></span> </pre>
+    <pre>Render Mode: <span x-text="fullcallendar_render_mode"></span> </pre>
+
+    <div class="join join-vertical lg:join-horizontal">
+
+        <template x-for="item in calendar_modes">
+            <button name="item.name" x-on:click="pick_me(item.name)" class="btn join-item" x-text="item.name">...</button>
+        </template>
+
+    </div>
+
 
     <div id="calendar">
     </div>
-    
+
     <script>
-         
-            document.addEventListener("DOMContentLoaded", generate_calendar(@data)); 
-        
-        </script>
+        document.addEventListener("DOMContentLoaded", generate_calendar(@data)); 
+    </script>
 
 </section>
 
-
-@* OLD CALENDAR 
-
-
-document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var data = @Html.Raw(@json);
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            // defaultView: 'agendaWeek',
-            initialView: 'dayGridMonth',
-            timeZone: 'UTC',
-            events: data,
-         });
+<script >
+    function setup_orchard_calendar(){
+      
         
-        calendar.on('dateClick', function(info) {
-             console.log('Clicked on: ' + info.dateStr);
-             console.log('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-             console.log('Current view: ' + info.view.type);
-                    
-            edits_enabled = true;
-            let event_selected = {
-                date: info.dateStr
-            }
-            selected_event = event_selected;
-        });
-        
-        
-        function render_calendar() {
-            console.log('rendering calendar ...');
-            calendar.render();
+       return {
+         current_calendar_mode: 'Week',
+         get fullcallendar_render_mode(){
+            let found = this.calendar_modes.find(m=>m.name === this.current_calendar_mode);
+            return found?.view;
+         },
+         calendar_modes: [
+              { name: "Month", view: 'dayGridMonth'},
+              { name:  "Week", view: 'dayGridWeek'},
+              { name:  "Day", view: 'timeGridDay'},
+              { name:  "List", view: 'listWeek'},
+              { name:  "Agenda", view: 'agendaWeek'},
+            ],
+            pick_me(name){
+                let selected_mode  = name;
+                console.log('element: ' +  selected_mode);
+                localStorage.setItem('current_calendar_mode', selected_mode);
+                this.current_calendar_mode = selected_mode;
+                
+                let view_name = this.fullcallendar_render_mode;
+                // re-render:
+                generate_calendar(@data, view_name)
+            }   
         }
-        render_calendar();
-*@
-
-@* SCRAPS *@
-@* *@
-@* // function add_htmx_attributes(element) { *@
-@* //     element.setAttribute("hx-get", ""); *@
-@* //     element.setAttribute("hx-target", '#result'); *@
-@* //     element.setAttribute("hx-page", 'Index'); *@
-@* //     element.setAttribute("hx-page-handler", 'RepaintCalendar'); *@
-@* // } *@
-
-
-@*     *@
-@* function refresh_calendar() { *@
-@*                      *@
-@* console.log('Running a refresh!'); *@
-@*              *@
-@* // let events = data; *@
-@*              *@
-@* // var events = { *@
-@* //     url: "ajax/getMyEvents.php", *@
-@* //     type: 'POST', *@
-@* //     data: { *@
-@* //         user_id: $(this).val() *@
-@* //     } *@
-@* // } *@
-@*          *@
-@* $('#calendar').fullCalendar('removeEventSource', data); *@
-@* $('#calendar').fullCalendar('addEventSource', data); *@
-@* $('#calendar').fullCalendar('refetchEvents'); *@
-@* } *@
-
-@* *@
-@*     *@
-@* // var addeventbtnEl = document.getElementsByClassName( 'fc-addEventButton-button fc-button fc-button-primary')[0] *@
-@* *@
-@* // add_htmx_attributes(addeventbtnEl) *@
-@* // window.render= render_calendar; *@
-@* // window.add_htmx_attributes = add_htmx_attributes; *@
-@*       *@
-@*          *@
-@* // https://stackoverflow.com/questions/18727954/how-to-reload-fullcalendar-contact-when-the-value-of-a-menu-change-using-jquery *@
-@* $('#users_menu').change(refresh_calendar).change(); *@
+ }
+</script>

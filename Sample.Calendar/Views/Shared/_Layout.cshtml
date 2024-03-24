@@ -44,22 +44,12 @@
 
 <script>
     
-    function reload_calendar() {
-        let calendar =  $('#calendar')
-        console.log('calendar' , calendar);
-        
-        calendar.rerenderEvents();
-        // $('#calendar').fullCalendar('removeEvents');
-        // $('#calendar').fullCalendar('refetchEvents');
-    }
-    
-    
-    
-     function generate_calendar(data = []){
+     function generate_calendar(data = [], viewname = 'dayGridMonth'){
           console.log('hello from generate_calendar()')
           var calendarEl = document.getElementById("calendar");
           var calendar = new FullCalendar.Calendar(calendarEl, { 
             nowIndicator: true,
+            initialView: viewname,
             headerToolbar: {
               left: "prev,next today",
               center: "title",
@@ -72,22 +62,7 @@
           calendar.setOption('height', 520);
         }
         
-                
-    // function GenerateCalendar(events = []) {
-    //    
-    //     console.log('hello from generatecalendar()')
-    //     console.log('event count:>> ', events?.length ?? 0);
-    //    
-    //      var calendarEl = document.getElementById('calender');
-    //      var calendar = new FullCalendar.Calendar(calendarEl, {
-    //         initialView: 'dayGridMonth',
-    //         // events: events
-    //      });
-    //     
-    //      calendar.render();
-    //      // calendar.rerenderEvents();
-    //      // return calendar;
-    // }
+         
  function layout_setup(){
     return {
         current_theme: 'dark'

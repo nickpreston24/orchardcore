@@ -35,12 +35,6 @@ I'm unsure of the events I'll need for this and what authentication will be requ
 
 ## Stack (so far)
 
-* [Hydro](usehydro.dev) - AlpineJS + RazorPages = HYDRO!!! 
-
-   I'm likely going to make the EventCalander component a HydroComponent for now, because a) the events system is super-easy and b) grafting it back into OrchardCore *should* be easy, assuming we can figure out the events and map them to my CRUD.
-
-   Hydro events are similar enough to the CMS Module events that I should be able to transition no problem, and you'll still be able to see that I'm more than capable of picking up OrchardCore Modules with the right instructions within a week or two.
-
 * Slite3 - Scaffolded it myself, not sure if that's how OC does it, but it works!
 * DaisyUI - For pretty visuals similar to bootstrap and for ease of copy/pasted UI components that work out of the box.  Can do Bootstrap 4, but this was a faster way to iterate and test.
 * Alpinejs - supports hydro
@@ -60,14 +54,14 @@ I'm unsure of the events I'll need for this and what authentication will be requ
   - [x] Bulk create (or single)
   - [ ] ...?
 - [x] copy/paste the event calendar into a Hydro Component [!afraidtoask]()
-  - [ ] Create a Hydro viewelement `hydro-event` with `hx-get` support
-  - [ ] Wite the basic CRUD events described [here](https://docs.google.com/document/d/1JIHROJFNqIXdeoulxHi9pbp4Nphp2BuzLGBeGz-kyMo/edit)
-  - [ ] Wire the eventcalender service into the calendar
-  - [ ] Ensure the calendar easily loads onto the page from script with no `id` issues.
+  - [x] Create a Hydro viewelement `hydro-event` with `hx-get` support
+  - [x] Wite the basic CRUD events described [here](https://docs.google.com/document/d/1JIHROJFNqIXdeoulxHi9pbp4Nphp2BuzLGBeGz-kyMo/edit)
+  - [x] Wire the eventcalender service into the calendar
+  - [x] Ensure the calendar easily loads onto the page from script with no `id` issues.
   - [ ] If you have time, wrap each Hydro event in a custom Authorization context from Hydro, demonstrating you know how to secure the `/admin` path.
   - [ ] If you have time, have the highlighted calendar boxes change on hover :)
   - [ ] Extra:
-    - [ ] Try https://fullcalendar.io/docs/month-view making this a set of toggles in an optionspanel hydro component.
+    - [x] Try https://fullcalendar.io/docs/month-view making this a set of toggles in an optionspanel hydro component.
     - [x] When user selects an event, toggle it and show the form.
       - [x] Add
       - [x] Danger Zone
@@ -107,3 +101,9 @@ o As a Front-End User
 # Helpful Resources
 
 [HTMX + MVC](https://khalidabuhakmeh.com/htmx-with-aspnet-core)
+
+
+## Upgrades (nice to haves)
+
+1. [Single Quotes in serialized JSON objects](https://alexanderzeitler.com/articles/serializing-dotnet-csharp-object-for-use-with-alpine-x-data-attribute/)
+2. [Hydro](usehydro.dev) - AlpineJS + RazorPages = HYDRO!!!
