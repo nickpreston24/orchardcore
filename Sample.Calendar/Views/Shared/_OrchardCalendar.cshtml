@@ -5,8 +5,6 @@
 @model List<CalendarEvent>
 @inject ICalendarEventService calendar
 @{
-
-
     var calendar_events = @Model
         // .Dump("events")
         ;
@@ -43,17 +41,22 @@
 
 <section id="calendar_container" x-data="setup_orchard_calendar()">
 
-    <pre>Current View Mode: <span x-text="current_calendar_mode"></span> </pre>
-    <pre>Render Mode: <span x-text="fullcallendar_render_mode"></span> </pre>
+    <div x-show="ui_settings_panel.show_current_render">
+        <pre>Current View Mode: <span x-text="current_calendar_mode"></span> </pre>
+        <pre>Render Mode: <span x-text="fullcallendar_render_mode"></span> </pre>
+    </div>
 
     <div class="join join-vertical lg:join-horizontal">
 
         <template x-for="item in calendar_modes">
-            <button name="item.name" x-on:click="pick_me(item.name)" class="btn join-item" x-text="item.name">...</button>
+            <button name="item.name" x-on:click="pick_me(item.name)"
+
+                    class="btn btn-info btn-sm join-item" x-text="item.name">
+                ...
+            </button>
         </template>
 
     </div>
-
 
     <div id="calendar">
     </div>

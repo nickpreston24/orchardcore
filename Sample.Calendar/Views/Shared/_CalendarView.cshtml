@@ -36,7 +36,6 @@
     class=""
     style="margin-top:100px;">
 
-
     <div
         class="flex flex-row gap-2">
 
@@ -109,7 +108,6 @@
             </div>
 
             <div id="ui_settings"
-
                  x-show="options_panel.ui_settings_button.show">
                 <partial name="_UI_Settings_Panel" model="@ui_settings"></partial>
             </div>
@@ -197,13 +195,16 @@ function setup(){
        selected_event: {},
        current_handler: 'SaveEvent',
        current_target: '#calendar_container',
+       
+       // experimental
+       // ui_settings_panel: {
+       //     toggles: {
+       //           show_calendar_views: true,
+       //           show_current_render: true,
+       //       }
+       //  },
        options_panel: {
-           show_kinds: true,
-           show_edit_form: false,    
-           show_actions_menu: false,
-           
-           
-           // Reactive options for buttons in the option panel
+            // Reactive options for buttons in the option panel
            ui_settings_button: {
                show: false,
                 get classname() {
