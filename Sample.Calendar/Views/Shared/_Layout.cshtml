@@ -34,11 +34,81 @@
     <script src='https://cdn.jsdelivr.net/npm/@@fullcalendar/core@6.1.11/index.global.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/@@fullcalendar/daygrid@6.1.11/index.global.min.js'></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     @* <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script> *@
 
 </head>
 
-<script >
+<script>
+    
+    function reload_calendar() {
+        let calendar =  $('#calendar')
+        console.log('calendar' , calendar);
+        
+        calendar.rerenderEvents();
+        // $('#calendar').fullCalendar('removeEvents');
+        // $('#calendar').fullCalendar('refetchEvents');
+    }
+    
+    
+    
+     function generate_calendar(){
+                   console.log('hello from generate_calendar()')
+                  var date = new Date();
+                  var d = date.getDate();
+                  var m = date.getMonth();
+                  var y = date.getFullYear();
+                
+                  var calendarEl = document.getElementById("calendar");
+                  var calendar = new FullCalendar.Calendar(calendarEl, { 
+                    nowIndicator: true,
+                    headerToolbar: {
+                      left: "prev,next today",
+                      center: "title",
+                      right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
+                    },
+                    events: [
+                      {
+                        title: "Sales Meeting",
+                        start: new Date(y, m, 2, 10, 30),
+                        end: new Date(y, m, 2, 11, 30),
+                        allDay: false
+                      },
+                      {
+                        title: "Marketing Meeting",
+                        start: new Date(y, m, 3, 11, 30),
+                        end: new Date(y, m, 3, 12, 30),
+                        allDay: false
+                      },
+                      {
+                        title: "Production Meeting",
+                        start: new Date(y, m, 4, 15, 30),
+                        end: new Date(y, m, 4, 16, 30),
+                        allDay: false
+                      }
+                    ]
+                });
+    
+                  calendar.render();
+                  calendar.setOption('height', 520);
+                }
+                
+                
+    // function GenerateCalendar(events = []) {
+    //    
+    //     console.log('hello from generatecalendar()')
+    //     console.log('event count:>> ', events?.length ?? 0);
+    //    
+    //      var calendarEl = document.getElementById('calender');
+    //      var calendar = new FullCalendar.Calendar(calendarEl, {
+    //         initialView: 'dayGridMonth',
+    //         // events: events
+    //      });
+    //     
+    //      calendar.render();
+    //      // calendar.rerenderEvents();
+    //      // return calendar;
+    // }
  function layout_setup(){
     return {
         current_theme: 'dark'
@@ -55,7 +125,7 @@
     </main>
 </div>
 
-<script src="~/js/site.js" asp-append-version="true"></script>
+@* <script src="~/js/site.js" asp-append-version="true"></script> *@
 
 @await RenderSectionAsync("Scripts", required: false)
 

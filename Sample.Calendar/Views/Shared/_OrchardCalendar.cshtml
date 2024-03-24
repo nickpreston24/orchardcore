@@ -5,6 +5,8 @@
 
 @{
     //https://chrisfrew.in/blog/serializing-and-deserializing-to-iso-8601-in-dotnet/
+
+
     var calendar_events = @Model
         // .Dump("events")
         .Select(ev => ev
@@ -22,19 +24,38 @@
 }
 
 
+<section>
 
-<div>
-
-    @* <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>  *@
-    
-    
-    @* <h1 x-text="current_target"></h1> *@
-    @* <h1 x-text="current_handler"></h1> *@
-
-    <div>
+    <div id="calendar">
+        @* <span onload="GenerateCalendar()"></span> *@
+    </div>
+    @* <div > *@
         <script>
 
-        document.addEventListener('DOMContentLoaded', function() {
+            const CALENDAR_MODES = {
+               WEEK :'dayGridMonth'
+            }
+                
+            let calendar_mode = localStorage.getItem('current_calendar_mode') ?? CALENDAR_MODES.WEEK;
+            var data = @Html.Raw(@json);
+            
+           document.addEventListener("DOMContentLoaded", generate_calendar); 
+                       
+           
+
+        
+        </script>
+
+    @* </div> *@
+
+
+</section>
+
+
+@* OLD CALENDAR 
+
+
+document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var data = @Html.Raw(@json);
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -56,29 +77,52 @@
             selected_event = event_selected;
         });
         
-        // function add_htmx_attributes(element) {
-        //     element.setAttribute("hx-get", "");
-        //     element.setAttribute("hx-target", '#result');
-        //     element.setAttribute("hx-page", 'Index');
-        //     element.setAttribute("hx-page-handler", 'RepaintCalendar');
-        // }
         
         function render_calendar() {
             console.log('rendering calendar ...');
             calendar.render();
         }
         render_calendar();
-        // var addeventbtnEl = document.getElementsByClassName( 'fc-addEventButton-button fc-button fc-button-primary')[0]
+*@
 
-        // add_htmx_attributes(addeventbtnEl)
-        window.render= render_calendar;
-        // window.add_htmx_attributes = add_htmx_attributes;
-    });
-    
-    </script>
+@* SCRAPS *@
+@* *@
+@* // function add_htmx_attributes(element) { *@
+@* //     element.setAttribute("hx-get", ""); *@
+@* //     element.setAttribute("hx-target", '#result'); *@
+@* //     element.setAttribute("hx-page", 'Index'); *@
+@* //     element.setAttribute("hx-page-handler", 'RepaintCalendar'); *@
+@* // } *@
 
-    </div>
 
-    <div id="calendar"></div>
+@*     *@
+@* function refresh_calendar() { *@
+@*                      *@
+@* console.log('Running a refresh!'); *@
+@*              *@
+@* // let events = data; *@
+@*              *@
+@* // var events = { *@
+@* //     url: "ajax/getMyEvents.php", *@
+@* //     type: 'POST', *@
+@* //     data: { *@
+@* //         user_id: $(this).val() *@
+@* //     } *@
+@* // } *@
+@*          *@
+@* $('#calendar').fullCalendar('removeEventSource', data); *@
+@* $('#calendar').fullCalendar('addEventSource', data); *@
+@* $('#calendar').fullCalendar('refetchEvents'); *@
+@* } *@
 
-</div>
+@* *@
+@*     *@
+@* // var addeventbtnEl = document.getElementsByClassName( 'fc-addEventButton-button fc-button fc-button-primary')[0] *@
+@* *@
+@* // add_htmx_attributes(addeventbtnEl) *@
+@* // window.render= render_calendar; *@
+@* // window.add_htmx_attributes = add_htmx_attributes; *@
+@*       *@
+@*          *@
+@* // https://stackoverflow.com/questions/18727954/how-to-reload-fullcalendar-contact-when-the-value-of-a-menu-change-using-jquery *@
+@* $('#users_menu').change(refresh_calendar).change(); *@

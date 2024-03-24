@@ -6,16 +6,17 @@
 }
 
 
-<div class="card bg-base-200 w-80">
+<div x-data="setup_ui_settings_panel()" class="card bg-base-200 w-80">
     <div class="card-body">
 
         <label for="">Calendar View</label>
 
         <div class="join join-vertical lg:join-horizontal">
-            <button class="btn join-item">Week</button>
-            <button class="btn join-item">Month</button>
-            <button class="btn join-item">Year</button>
-            <button class="btn join-item">List</button>
+
+            <template x-for="item in calendar_modes">
+                <button name="item.name" x-on:click="pick_me(item.name)" class="btn join-item" x-text="item.name">...</button>
+            </template>
+
         </div>
 
         <select disabled class="select select-secondary w-full max-w-xs">
@@ -26,8 +27,41 @@
                 <option x-on:click="current_theme=@theme">@theme</option>
             }
         </select>
+
+        <button
+            @@click="generate_calendar()">
+            Reload Calendar
+        </button>
     </div>
 </div>
+<script>
+    function setup_ui_settings_panel(){
+     
+        return {
+            foo: 'bar',
+            sample_events: [
+                {id: 1,
+                        title: 'foo',
+                        desc: 'bar',
+                        allDay: true,}
+                
+            ],
+            calendar_modes: [
+              { name: "Month"},
+              { name:  "Week"},
+              { name:   "Day"},
+              { name:  "Agenda"},
+              { name:  "List"},
+            ],
+            pick_me(el){
+                let selected_mode  = el;
+                console.log('element: ' +  selected_mode);
+                localStorage.setItem('current_calendar_mode', selected_mode);
+            }    
+        }    
+    }
+
+</script>
 
 @* SCRAPS *@
 
