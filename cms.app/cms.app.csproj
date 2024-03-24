@@ -14,4 +14,10 @@
 	  <ProjectReference Include="..\Sample.Calendar\Sample.Calendar.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Reference Include="CodeMechanic.Embeds">
+	    <HintPath>..\..\..\..\..\.nuget\packages\codemechanic.embeds\1.0.0\lib\net7.0\CodeMechanic.Embeds.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
 </Project>

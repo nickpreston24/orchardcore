@@ -1,8 +1,7 @@
-﻿<style>
-    #mainNav{
-        background: black;
-    }
-</style>
+﻿@using OrchardCore.Services
+@model object
+@inject ISampleMarkdownService markdownService
+
 
 <div class="container" style="margin-top:100px;">
     <div class="row">
@@ -12,3 +11,10 @@
         </div>
     </div>
 </div>
+
+
+<style>
+    #mainNav{
+        background: black;
+    }
+</style>
