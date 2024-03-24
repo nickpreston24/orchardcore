@@ -122,7 +122,6 @@ public class CalendarEventService : ICalendarEventService
     public async Task<List<CalendarEvent>> Search(CalendarEvent search)
     {
         string sql = embeds.GetFileContents<CalendarEventService>("search_events.sql");
-        // search.Dump(nameof(search));
         using var connection = CreateConnection();
         var records = await connection.QueryAsync<CalendarEvent>(sql, search);
         return records.ToList();
@@ -156,6 +155,8 @@ public class CalendarEventService : ICalendarEventService
                         ? calendarEvent.status
                         : CalendarEventStatus.Published.Name;
 
+                    status.Dump("status passed in");
+
                     builder.Append("(");
                     builder.Append($" '{calendarEvent.event_name}', ");
                     builder.Append($" '{calendarEvent.description}', ");
@@ -187,6 +188,8 @@ public class CalendarEventService : ICalendarEventService
 
     public async Task<int> Update(int id, CalendarEvent model)
     {
+        model.Dump("updates");
+
         string sql = embeds.GetFileContents<CalendarEventService>("update_calendar_events.sql");
         using var connection = CreateConnection();
         var affectedRows = await connection.ExecuteAsync(sql, model);

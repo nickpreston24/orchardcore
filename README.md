@@ -17,7 +17,7 @@ run `reinstall_dotnet.sh` if you're running Linux debian.
 
 I use these to run the applications.
 
-To run my CMS attempt run the `run_cms_web.sh` bash file.
+To run my CMS attempt run the `run_cms_app.sh` bash file.
 To run my vanilla Razor project, run `run_sandbox.sh` file.
 
 Of course, you can always `cd` into either the `CMS.Web` and `sandbox` folders respectively and run `dotnet run watch` if you want.
@@ -63,6 +63,10 @@ I'm unsure of the events I'll need for this and what authentication will be requ
     - [x] When user selects an event, toggle it and show the form.
       - [x] Add
       - [x] Danger Zone
+- [ ] Published Events:
+  - [ ] Update your Add form with a select
+  - [ ] Update your edit form with a select
+  - [ ] *optional* add a chip filter or toggle to the calendar?
   
 ## User Stories 
 o As an Admin User 

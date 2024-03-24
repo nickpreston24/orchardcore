@@ -4,6 +4,10 @@
 
 @{
     var calendar_event = Model;
+    string[] statuses = CalendarEventStatus.
+        GetAll<CalendarEventStatus>()
+        .Select(x => x.Name)
+        .ToArray();
 }
 
 @* resources: 
@@ -12,6 +16,7 @@
  *@
 <section
     x-data="{
+                selected_status: 'Unknown',
                 get target_id() {
                       if(current_tab.name === 'Calendar')
                           return '#calendar_container'
@@ -23,16 +28,18 @@
     <h1>@calendar_event.EditMode</h1>
     <pre x-text="current_tab.name">tab?</pre>
     <pre x-text="target_id">target?</pre>
-   
+
     <form
         hx-post method="post"
         hx-swap="outerHTML"
         hx-controller="Admin"
-        hx-action="OnPostCreateEvent"
-        >
+        :hx-target="target_id"
 
-        @* <input hidden type="text" asp-for="EditMode" value="@Model.EditMode"> *@
-        
+        hx-action="OnPostCreateEvent">
+
+        <input hidden type="text" asp-for="EditMode" value="@Model.EditMode">
+        <input hidden type="text" asp-for="ViewName" :value="current_tab.name">
+
         <div class="mb-3">
             <label class="form-label" for="event_name">Event Name:</label>
             <input class="form-control" type="text" asp-for="event_name">
@@ -54,14 +61,44 @@
             </div>
         </div>
 
+        <pre x-text="selected_status"></pre>
+
+
+        <div>
+            <select x-model="selected_status">
+                <template x-for="status in @statuses.AsJS()" :key="status">
+                    <option :value="status" x-text="status"></option>
+                </template>
+            </select>
+
+        </div>
+        @* <select class="select select-secondary w-full max-w-xs"> *@
+
+
+        @* <option disabled selected>-- Choose Status --</option> *@
+        @* $1$ x-model='selected_status' #1# *@
+        @* <template x-for="status in @statuses.AsJS()"> *@
+        @*     <option :value='status' :selected='selected_status===status' x-text="status"></option> *@
+        @* </template> *@
+
+        @* @foreach (var status in CalendarEventStatus.GetAll<CalendarEventStatus>()) *@
+        @* { *@
+        @*         $1$ onclick="@Model.status=@status.Name" #1# *@
+        @*     <option *@
+        @*         asp-for="@Model.status" *@
+        @*         @@click="selected_status='@status.Name'"> *@
+        @*         @status.Name *@
+        @*     </option> *@
+        @* } *@
+        @* </select> *@
+
         <button
             submit.prevent="console.log('submitted')"
             class="btn btn-primary"
-            :hx-target="target_id"
             type="submit">
             Submit
         </button>
-      
+
     </form>
 
 </section>

@@ -13,8 +13,16 @@
     if (calendar_event_count == 0)
         await calendar.SeedCalendar(30);
 
-    var all_events = (await calendar.GetAll()).ToList();
-    var published_events = await calendar.Search(new CalendarEvent() { status = CalendarEventStatus.Published.Name });
+    var all_events = (await calendar.GetAll())
+        .OrderByDescending(ev => ev.status)
+        .ToList();
+
+    Console.WriteLine("Total event count :>> " + all_events.Count);
+
+    var published_events = all_events
+        .Where(ev => ev.status.Equals(CalendarEventStatus.Published.Name))
+        .OrderByDescending(ev => ev.status)
+        .ToList();
 
     Console.WriteLine("Total published events :>> " + published_events.Count);
 
@@ -57,12 +65,12 @@
 
             <div x-show="current_tab.name==='Calendar'">
                 <div id="calendar_container">
-                    <partial name="_OrchardCalendar" model="@all_events"/>
+                    <partial name="_OrchardCalendar" model="@is_admin ?  @all_events : @published_events"/>
                 </div>
             </div>
 
             <div x-show="current_tab.name==='Event List'">
-                <partial name="_OrchardEventList" model="@all_events"/>
+                <partial name="_OrchardEventList" model="@is_admin ?  @all_events : @published_events"/>
             </div>
 
         </section>

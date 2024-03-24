@@ -26,40 +26,42 @@ public class AdminController : Controller
     }
 
 
+    public async Task<IActionResult> OnPutUpdateEvent(CalendarEvent calendarEvent)
+    {
+        calendarEvent.Dump(nameof(calendarEvent));
+        int count = await calendar_svc.Update(calendarEvent.id, calendarEvent);
+        Console.WriteLine($"Updated {count} calendar events");
+
+        bool is_list = calendarEvent.ViewName.Equals("Event List", StringComparison.OrdinalIgnoreCase);
+
+        var all_events = await calendar_svc.GetAll();
+
+        return
+            is_list
+                ? PartialView("_OrchardEventList", all_events.ToList())
+                : PartialView("_OrchardCalendar", all_events.ToList());
+    }
+
     [HttpPost]
     public async Task<IActionResult> OnPostCreateEvent(CalendarEvent calendarEvent)
     {
-        calendarEvent.Dump(nameof(calendarEvent));
-
-        bool is_update = calendarEvent.EditMode.Equals("Edit", StringComparison.OrdinalIgnoreCase) ? true : false;
-
-        if (is_update)
-        {
-            // update instead of creating:
-            // int count = 
-            await calendar_svc.Update(calendarEvent.id, calendarEvent);
-            // Console.WriteLine($"Updated {count} calendar events");
-        }
-
-        else if (!is_update)
-        {
-            // Console.WriteLine(nameof(OnPostCreateEvent));
-            var count = await calendar_svc.Create("create_calendar_event.sql", calendarEvent);
-            Console.WriteLine($"Created {count} calendar events");
-        }
+        var count = await calendar_svc.Create("create_calendar_event.sql", calendarEvent);
+        Console.WriteLine($"Created {count} calendar events");
 
         var all_events = await calendar_svc.GetAll();
 
 
         // TODO: make this change with the current tab:
-        return PartialView("_OrchardEventList", all_events.ToList());
-        
-        // return
-        //     is_update
-        //         ? PartialView("_OrchardEventList", all_events.ToList())
-        //         : PartialView("_OrchardCalendar", all_events.ToList());
-    }
+        // TODO: Make sure to return only events with 'published' status for non-admins
+        // return PartialView("_OrchardEventList", all_events.ToList());
 
+        bool is_list = calendarEvent.ViewName.Equals("Event List", StringComparison.OrdinalIgnoreCase);
+
+        return
+            is_list
+                ? PartialView("_OrchardEventList", all_events.ToList())
+                : PartialView("_OrchardCalendar", all_events.ToList());
+    }
 
     public async Task<IActionResult> OnGetEditForm(int id)
     {
@@ -72,7 +74,7 @@ public class AdminController : Controller
     public IActionResult OnGetCreateForm()
     {
         Console.WriteLine(nameof(OnGetCreateForm));
-        return PartialView("_CreateEventForm", new CalendarEvent() { });
+        return PartialView("_CreateEventForm", new CalendarEvent() { EditMode = "Add" });
     }
 
     public async Task<IActionResult> OnGetRemoveAllEvents()
