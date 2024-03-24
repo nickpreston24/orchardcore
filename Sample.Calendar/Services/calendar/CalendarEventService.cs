@@ -132,6 +132,7 @@ public class CalendarEventService : ICalendarEventService
     public async Task<int> Create(string sql_file_path, params CalendarEvent[] records)
     {
         // records.Select(x => x.start_date).Dump("dates");
+        records.Dump(nameof(records));
 
         string sql = embeds.GetFileContents<CalendarEventService>(sql_file_path);
         Console.WriteLine($"creating {records.Length} records...");

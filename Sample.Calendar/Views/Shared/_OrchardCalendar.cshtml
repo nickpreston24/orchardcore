@@ -63,15 +63,15 @@
         //     element.setAttribute("hx-page-handler", 'RepaintCalendar');
         // }
         
-        function render() {
+        function render_calendar() {
             console.log('rendering calendar ...');
             calendar.render();
         }
-        render();
+        render_calendar();
         // var addeventbtnEl = document.getElementsByClassName( 'fc-addEventButton-button fc-button fc-button-primary')[0]
 
         // add_htmx_attributes(addeventbtnEl)
-        // window.render= render;
+        window.render= render_calendar;
         // window.add_htmx_attributes = add_htmx_attributes;
     });
     

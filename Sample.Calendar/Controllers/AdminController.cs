@@ -25,9 +25,22 @@ public class AdminController : Controller
     }
 
 
-    public async Task<IActionResult> OnGetCreateEvent(CalendarEvent calendarEvent)
+    [HttpPost]
+    public async Task<IActionResult> OnPostCreateEvent(
+        CalendarEvent calendarEvent
+        // string event_name,
+        // string description,
+        // DateTime start_date
+    )
     {
-        Console.WriteLine(nameof(OnGetCreateEvent));
+        // var calendarEvent = new CalendarEvent()
+        // {
+        //     event_name = event_name,
+        //     description = description,
+        //     start_date = start_date
+        // };
+
+        Console.WriteLine(nameof(OnPostCreateEvent));
         calendarEvent.Dump(nameof(calendarEvent));
         var count = await calendar_svc.Create("create_calendar_event.sql", calendarEvent);
         Console.WriteLine($"Created {count} calendar events");
@@ -39,13 +52,14 @@ public class AdminController : Controller
     public IActionResult OnGetCreateForm()
     {
         Console.WriteLine(nameof(OnGetCreateForm));
-        return PartialView("_CreateEventForm", new CalendarEvent() { event_name = "foo" });
+        return PartialView("_CreateEventForm", new CalendarEvent() { });
     }
 
-    public IActionResult OnGetDeleteAllEvents()
+    public async Task<IActionResult> OnGetDeleteAllEvents()
     {
         Console.WriteLine(nameof(OnGetDeleteAllEvents));
-        return Content(@"<button class='btn btn-primary border-accent border-2'>Deleted all events!</b>");
+        var count = await calendar_svc.DeleteAll();
+        return Content(@$"<button class='btn btn-primary border-accent border-2'>Deleted all {count} events!</b>");
     }
 
     public async Task<IActionResult> OnDeleteRemoveEvent(int id)
@@ -53,7 +67,6 @@ public class AdminController : Controller
         Console.WriteLine(nameof(OnDeleteRemoveEvent));
         await calendar_svc.Delete(id);
         // return Content($@"<button class='btn btn-primary border-accent border-2'>Deleted event with id '{id}'!</b>");
-
         return PartialView("_OrchardEventList", default);
     }
 }

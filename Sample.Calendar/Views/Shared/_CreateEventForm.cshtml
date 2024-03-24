@@ -2,6 +2,9 @@
 @using OrchardCore.Models
 @model CalendarEvent
 
+@{
+    var calendar_event = Model;
+}
 
 @* resources: 
     https://alpinejs.dev/directives/on
@@ -9,27 +12,16 @@
  *@
 <section>
 
-    <div>
-        @* <span x-text="index"></span> *@
-        <span x-text="next_event.title"></span>
-    </div>
-    @* @@submit.prevent="console.log('submitted')" *@
+    @* hx-target="#calendar_container" *@
     <form
         hx-post method="post"
-        hx-swap="innerHTML"
-        hx-target="#calendar_container"
-        hx-controller="Calendar">
+        hx-swap="outerHTML"
+        hx-controller="Admin"
+        hx-action="OnPostCreateEvent">
 
         <div class="mb-3">
-            <label
-                x-model="next_event.title"
-                :value="next_event.title"
-                class="form-label" asp-for="event_name">
-            </label>
-            <input type="text" class="form-control" asp-for="event_name">
-            <div class="invalid-feedback">
-                <span asp-validation-for="event_name"></span>
-            </div>
+            <label class="form-label" for="event_name">Event Name:</label>
+            <input class="form-control" type="text" asp-for="event_name">
         </div>
 
         <div class="mb-3">
@@ -40,7 +32,6 @@
             </div>
         </div>
 
-
         <div class="mb-3">
             <label class="form-label" asp-for="description"></label>
             <input type="text" class="form-control" asp-for="description">
@@ -50,13 +41,16 @@
         </div>
 
         <button
-            hx-swap="outerHTML"
+            submit.prevent="console.log('submitted')"
             class="btn btn-primary"
-            hx-controller="Admin"
-            hx-get
-            hx-action="OnGetCreateEvent">
-            <span x-text="current_handler"></span>
+            type="submit">
+            Submit
         </button>
+
+        @* <button *@
+        @*     x-on:click="render_calendar()"> *@
+        @*     Refresh calendar *@
+        @* </button> *@
 
     </form>
 
@@ -88,3 +82,10 @@
 @* *@
 @*     OOB Swap *@
 @* </button> *@
+
+
+@* <div> *@
+@*     $1$ <span x-text="index"></span> #1# *@
+@*     <span x-text="next_event.title"></span> *@
+@* </div> *@
+@* @@submit.prevent="console.log('submitted')" *@

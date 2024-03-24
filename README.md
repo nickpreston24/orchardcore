@@ -102,3 +102,8 @@ o As a Front-End User
 * Self-seeding database (requires a `LocalDatabase.db`).  
   * If no table exists, one may be created by running `SeedCalendar(int limit)`, where the limit is the max rows you wish to seed.  I used the Bogus library to create fake seeded events.
 * Events can be Searched by name, description via the `Search()` method in `ICalendarService`.
+
+
+# Helpful Resources
+
+[HTMX + MVC](https://khalidabuhakmeh.com/htmx-with-aspnet-core)
