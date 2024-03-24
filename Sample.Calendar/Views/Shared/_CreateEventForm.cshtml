@@ -1,13 +1,16 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using OrchardCore.Models
+@using OrchardCore.Services
 @model CalendarEvent
-
+@* @inject ICalendarEventService calendar *@
 @{
     var calendar_event = Model;
     string[] statuses = CalendarEventStatus.
         GetAll<CalendarEventStatus>()
         .Select(x => x.Name)
         .ToArray();
+
+    string current_handler = Model.EditMode.Equals("Edit") ? "OnPutUpdateEvent" : "OnPostCreateEvent";
 }
 
 @* resources: 
@@ -25,9 +28,11 @@
                 }
             }">
 
-    <h1>@calendar_event.EditMode</h1>
-    <pre x-text="current_tab.name">tab?</pre>
-    <pre x-text="target_id">target?</pre>
+    @* <h1>@calendar_event.EditMode</h1> *@
+    @* <h2>Handler: @current_handler</h2> *@
+    @* <pre x-text="current_tab.name">tab?</pre> *@
+    @* <pre x-text="target_id">target?</pre> *@
+    @* <pre>id: @calendar_event.id</pre> *@
 
     <form
         hx-post method="post"
@@ -35,10 +40,11 @@
         hx-controller="Admin"
         :hx-target="target_id"
 
-        hx-action="OnPostCreateEvent">
+        hx-action="@current_handler">
 
+        <input hidden type="text" asp-for="id" value="@calendar_event.id">
         <input hidden type="text" asp-for="EditMode" value="@Model.EditMode">
-        <input hidden type="text" asp-for="ViewName" :value="current_tab.name">
+        <input hidden type="text" asp-for="@Model.ViewName" :value="current_tab.name">
 
         <div class="mb-3">
             <label class="form-label" for="event_name">Event Name:</label>
@@ -65,32 +71,15 @@
 
 
         <div>
-            <select x-model="selected_status">
+            <select
+                asp-for="status"
+                x-model="selected_status">
                 <template x-for="status in @statuses.AsJS()" :key="status">
                     <option :value="status" x-text="status"></option>
                 </template>
             </select>
 
         </div>
-        @* <select class="select select-secondary w-full max-w-xs"> *@
-
-
-        @* <option disabled selected>-- Choose Status --</option> *@
-        @* $1$ x-model='selected_status' #1# *@
-        @* <template x-for="status in @statuses.AsJS()"> *@
-        @*     <option :value='status' :selected='selected_status===status' x-text="status"></option> *@
-        @* </template> *@
-
-        @* @foreach (var status in CalendarEventStatus.GetAll<CalendarEventStatus>()) *@
-        @* { *@
-        @*         $1$ onclick="@Model.status=@status.Name" #1# *@
-        @*     <option *@
-        @*         asp-for="@Model.status" *@
-        @*         @@click="selected_status='@status.Name'"> *@
-        @*         @status.Name *@
-        @*     </option> *@
-        @* } *@
-        @* </select> *@
 
         <button
             submit.prevent="console.log('submitted')"

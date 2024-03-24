@@ -29,7 +29,7 @@ public class AdminController : Controller
     public async Task<IActionResult> OnPutUpdateEvent(CalendarEvent calendarEvent)
     {
         calendarEvent.Dump(nameof(calendarEvent));
-        int count = await calendar_svc.Update(calendarEvent.id, calendarEvent);
+        int count = await calendar_svc.Update(calendarEvent.id.Dump("id"), calendarEvent);
         Console.WriteLine($"Updated {count} calendar events");
 
         bool is_list = calendarEvent.ViewName.Equals("Event List", StringComparison.OrdinalIgnoreCase);
@@ -56,7 +56,7 @@ public class AdminController : Controller
         // return PartialView("_OrchardEventList", all_events.ToList());
 
         bool is_list = calendarEvent.ViewName.Equals("Event List", StringComparison.OrdinalIgnoreCase);
-
+        is_list.Dump(nameof(is_list));
         return
             is_list
                 ? PartialView("_OrchardEventList", all_events.ToList())

@@ -11,7 +11,7 @@
     var calendar_event_count = await calendar.CountExistingEvents();
 
     if (calendar_event_count == 0)
-        await calendar.SeedCalendar(30);
+        await calendar.SeedCalendar(15);
 
     var all_events = (await calendar.GetAll())
         .OrderByDescending(ev => ev.status)

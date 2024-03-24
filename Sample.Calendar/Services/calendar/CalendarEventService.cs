@@ -56,12 +56,36 @@ public class CalendarEventService : ICalendarEventService
     }
 
     private static string[] fake_event_names = new string[]
-        { "Eat Dinner", "Build the Taj Mahal", "Reinvent the wheel", "Found SpaceX" };
+    {
+        "Eat Dinner",
+        "Build the Taj Mahal",
+        "Reinvent the wheel",
+        "Found SpaceX",
+        "Full stack",
+        "Slam Dunk",
+        "Eat dinner",
+        "Eat lunch",
+        "Eat breakfast",
+        "Walk the dog",
+        "Pet the cat",
+        "Watch movie",
+        "Go to Grocery store",
+    };
 
     private static string[] fake_descriptions = new string[]
     {
         "Eat Dinner with the queen", "Build the Taj Mahal in one day",
-        "Reinvent the wheel and build a time machine set to the stone age", "Found SpaceX before Elon Musk does..."
+        "Reinvent the wheel and build a time machine set to the stone age",
+        "Found SpaceX before Elon Musk does...",
+        "Make a slam dunk",
+        "Build the ultimate full stack",
+        "Eat dinner",
+        "Eat lunch",
+        "Eat breakfast",
+        "Walk the dog",
+        "Pet the cat",
+        "Watch movie",
+        "Go to Grocery store",
     };
 
     private static int[] days = Enumerable.Range(-30, 30).ToArray();
@@ -74,7 +98,7 @@ public class CalendarEventService : ICalendarEventService
         connectionString =
             "Data Source=LocalDatabase.db"; // TODO: Obviously, we want to read this from .env in the future.
 
-    private List<CalendarEvent> CreateFakeEvents(int count = 3)
+    private List<CalendarEvent> CreateFakeEvents(int count = 10)
     {
         var index = 1;
         var all_statuses = CalendarEventStatus.GetAll<CalendarEventStatus>();
@@ -82,8 +106,8 @@ public class CalendarEventService : ICalendarEventService
         all_statuses.Dump(nameof(all_statuses));
         var calendar_faker = new Faker<CalendarEvent>()
                 .CustomInstantiator(f => new CalendarEvent())
-                .RuleFor(o => o.last_modified, f => f.Date.Recent(100))
-                .RuleFor(o => o.start_date, f => f.Date.Recent(365))
+                .RuleFor(o => o.last_modified, f => f.Date.Recent(10))
+                .RuleFor(o => o.start_date, f => f.Date.Recent(10))
                 .RuleFor(o => o.status, f => all_statuses.TakeFirstRandom().Name)
                 .RuleFor(o => o.end_date, f => f.Date.Recent(-7))
                 .RuleFor(o => o.event_name, f => fake_event_names.TakeFirstRandom())
