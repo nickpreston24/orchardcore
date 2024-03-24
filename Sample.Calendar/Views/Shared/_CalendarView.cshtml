@@ -120,22 +120,22 @@
             </div>
 
 
-            <template x-for="snack in snacks">
-                <div class="flex flex-row">
-                    <h2 x-text="snack.name"></h2>
-                    <button
-                        class="btn btn-small btn-ghost"
-                        x-on:click="snack.streak = confirm('Did you miss one?', 'Yes', 'Nope!') ? 0: snack.streak">
-                        👇
-                    </button>
-                    <p x-text="snack.streak"></p>
-                    <button
-                        x-on:click="snack.streak++"
-                        class="btn btn-small btn-ghost">
-                        👆
-                    </button>
-                </div>
-            </template>
+            @* <template x-for="snack in snacks"> *@
+            @*     <div class="flex flex-row"> *@
+            @*         <h2 x-text="snack.name"></h2> *@
+            @*         <button *@
+            @*             class="btn btn-small btn-ghost" *@
+            @*             x-on:click="snack.streak = confirm('Did you miss one?', 'Yes', 'Nope!') ? 0: snack.streak"> *@
+            @*             👇 *@
+            @*         </button> *@
+            @*         <p x-text="snack.streak"></p> *@
+            @*         <button *@
+            @*             x-on:click="snack.streak++" *@
+            @*             class="btn btn-small btn-ghost"> *@
+            @*             👆 *@
+            @*         </button> *@
+            @*     </div> *@
+            @* </template> *@
         </section>
 
     </div>

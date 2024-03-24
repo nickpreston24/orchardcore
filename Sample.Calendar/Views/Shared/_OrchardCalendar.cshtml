@@ -5,7 +5,6 @@
 @model List<CalendarEvent>
 @inject ICalendarEventService calendar
 @{
-    //https://chrisfrew.in/blog/serializing-and-deserializing-to-iso-8601-in-dotnet/
 
 
     var calendar_events = @Model
@@ -31,6 +30,7 @@
         .ToArray();
 
 
+    //https://chrisfrew.in/blog/serializing-and-deserializing-to-iso-8601-in-dotnet/
     string json = JsonConvert.SerializeObject(mapped_events);
     // Console.WriteLine("json :>> " + json);
 
@@ -65,8 +65,7 @@
 </section>
 
 <script >
-    function setup_orchard_calendar(){
-      
+    function setup_orchard_calendar(){      
         
        return {
          current_calendar_mode: 'Week',
@@ -77,9 +76,13 @@
          calendar_modes: [
               { name: "Month", view: 'dayGridMonth'},
               { name:  "Week", view: 'dayGridWeek'},
-              { name:  "Day", view: 'timeGridDay'},
-              { name:  "List", view: 'listWeek'},
-              { name:  "Agenda", view: 'agendaWeek'},
+              { name:  "Day's Time Grid", view: 'timeGridDay'}, // Not working
+              { name:  "Week's Time Grid", view: 'timeGridWeek'}, // Not working
+              { name:  "Week's List", view: 'listWeek'},
+              { name:  "Month's List", view: 'listMonth'},
+              { name:  "Week's Agenda", view: 'agendaWeek'}, // Not working
+              { name:  "Day's Agenda", view: 'agendaDay'},
+              // dayGridMonth,timeGridWeek,timeGridDay,listMonth
             ],
             pick_me(name){
                 let selected_mode  = name;
