@@ -34,7 +34,7 @@
         <button
             hx-get
             hx-controller="Calendar"
-            hx-target="#calendar"
+            hx-target="#calendar_container"
             hx-action="OnGetInitialCalendar">
             Reload Calendar
         </button>
@@ -45,13 +45,6 @@
      
         return {
             foo: 'bar',
-            // sample_events: [
-            //     {id: 1,
-            //             title: 'foo',
-            //             desc: 'bar',
-            //             allDay: true,}
-            //    
-            // ],
             calendar_modes: [
               { name: "Month"},
               { name:  "Week"},
