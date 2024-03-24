@@ -59,4 +59,11 @@ public class AdminController : Controller
         // return Content($@"<button class='btn btn-primary border-accent border-2'>Deleted event with id '{id}'!</b>");
         return PartialView("_OrchardEventList", default);
     }
+
+    public async Task<IActionResult> OnGetEventList()
+    {
+        Console.WriteLine(nameof(OnGetEventList));
+        var events = await calendar_svc.GetAll();
+        return PartialView("_OrchardEventList", events.ToList());
+    }
 }

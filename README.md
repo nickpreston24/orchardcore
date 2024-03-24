@@ -55,7 +55,7 @@ I'm unsure of the events I'll need for this and what authentication will be requ
     - [ ] https://fullcalendar.io/docs/date-clicking-selecting
   - [ ] Figure out how a CMS Module event lifecycle works.
 - [ ] Crud to finish and test:
-  - [ ] Get all events w/ 'published' status; Requiremen: "I can visit a page /calendar and see a calendar with all published events"
+  - [ ] Get all events w/ 'published' status; Requirement: "I can visit a page /calendar and see a calendar with all published events"
   - [ ] Delete
   - [x] Bulk create (or single)
   - [ ] ...?
@@ -83,7 +83,7 @@ o As an Admin User
       - [ ] Todo: Show the Edit panel
       - [ ] then allow edits.
     - [x] I can Add New Events 
-    - [ ] I can Delete an event 
+    - [x] I can Delete an event 
     - [x] I can see a list of all events 
 o As a Front-End User 
     I want a calendar module where I can view all Events 

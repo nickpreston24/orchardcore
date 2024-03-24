@@ -1,0 +1,19 @@
+@model object
+
+<section>
+
+    <p class="alert alert-ghost border-warning border-4">
+        ⚠️
+        WARNING - This is the Danger Zone! Anything you do here is PERMANENT!
+    </p>
+
+    <button class="btn btn-error"
+            hx-get
+            hx-target="#delete_message"
+            hx-controller="Admin"
+            hx-action="OnGetDeleteAllEvents">
+        Delete All Events
+    </button>
+    <span id="delete_message"></span>
+
+</section>

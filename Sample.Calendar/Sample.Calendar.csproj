@@ -38,11 +38,20 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Include="Views\Calendar\Index.cshtml" />
+      <Content Include="Views\Shared\_CalendarView.cshtml" />
       <Content Include="Views\Shared\_CreateEventForm.cshtml" />
+      <Content Include="Views\Shared\_DangerZonePanel.cshtml" />
       <Content Include="Views\Shared\_OrchardCalendar.cshtml" />
       <Content Include="Views\Shared\_OrchardEventList.cshtml" />
       <Content Include="Views\Shared\_OrchardNav.cshtml" />
       <Content Include="Views\Shared\_UI_Settings_Panel.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Views\Admin\Index.cshtml">
+        <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 
 

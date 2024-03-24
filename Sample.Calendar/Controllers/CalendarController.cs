@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OrchardCore.Models;
 using OrchardCore.Services;
@@ -8,16 +9,18 @@ namespace Sample.Calendar.Controllers
 {
     public class CalendarController : Controller
     {
+        private ICalendarEventService calendar_svc;
+
+        public CalendarController(
+            ICalendarEventService calendar)
+        {
+            calendar_svc = calendar;
+        }
+
         [Route("calendar")]
         public IActionResult Index()
         {
             return View();
-        }
-
-        public IActionResult OnGetUpdatedButton()
-        {
-            Console.WriteLine(nameof(OnGetUpdatedButton));
-            return Content(@"<button class='btn btn-primary border-accent border-2'>Bar</b>");
         }
 
         public IActionResult OnGetAlpineCounter()
@@ -26,12 +29,11 @@ namespace Sample.Calendar.Controllers
             return PartialView("_AlpineCounter", 10);
         }
 
-        public IActionResult OnGetInitialCalendar()
+        public async Task<IActionResult> OnGetInitialCalendar()
         {
             Console.WriteLine(nameof(OnGetInitialCalendar));
-            return PartialView("_OrchardCalendar",
-                Enumerable.Repeat(new CalendarEvent() { event_name = "foo" }, 10).ToList());
+            var events = await calendar_svc.GetAll();
+            return PartialView("_OrchardCalendar", events.ToList());
         }
-
     }
 }
