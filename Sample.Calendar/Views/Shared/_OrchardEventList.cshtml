@@ -1,11 +1,21 @@
 @using OrchardCore.Models
 @using OrchardCore.Services
 @using Htmx.TagHelpers
+@using CodeMechanic.Types
 @model List<CalendarEvent>
 @inject ICalendarEventService calendar
 @{
     var calendar_events = Model ?? (await calendar.GetAll()).ToList();
 @*     Console.WriteLine("event count :>> " + calendar_events.Count); *@
+    string url = Context.Request.Path;
+
+    var page_name = url.GetPageFromRoute();
+
+    // I'm doing this to re-use calendarview and not mess up the HTMX (ajax) calls or have to repeat the work.
+    // This could obviously be replaced by some auth method, but I don't know what.
+    bool is_admin = @page_name.Equals("admin", StringComparison.OrdinalIgnoreCase);
+    bool debug_mode = Environment.GetEnvironmentVariable("DEV_MODE").ToBoolean(fallback: false);
+
 }
 
 @* Story:  "I can see a list of all events"  *@
@@ -29,6 +39,15 @@
                     </h1>
 
                     <p>@item.description</p>
+
+                    <label class="@item.event_status_badge" for="">
+                        <b>
+                            Status:
+                        </b>
+                        <span>@item.status</span>
+                    </label>
+
+
                     <label class="badge" for="">
                         <b>
                             Starts:
@@ -44,24 +63,29 @@
                     </label>
 
                 </div>
-                <div class="card-actions justify-end">
-                    <button
-                        class="btn btn-ghost border-2 border-info">
-                        👍
-                        Edit
-                    </button>
-                    <button
-                        hx-get
-                        hx-controller="Admin"
-                        hx-action="OnDeleteRemoveEvent"
-                        hx-route-id="@item.id"
-                        hx-swap="outerHTML"
-                        hx-target="#event_list"
-                        class="btn btn-ghost border-2 border-error">
-                        🗑️
-                        Delete
-                    </button>
-                </div>
+
+                @if (is_admin)
+                {
+                    <div class="card-actions justify-end">
+                        <button
+                            class="btn btn-ghost border-2 border-info">
+                            👍
+                            Edit
+                        </button>
+                        <button
+                            hx-get
+                            hx-controller="Admin"
+                            hx-action="OnDeleteRemoveEvent"
+                            hx-route-id="@item.id"
+                            hx-swap="outerHTML"
+                            hx-target="#event_list"
+                            class="btn btn-ghost border-2 border-error">
+                            🗑️
+                            Delete
+                        </button>
+                    </div>
+                }
+
             </div>
         }
 

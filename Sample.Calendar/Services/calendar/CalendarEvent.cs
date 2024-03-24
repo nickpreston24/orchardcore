@@ -13,4 +13,8 @@ public class CalendarEvent
     public TimeSpan duration { get; set; }
     public DateTime created_at { get; set; }
     public DateTime last_modified { get; set; }
+
+    public string event_status_badge => new CalendarEventStatus(-1, this.status).Equals(CalendarEventStatus.Published)
+        ? "badge badge-success"
+        : "badge badge-warning";
 }

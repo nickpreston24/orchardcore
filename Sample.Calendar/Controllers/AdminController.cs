@@ -45,9 +45,9 @@ public class AdminController : Controller
         return PartialView("_CreateEventForm", new CalendarEvent() { });
     }
 
-    public async Task<IActionResult> OnGetDeleteAllEvents()
+    public async Task<IActionResult> OnGetRemoveAllEvents()
     {
-        Console.WriteLine(nameof(OnGetDeleteAllEvents));
+        Console.WriteLine(nameof(OnGetRemoveAllEvents));
         var count = await calendar_svc.DeleteAll();
         return Content(@$"<button class='btn btn-primary border-accent border-2'>Deleted all {count} events!</b>");
     }

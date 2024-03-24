@@ -78,7 +78,7 @@ I'm unsure of the events I'll need for this and what authentication will be requ
 o As an Admin User 
     I want a calendar module where I can add Events to show up on my Front-End Calendar So that end-users can see what activities are coming up and have passed 
     And I will know that I am done when 
-    - [ ] I have a calendar content type on the /Admin that I can enter a new Event 
+    - [x] I have a calendar content type on the /Admin that I can enter a new Event 
     - [ ] I can Edit an Event 
       - [ ] Todo: Show the Edit panel
       - [ ] then allow edits.

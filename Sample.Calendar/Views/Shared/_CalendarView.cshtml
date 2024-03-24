@@ -3,6 +3,7 @@
 @using OrchardCore
 @using OrchardCore.Models
 @using OrchardCore.Services
+@using CodeMechanic.Types
 @inject ICalendarEventService calendar
 @{
     // Layout = "_Layout";
@@ -12,11 +13,22 @@
     if (calendar_event_count == 0)
         await calendar.SeedCalendar(30);
 
-    var all_events = await calendar.GetAll();
+    var all_events = (await calendar.GetAll()).ToList();
     var published_events = await calendar.Search(new CalendarEvent() { status = CalendarEventStatus.Published.Name });
+
+    Console.WriteLine("Total published events :>> " + published_events.Count);
 
     var current_event = all_events.FirstOrDefault();
     var ui_settings = new UISettings() { CurrentTheme = "forest" };
+
+    string url = Context.Request.Path;
+    var page_name = url.GetPageFromRoute();
+
+    // I'm doing this to re-use calendarview and not mess up the HTMX (ajax) calls or have to repeat the work.
+    // This could obviously be replaced by some auth method, but I don't know what.
+    bool is_admin = @page_name.Equals("admin", StringComparison.OrdinalIgnoreCase);
+    bool debug_mode = Environment.GetEnvironmentVariable("DEV_MODE").ToBoolean(fallback: false);
+
 }
 
 <div
@@ -60,21 +72,27 @@
 
             <join>
 
-                <button class="btn join-item"
-                        x-on:click="options_panel.add_button.show=!options_panel.add_button.show"
-                        hx-get
-                        hx-target="#create_form"
-                        :class="options_panel.add_button.classname"
-                        hx-controller="Admin"
-                        hx-action="OnGetCreateForm">
-                    Add
-                </button>
-                <button class="btn join-item"
-                        :class="options_panel.danger_button.classname"
-                        js x-on:click="options_panel.danger_button.show=!options_panel.danger_button.show">
-                    Danger Zone
-                </button>
+                @if (@is_admin)
+                {
+                    <button class="btn join-item"
+                            x-on:click="options_panel.add_button.show=!options_panel.add_button.show"
+                            hx-get
+                            hx-target="#create_form"
+                            :class="options_panel.add_button.classname"
+                            hx-controller="Admin"
+                            hx-action="OnGetCreateForm">
+                        Add
+                    </button>
+                }
 
+                @if (@is_admin)
+                {
+                    <button class="btn join-item"
+                            :class="options_panel.danger_button.classname"
+                            js x-on:click="options_panel.danger_button.show=!options_panel.danger_button.show">
+                        Danger Zone
+                    </button>
+                }
                 <button class="btn join-item"
                         :class="options_panel.ui_settings_button.classname"
                         js x-on:click="options_panel.ui_settings_button.show=!options_panel.ui_settings_button.show">

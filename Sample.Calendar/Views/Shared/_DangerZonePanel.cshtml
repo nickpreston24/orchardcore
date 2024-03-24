@@ -7,13 +7,15 @@
         WARNING - This is the Danger Zone! Anything you do here is PERMANENT!
     </p>
 
-    <button class="btn btn-error"
-            hx-get
-            hx-target="#delete_message"
-            hx-controller="Admin"
-            hx-action="OnGetDeleteAllEvents">
-        Delete All Events
-    </button>
-    <span id="delete_message"></span>
+    <div hx-target="this">
+
+        <button class="btn btn-error"
+                hx-get
+                hx-confirm="Are you sure you want to DELETE ALL EVENTS?"
+                hx-controller="Admin"
+                hx-action="OnGetRemoveAllEvents">
+            Delete All Events
+        </button>
+    </div>
 
 </section>

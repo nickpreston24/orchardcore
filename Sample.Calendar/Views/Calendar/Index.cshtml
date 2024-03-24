@@ -3,19 +3,7 @@
 @using CodeMechanic.Types
 @{
     Layout = "_Layout";
-    string url = Context.Request.Path;
-    var page_name = url.GetPageFromRoute();
-    bool debug_mode = Environment.GetEnvironmentVariable("DEV_MODE").ToBoolean(fallback: false);
 }
-
-@* <div x-show="@debug_mode" x-data="setup_calendar_page()"> *@
-@* <h1 x-text="current_page_name"></h1> *@
-@* <h2>@url</h2> *@
-@if (debug_mode)
-{
-    <h3>@page_name</h3>
-}
-@* </div> *@
 
 <partial name="_CalendarView"></partial>
 

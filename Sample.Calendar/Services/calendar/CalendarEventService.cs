@@ -79,13 +79,14 @@ public class CalendarEventService : ICalendarEventService
     private List<CalendarEvent> CreateFakeEvents(int count = 3)
     {
         var index = 1;
+        var all_statuses = CalendarEventStatus.GetAll<CalendarEventStatus>();
 
+        all_statuses.Dump(nameof(all_statuses));
         var calendar_faker = new Faker<CalendarEvent>()
                 .CustomInstantiator(f => new CalendarEvent())
                 .RuleFor(o => o.last_modified, f => f.Date.Recent(100))
-                .RuleFor(o => o.start_date, f => f.Date.Recent(365)
-                    // .Add(TimeSpan.FromDays(days.TakeFirstRandom()))
-                )
+                .RuleFor(o => o.start_date, f => f.Date.Recent(365))
+                .RuleFor(o => o.status, f => all_statuses.TakeFirstRandom().Name)
                 .RuleFor(o => o.end_date, f => f.Date.Recent(-7))
                 .RuleFor(o => o.event_name, f => fake_event_names.TakeFirstRandom())
                 .RuleFor(o => o.description, f => fake_descriptions.TakeFirstRandom())

@@ -4,22 +4,8 @@
 
 @{
     Layout = "_Layout";
-    string url = Context.Request.Path;
-    var page_name = url.GetPageFromRoute();
-
-    // I'm doing this to re-use calendarview and not mess up the HTMX (ajax) calls or have to repeat the work.
-    // This could obviously be replaced by some auth method, but I don't know what.
-    bool is_admin = @page_name.Equals("admin", StringComparison.OrdinalIgnoreCase);
-    bool debug_mode = Environment.GetEnvironmentVariable("DEV_MODE").ToBoolean(fallback: false);
-
+   
 }
-
-@* <div x-data="setup_admin_page()"> *@
-@if (debug_mode)
-{
-    <h3>@page_name</h3>
-}
-@* </div> *@
 
 <partial name="_CalendarView"></partial>
 
