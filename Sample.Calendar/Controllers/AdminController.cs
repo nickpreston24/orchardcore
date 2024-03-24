@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using CodeMechanic.Diagnostics;
+using CodeMechanic.Types;
 using Microsoft.AspNetCore.Mvc;
 using OrchardCore.Admin;
 using OrchardCore.Models;
@@ -26,17 +27,46 @@ public class AdminController : Controller
 
 
     [HttpPost]
-    public async Task<IActionResult> OnPostCreateEvent(
-        CalendarEvent calendarEvent
-    )
+    public async Task<IActionResult> OnPostCreateEvent(CalendarEvent calendarEvent)
     {
-        Console.WriteLine(nameof(OnPostCreateEvent));
         calendarEvent.Dump(nameof(calendarEvent));
-        var count = await calendar_svc.Create("create_calendar_event.sql", calendarEvent);
-        Console.WriteLine($"Created {count} calendar events");
+
+        bool is_update = calendarEvent.EditMode.Equals("Edit", StringComparison.OrdinalIgnoreCase) ? true : false;
+
+        if (is_update)
+        {
+            // update instead of creating:
+            // int count = 
+            await calendar_svc.Update(calendarEvent.id, calendarEvent);
+            // Console.WriteLine($"Updated {count} calendar events");
+        }
+
+        else if (!is_update)
+        {
+            // Console.WriteLine(nameof(OnPostCreateEvent));
+            var count = await calendar_svc.Create("create_calendar_event.sql", calendarEvent);
+            Console.WriteLine($"Created {count} calendar events");
+        }
 
         var all_events = await calendar_svc.GetAll();
-        return PartialView("_OrchardCalendar", all_events.ToList());
+
+
+        // TODO: make this change with the current tab:
+        return PartialView("_OrchardEventList", all_events.ToList());
+        
+        // return
+        //     is_update
+        //         ? PartialView("_OrchardEventList", all_events.ToList())
+        //         : PartialView("_OrchardCalendar", all_events.ToList());
+    }
+
+
+    public async Task<IActionResult> OnGetEditForm(int id)
+    {
+        Console.WriteLine(nameof(OnGetEditForm));
+        Console.WriteLine(id);
+        var record = await calendar_svc.GetById(id);
+        return PartialView("_CreateEventForm", record.With(r => { r.EditMode = "Edit"; }));
     }
 
     public IActionResult OnGetCreateForm()

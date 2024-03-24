@@ -68,6 +68,11 @@
                 {
                     <div class="card-actions justify-end">
                         <button
+                            hx-get
+                            hx-controller="Admin"
+                            hx-action='OnGetEditForm'
+                            hx-target="#create_form"
+                            hx-route-id="@item.id"
                             class="btn btn-ghost border-2 border-info">
                             👍
                             Edit

@@ -10,16 +10,29 @@
     https://alpinejs.dev/directives/on
     https://alpinejs.dev/essentials/events
  *@
-<section>
+<section
+    x-data="{
+                get target_id() {
+                      if(current_tab.name === 'Calendar')
+                          return '#calendar_container'
+                      else if(current_tab.name === 'Event List')
+                          return '#event_list'
+                }
+            }">
 
+    <h1>@calendar_event.EditMode</h1>
+    <pre x-text="current_tab.name">tab?</pre>
+    <pre x-text="target_id">target?</pre>
+   
     <form
         hx-post method="post"
         hx-swap="outerHTML"
         hx-controller="Admin"
-        hx-target="#calendar_container"
+        hx-action="OnPostCreateEvent"
+        >
 
-        hx-action="OnPostCreateEvent">
-
+        @* <input hidden type="text" asp-for="EditMode" value="@Model.EditMode"> *@
+        
         <div class="mb-3">
             <label class="form-label" for="event_name">Event Name:</label>
             <input class="form-control" type="text" asp-for="event_name">
@@ -44,10 +57,11 @@
         <button
             submit.prevent="console.log('submitted')"
             class="btn btn-primary"
+            :hx-target="target_id"
             type="submit">
             Submit
         </button>
-
+      
     </form>
 
 </section>

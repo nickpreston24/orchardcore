@@ -114,7 +114,7 @@ public class CalendarEventService : ICalendarEventService
     {
         using var connection = CreateConnection();
         var events_found =
-            await connection.QueryAsync<CalendarEvent>("select * from CalendarEvents where id = @id");
+            await connection.QueryAsync<CalendarEvent>("select * from CalendarEvents where id = @id", new { id = id });
 
         return events_found.SingleOrDefault();
     }
@@ -185,9 +185,15 @@ public class CalendarEventService : ICalendarEventService
         }
     }
 
-    public Task Update(int id, CalendarEvent model)
+    public async Task<int> Update(int id, CalendarEvent model)
     {
-        throw new NotImplementedException();
+        string sql = embeds.GetFileContents<CalendarEventService>("update_calendar_events.sql");
+        using var connection = CreateConnection();
+        var affectedRows = await connection.ExecuteAsync(sql, model);
+
+        Console.WriteLine($"Affected Rows: {affectedRows}");
+
+        return affectedRows;
     }
 
     public async Task<int> Delete(int id)

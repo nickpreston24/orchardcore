@@ -17,4 +17,7 @@ public class CalendarEvent
     public string event_status_badge => new CalendarEventStatus(-1, this.status).Equals(CalendarEventStatus.Published)
         ? "badge badge-success"
         : "badge badge-warning";
+
+    public string EditMode { get; set; } = "Add"; // lazy, i know.
+    public string ViewName { get; set; } = "Calendar";
 }

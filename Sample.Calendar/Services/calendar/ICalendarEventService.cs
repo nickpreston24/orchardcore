@@ -10,7 +10,7 @@ public interface ICalendarEventService
     Task<CalendarEvent> GetById(int id);
     Task<int> Create(string sql_file_path, params CalendarEvent[] records);
     Task<List<CalendarEvent>> Search(CalendarEvent search);
-    Task Update(int id, CalendarEvent model);
+    Task<int> Update(int id, CalendarEvent model);
     Task<int> Delete(int id);
     Task<int> SeedCalendar(int limit = 20);
     Task<int> CountExistingEvents();

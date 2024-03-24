@@ -102,9 +102,10 @@
 
             </join>
 
-            <div id="create_form"
-                 x-show="options_panel.add_button.show">
-                <partial name="_CreateEventForm" model="@current_event"></partial>
+            <div id="create_form">
+                <span x-show="options_panel.add_button.show">
+                    <partial name="_CreateEventForm" model="@current_event"></partial>
+                </span>
             </div>
 
             <div id="ui_settings"
