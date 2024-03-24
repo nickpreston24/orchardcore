@@ -1,4 +1,11 @@
-﻿@inherits OrchardCore.DisplayManagement.Razor.RazorPage<TModel>
+﻿@using Sample.Calendar
+@* @namespace Sample.Calendar.Views *@
+
+@inherits OrchardCore.DisplayManagement.Razor.RazorPage<TModel>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, OrchardCore.DisplayManagement
 @addTagHelper *, OrchardCore.ResourceManagement
+@addTagHelper *, Htmx.TagHelpers
+@* @addTagHelper *, Hydro *@
+
+@* @addTagHelper *, Sample.Calendar *@

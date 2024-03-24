@@ -1,14 +1,79 @@
-﻿@using OrchardCore.Services
+﻿@using CodeMechanic.Diagnostics
+@using OrchardCore.Services
 @model object
-@inject ISampleMarkdownService markdownService
+@* @inject ISampleMarkdownService markdownService *@
+@inject ICalendarEventService calendar
+@{
+    var count = 0;
+    // var headers = markdownService.GetHeadersFromFile();
+    // var calendar_event_count = await calendar.CountExistingEvents();
+    // calendar_events.ToList().Count.Dump("# of events");
 
+    Layout = "_Layout";
+}
 
-<div class="container" style="margin-top:100px;">
+<div data-theme="cupcake" class="container" style="margin-top:100px;">
     <div class="row">
         <div class="col-md-12">
-            @* <h1>Sample Calendar Page - Front End.</h1> *@
+            <h1>Sample Calendar Page - Front End.</h1>
             <h1>Hello there!</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim impedit minus molestiae nihil omnis. Beatae commodi culpa debitis, molestiae natus officiis pariatur quia quos sint, sunt temporibus vel voluptas voluptate.</p>
         </div>
+
+        <b>
+            @* <label for="">Total Event Count: </label> @calendar_event_count *@
+        </b>
+        <button class="btn btn-primary border-accent border-2">Add</button>
+
+        <div x-data="{ open: false }">
+            <button @@click="open = true" class="btn btn-info">Expand</button>
+
+            <span x-show="open">
+                Content...
+            </span>
+        </div>
+
+        <div class="flex flex-row">
+
+            <section class="w-1/2">
+
+                <div class="card w-96 bg-base-100 shadow-xl">
+                    <figure>
+                        <img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes"/>
+                    </figure>
+                    <div class="card-body">
+                        <h2 class="card-title">Shoes!</h2>
+                        <p>If a dog chews shoes whose shoes does he choose?</p>
+                        <div class="card-actions justify-end">
+                            <button class="btn btn-primary">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <section class="w-1/2">
+
+                <div class="card w-96 bg-base-100 shadow-xl">
+                    <figure>
+                        <img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes"/>
+                    </figure>
+                    <div class="card-body">
+                        <h2 class="card-title">Shoes!</h2>
+                        <p>If a dog chews shoes whose shoes does he choose?</p>
+                        <div class="card-actions justify-end">
+                            <button class="btn btn-primary">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+
+        </div>
+
+
     </div>
 </div>
 

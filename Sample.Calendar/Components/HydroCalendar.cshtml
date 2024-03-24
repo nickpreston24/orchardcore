@@ -1,0 +1,79 @@
+@using Newtonsoft.Json
+@using CodeMechanic.Types
+@using CodeMechanic.Diagnostics
+@model OrchardCore.Components.HydroCalendar
+
+@{
+    //https://chrisfrew.in/blog/serializing-and-deserializing-to-iso-8601-in-dotnet/
+    var calendar_events = @Model.Events
+        // .Dump("events")
+        .Select(ev => ev
+            .Map(e => new
+            {
+                id = e.id,
+                title = e.event_name,
+                start = e.start_date,
+                allDay = true
+            }))
+        .ToArray();
+    string json = JsonConvert.SerializeObject(calendar_events);
+    // Console.WriteLine("json :>> " + json);
+
+}
+
+<div>
+    
+    <h1 x-text="current_target"></h1>
+    <h1 x-text="current_handler"></h1>
+
+    <div>
+        <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var data = @Html.Raw(@json);
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            // defaultView: 'agendaWeek',
+            initialView: 'dayGridMonth',
+            timeZone: 'UTC',
+            events: data,
+         });
+        
+        calendar.on('dateClick', function(info) {
+             console.log('Clicked on: ' + info.dateStr);
+             console.log('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+             console.log('Current view: ' + info.view.type);
+                    
+            edits_enabled = true;
+            let event_selected = {
+                date: info.dateStr
+            }
+            selected_event = event_selected;
+        });
+        
+        // function add_htmx_attributes(element) {
+        //     element.setAttribute("hx-get", "");
+        //     element.setAttribute("hx-target", '#result');
+        //     element.setAttribute("hx-page", 'Index');
+        //     element.setAttribute("hx-page-handler", 'RepaintCalendar');
+        // }
+        
+        function render() {
+            console.log('rendering calendar ...');
+            calendar.render();
+        }
+        render();
+        // var addeventbtnEl = document.getElementsByClassName( 'fc-addEventButton-button fc-button fc-button-primary')[0]
+
+        // add_htmx_attributes(addeventbtnEl)
+        // window.render= render;
+        // window.add_htmx_attributes = add_htmx_attributes;
+    });
+    
+    </script>
+
+    </div>
+
+    <div id="calendar"></div>
+
+</div>

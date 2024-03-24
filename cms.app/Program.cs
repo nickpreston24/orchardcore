@@ -23,6 +23,7 @@ builder.Services.AddSingleton<IEmbeddedResourceQuery>(
 
 
 builder.Services.AddSingleton<ISampleMarkdownService, SampleMarkdownService>();
+builder.Services.AddSingleton<ICalendarEventService, CalendarEventService>();
 
 var app = builder.Build();
 

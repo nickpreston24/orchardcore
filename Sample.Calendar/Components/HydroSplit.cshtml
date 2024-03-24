@@ -1,0 +1,19 @@
+@using OrchardCore.Components
+@model OrchardCore.Components.HydroSplit
+@{
+    var orientation = Model.Orientation;
+    // todo: generate gap from setter
+}
+
+@if (orientation.Equals(SplitOrientation.Horizontal))
+{
+    <div class="grid grid-rows-auto grid-cols-2 gap-2">
+        @Model.Slot()
+    </div>
+}
+else if (orientation.Equals(SplitOrientation.Vertical))
+{
+    <div class="grid grid-rows-2 grid-cols-auto gap-2">
+        @Model.Slot()
+    </div>
+}

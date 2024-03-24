@@ -9,5 +9,10 @@ namespace Sample.Calendar.Controllers
         {
             return View();
         }
+
+        public IActionResult OnGetLombax()
+        {
+            return Content("<b>Foo</b>");
+        }
     }
 }

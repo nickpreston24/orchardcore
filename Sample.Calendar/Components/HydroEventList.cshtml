@@ -1,0 +1,56 @@
+@using OrchardCore.Services
+@model OrchardCore.Components.HydroEventList
+@inject ICalendarEventService calendar
+@{
+    var calendar_events = (Model.CalendarEvents ?? (await calendar.GetAll())).ToList();
+    Console.WriteLine("event count :>> " + calendar_events.Count);
+}
+
+@* Story:  "I can see a list of all events"  *@
+
+<div class="grid grid-cols-2 grid-rows-auto">
+    @* <h1 x-text="current_tab.name"></h1> *@
+    @* <h2 x-text="current_tab.active"></h2> *@
+
+    <div>
+        @foreach (var item in calendar_events)
+        {
+            <div class="card w-96 bg-base-100 shadow-xl">
+                <div class="card-body">
+                    <h1 class="card-title">
+                        @item.event_name
+                    </h1>
+
+                    <p>@item.description</p>
+                    <label for="state_date">
+                        <b>
+
+                            Starts:
+                        </b>
+                        <span>@item.start_date</span>
+                    </label>
+
+                    <label for="state_date">
+                        <b>
+                            Ends:
+                        </b>
+                        <span>@item.end_date</span>
+                    </label>
+
+                </div>
+                <div class="card-actions justify-end">
+                    <button
+                        class="badge">
+                        👍
+                        Edit
+                    </button>
+                    <button class="badge">
+                        🗑️
+                        Delete
+                    </button>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

@@ -1,0 +1,15 @@
+@model OrchardCore.Components.HydroCard
+
+<div class="card w-96 bg-base-100 shadow-xl">
+    @Model.Slot("image")
+
+    <div class="card-body">
+        <h2 class="card-title">
+            @Model.Slot("title")
+        </h2>
+        <p>@Model.Slot()</p>
+        <div class="card-actions justify-end">
+            @Model.Slot("actions")
+        </div>
+    </div>
+</div>
