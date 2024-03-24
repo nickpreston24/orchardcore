@@ -4,8 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using CodeMechanic.Advanced.Regex;
-using CodeMechanic.Diagnostics;
-using CodeMechanic.Reflection;
 
 namespace Sample.Calendar;
 

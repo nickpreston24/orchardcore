@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using OrchardCore.Models;
 using OrchardCore.Services;
 
 namespace Sample.Calendar.Controllers

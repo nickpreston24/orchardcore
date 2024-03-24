@@ -15,8 +15,6 @@ using Dapper;
 using Microsoft.Data.Sqlite;
 using NSpecifications;
 using OrchardCore.Models;
-using OrchardCore.Services;
-using YesSql.Services;
 
 namespace OrchardCore.Services;
 
