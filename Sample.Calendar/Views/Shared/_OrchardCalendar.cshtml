@@ -41,19 +41,23 @@
 
 <section id="calendar_container" x-data="setup_orchard_calendar()">
 
-    <div x-show="ui_settings_panel.show_current_render">
-        <pre>Current View Mode: <span x-text="current_calendar_mode"></span> </pre>
-        <pre>Render Mode: <span x-text="fullcallendar_render_mode"></span> </pre>
-    </div>
+    @* <div x-show="ui_settings_panel.show_current_render"> *@
+    @*     <pre>Current View Mode: <span x-text="current_calendar_mode"></span> </pre> *@
+    @*     <pre>Render Mode: <span x-text="fullcallendar_render_mode"></span> </pre> *@
+    @* </div> *@
 
     <div class="join join-vertical lg:join-horizontal">
 
         <template x-for="item in calendar_modes">
-            <button name="item.name" x-on:click="pick_me(item.name)"
+            <div class="tooltip" :data-tip="item?.tip">
+                <button
+                    x-bind:disabled="!item.enabled"
+                    name="item.name" x-on:click="pick_me(item.name)"
 
                     class="btn btn-info btn-sm join-item" x-text="item.name">
-                ...
-            </button>
+                    ...
+                </button>
+            </div>
         </template>
 
     </div>
@@ -77,15 +81,17 @@
             return found?.view;
          },
          calendar_modes: [
-              { name: "Month", view: 'dayGridMonth'},
-              { name:  "Week", view: 'dayGridWeek'},
-              { name:  "Day's Time Grid", view: 'timeGridDay'}, // Not working
-              { name:  "Week's Time Grid", view: 'timeGridWeek'}, // Not working
-              { name:  "Week's List", view: 'listWeek'},
-              { name:  "Month's List", view: 'listMonth'},
-              { name:  "Week's Agenda", view: 'agendaWeek'}, // Not working
-              { name:  "Day's Agenda", view: 'agendaDay'},
-              // dayGridMonth,timeGridWeek,timeGridDay,listMonth
+              { name: "Month", view: 'dayGridMonth', enabled: true},
+              { name:  "Week", view: 'dayGridWeek', enabled: true},
+                  { name:  "Day's Time Grid", view: 'timeGridDay', enabled: false, tip: 'disabled because I need the pro version or correct cdn link'}, // Not working
+              { name:  "Week's Time Grid", view: 'timeGridWeek', enabled: false, tip: 'disabled because I need the pro version or correct cdn link'}, // Not working
+              { name:  "Week's List", view: 'listWeek', enabled: true},
+              { name:  "Month's List", view: 'listMonth', enabled: true},
+              // { name:  "Week's Agenda", view: 'agendaWeek'}, // Not working
+              // { name:  "Day's Agenda", view: 'agendaDay'},
+              { name:  "Week's Agenda", view: 'TimeGridView', enabled: false, tip: 'disabled because I need the pro version or correct cdn link'}, // Replaced, according to : https://fullcalendar.io/docs/v4/upgrading-from-v3#agenda-view
+              { name:  "Day's Agenda", view: 'TimeGridView', enabled: false, tip: 'disabled because I need the pro version or correct cdn link'}, // Replaced, according to : https://fullcalendar.io/docs/v4/upgrading-from-v3#agenda-view
+              
             ],
             pick_me(name){
                 let selected_mode  = name;

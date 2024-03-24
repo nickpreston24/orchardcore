@@ -10,13 +10,12 @@
 
 
 <div x-data="setup_ui_settings_panel()" class="card bg-base-200 w-80">
-    <div class="card-body">
+    <div>
 
 
-        <div
-            id="extra_toggles">
+        <section class="card-body">
 
-            <label for="">Calendar View</label>
+            @* <label for="">Calendar View</label> *@
 
             <div class="join join-vertical lg:join-horizontal">
 
@@ -29,54 +28,60 @@
                     </button>
                 </template>
 
-
-                <div class="">
-
-                    <template x-cloak x-for="[key, value] of Object.entries(ui_settings_panel?.toggles)">
-                        <button
-                            x-on:click="ui_settings_panel.toggles[key]=!value"
-                            class="btn btn-primary join-item shadow-md shadow-secondary-400/50"
-                            :class="{'border-2 border-secondary btn-ghost': !value, 'border-2    border-accent': value }">
-                            <label
-                                x-text="key"
-                                class="form-label badge badge-sm"
-                                :asp-for='key'>
-                            </label>
-
-                            <input x-bind:name='key'
-                                   x-bind:value='value'
-                                   x-bind:checked="value"
-                                   type="checkbox"
-                                   :asp-for="key"
-                                   class="form-control toggle toggle-primary">
-                        </button>
-
-                    </template>
-
-                  
-                </div>
-               
-
             </div>
-        </div>
 
-        <select disabled class="select select-secondary w-full max-w-xs">
-            <option disabled selected>Pick your favorite theme</option>
 
-            @foreach (var theme in themes)
-            {
-                <option x-on:click="current_theme=@theme">@theme</option>
-            }
-        </select>
+        </section>
 
-        <button
-            class="btn btn-primary border-accent border-2"
-            hx-get
-            hx-controller="Calendar"
-            hx-target="#calendar_container"
-            hx-action="OnGetInitialCalendar">
-            Reload Calendar
-        </button>
+        @* <section class=""> *@
+
+        @* <template x-cloak x-for="[key, value] of Object.entries(ui_settings_panel?.toggles)"> *@
+        @*     <button *@
+        @*         x-on:click="ui_settings_panel.toggles[key]=!value" *@
+        @*         class="btn btn-primary join-item shadow-md shadow-secondary-400/50" *@
+        @*         :class="{'border-2 border-secondary btn-ghost': !value, 'border-2    border-accent': value }"> *@
+        @*         <label *@
+        @*             x-text="key" *@
+        @*             class="form-label badge badge-sm" *@
+        @*             :asp-for='key'> *@
+        @*         </label> *@
+        @* *@
+        @*         <input x-bind:name='key' *@
+        @*                x-bind:value='value' *@
+        @*                x-bind:checked="value" *@
+        @*                type="checkbox" *@
+        @*                :asp-for="key" *@
+        @*                class="form-control toggle toggle-primary"> *@
+        @*     </button> *@
+        @* *@
+        @* </template> *@
+
+
+        @* </section> *@
+
+        <section>
+
+            <select disabled class="select select-secondary w-full max-w-xs">
+                <option disabled selected>Pick your favorite theme</option>
+
+                @foreach (var theme in themes)
+                {
+                    <option x-on:click="current_theme=@theme">@theme</option>
+                }
+            </select>
+
+        </section>
+
+        <section>
+            <button
+                class="btn btn-primary border-accent border-2"
+                hx-get
+                hx-controller="Calendar"
+                hx-target="#calendar_container"
+                hx-action="OnGetInitialCalendar">
+                Reload Calendar
+            </button>
+        </section>
     </div>
 </div>
 <script>

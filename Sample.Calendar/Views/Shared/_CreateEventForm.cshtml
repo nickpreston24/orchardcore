@@ -12,11 +12,12 @@
  *@
 <section>
 
-    @* hx-target="#calendar_container" *@
     <form
         hx-post method="post"
         hx-swap="outerHTML"
         hx-controller="Admin"
+        hx-target="#calendar_container"
+
         hx-action="OnPostCreateEvent">
 
         <div class="mb-3">
@@ -50,4 +51,3 @@
     </form>
 
 </section>
-

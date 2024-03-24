@@ -48,7 +48,16 @@
               center: "title",
               // right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
             },
-            events: data
+            events: data,
+            
+            dateClick: function(info) {
+                console.log('Clicked on: ' + info.dateStr);
+                console.log('Clicked on date: ' + info.date);
+                console.log('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+                console.log('Current view: ' + info.view.type);
+                
+                console.log('all info :>> ', info);
+            }
         });
 
           calendar.render();
