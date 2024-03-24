@@ -153,10 +153,14 @@ public class CalendarEventService : ICalendarEventService
                     .Prepend(updated_sql)
                 , (builder, calendarEvent) =>
                 {
+                    string status = calendarEvent.status.IsNotEmpty()
+                        ? calendarEvent.status
+                        : CalendarEventStatus.Published.Name;
+
                     builder.Append("(");
                     builder.Append($" '{calendarEvent.event_name}', ");
                     builder.Append($" '{calendarEvent.description}', ");
-                    builder.Append($" '{calendarEvent.status}', ");
+                    builder.Append($" '{status}', ");
                     builder.Append($" '{calendarEvent.start_date.ToString("yyyy/MM/dd")}', ");
                     builder.Append($" '{calendarEvent.end_date.ToString("yyyy/MM/dd")}'");
                     builder.AppendLine("),");

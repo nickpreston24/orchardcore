@@ -28,18 +28,8 @@ public class AdminController : Controller
     [HttpPost]
     public async Task<IActionResult> OnPostCreateEvent(
         CalendarEvent calendarEvent
-        // string event_name,
-        // string description,
-        // DateTime start_date
     )
     {
-        // var calendarEvent = new CalendarEvent()
-        // {
-        //     event_name = event_name,
-        //     description = description,
-        //     start_date = start_date
-        // };
-
         Console.WriteLine(nameof(OnPostCreateEvent));
         calendarEvent.Dump(nameof(calendarEvent));
         var count = await calendar_svc.Create("create_calendar_event.sql", calendarEvent);
