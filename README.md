@@ -48,34 +48,30 @@ I'm unsure of the events I'll need for this and what authentication will be requ
   - [x] Invesigate how the calendar library wants you to use it.
     - [ ] https://fullcalendar.io/docs/date-clicking-selecting
   - [ ] Figure out how a CMS Module event lifecycle works.
-- [ ] Crud to finish and test:
+- [x] Crud to finish and test:
   - [ ] Get all events w/ 'published' status; Requirement: "I can visit a page /calendar and see a calendar with all published events"
-  - [ ] Delete
+  - [x] Delete
   - [x] Bulk create (or single)
-  - [ ] ...?
 - [x] copy/paste the event calendar into a Hydro Component [!afraidtoask]()
   - [x] Create a Hydro viewelement `hydro-event` with `hx-get` support
   - [x] Wite the basic CRUD events described [here](https://docs.google.com/document/d/1JIHROJFNqIXdeoulxHi9pbp4Nphp2BuzLGBeGz-kyMo/edit)
   - [x] Wire the eventcalender service into the calendar
   - [x] Ensure the calendar easily loads onto the page from script with no `id` issues.
   - [ ] If you have time, wrap each Hydro event in a custom Authorization context from Hydro, demonstrating you know how to secure the `/admin` path.
-  - [ ] If you have time, have the highlighted calendar boxes change on hover :)
-  - [ ] Extra:
+  - [x] Extra:
     - [x] Try https://fullcalendar.io/docs/month-view making this a set of toggles in an optionspanel hydro component.
     - [x] When user selects an event, toggle it and show the form.
       - [x] Add
       - [x] Danger Zone
-      - [ ] Search?
-      - [ ] ???
   
 ## User Stories 
 o As an Admin User 
     I want a calendar module where I can add Events to show up on my Front-End Calendar So that end-users can see what activities are coming up and have passed 
     And I will know that I am done when 
     - [x] I have a calendar content type on the /Admin that I can enter a new Event 
-    - [ ] I can Edit an Event 
-      - [ ] Todo: Show the Edit panel
-      - [ ] then allow edits.
+    - [x] I can Edit an Event 
+      - [x] Todo: Show the Edit panel
+      - [x] then allow edits.
     - [x] I can Add New Events 
     - [x] I can Delete an event 
     - [x] I can see a list of all events 
@@ -84,7 +80,7 @@ o As a Front-End User
     So that I can see what activities are coming up and have passed 
     And I will know that I am done when 
     - [x] I can visit a page /calendar and see a calendar with all published events
-    - [ ] When I can view the calendar in Month, Week, Day, and [Agenda Views](https://fullcalendar.io/docs/v3/agenda-view) 
+    - [x] When I can view the calendar in Month, Week, Day, and [Agenda Views](https://fullcalendar.io/docs/v3/agenda-view) 
     - [x] When Navigate Forward and Backward on the Calendar to see Past Events and  upcoming events 
 
 
@@ -95,7 +91,6 @@ o As a Front-End User
 * List, month, day and year views for `/Calendar` page.
 * Self-seeding database (requires a `LocalDatabase.db`).  
   * If no table exists, one may be created by running `SeedCalendar(int limit)`, where the limit is the max rows you wish to seed.  I used the Bogus library to create fake seeded events.
-* Events can be Searched by name, description via the `Search()` method in `ICalendarService`.
 
 
 # Helpful Resources
