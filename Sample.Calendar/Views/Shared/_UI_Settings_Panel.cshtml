@@ -1,4 +1,9 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Newtonsoft.Json
+@using OrchardCore.Services
+@using CodeMechanic.Types
 @model OrchardCore.UISettings
+@inject ICalendarEventService calendar
 
 @{
     var settings = Model;
@@ -29,7 +34,10 @@
         </select>
 
         <button
-            @@click="generate_calendar()">
+            hx-get
+            hx-controller="Calendar"
+            hx-target="#calendar"
+            hx-action="OnGetInitialCalendar">
             Reload Calendar
         </button>
     </div>
@@ -39,13 +47,13 @@
      
         return {
             foo: 'bar',
-            sample_events: [
-                {id: 1,
-                        title: 'foo',
-                        desc: 'bar',
-                        allDay: true,}
-                
-            ],
+            // sample_events: [
+            //     {id: 1,
+            //             title: 'foo',
+            //             desc: 'bar',
+            //             allDay: true,}
+            //    
+            // ],
             calendar_modes: [
               { name: "Month"},
               { name:  "Week"},
@@ -57,6 +65,7 @@
                 let selected_mode  = el;
                 console.log('element: ' +  selected_mode);
                 localStorage.setItem('current_calendar_mode', selected_mode);
+                current_calendar_mode = selected_mode;
             }    
         }    
     }

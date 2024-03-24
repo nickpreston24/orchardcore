@@ -58,6 +58,7 @@
 
             <div x-show="current_tab.name==='Calendar'">
                 <div id="calendar_container">
+                    <h1>Mode: <span x-text="current_calendar_mode"></span> </h1>
                     <partial name="_OrchardCalendar" model="@all_events"/>
                 </div>
             </div>
@@ -85,6 +86,12 @@
                     </button>
                 }
 
+                <button class="btn join-item"
+                        :class="options_panel.ui_settings_button.classname"
+                        js x-on:click="options_panel.ui_settings_button.show=!options_panel.ui_settings_button.show">
+                    UI Settings
+                </button>
+
                 @if (@is_admin)
                 {
                     <button class="btn join-item"
@@ -93,11 +100,7 @@
                         Danger Zone
                     </button>
                 }
-                <button class="btn join-item"
-                        :class="options_panel.ui_settings_button.classname"
-                        js x-on:click="options_panel.ui_settings_button.show=!options_panel.ui_settings_button.show">
-                    UI Settings
-                </button>
+
 
             </join>
 
@@ -117,6 +120,23 @@
                 <partial name="_DangerZonePanel"/>
             </div>
 
+
+            <template x-for="snack in snacks">
+                <div class="flex flex-row">
+                    <h2 x-text="snack.name"></h2>
+                    <button
+                        class="btn btn-small btn-ghost"
+                        x-on:click="snack.streak = confirm('Did you miss one?', 'Yes', 'Nope!') ? 0: snack.streak">
+                        👇
+                    </button>
+                    <p x-text="snack.streak"></p>
+                    <button
+                        x-on:click="snack.streak++"
+                        class="btn btn-small btn-ghost">
+                        👆
+                    </button>
+                </div>
+            </template>
         </section>
 
     </div>
@@ -126,6 +146,8 @@
 <script>
 function setup(){
     return {
+       current_calendar_mode: 'Week',
+       // snacks: Alpine.$persist([{ name: "Eggs", streak: 0 }]),
        current_tab: {
             role:'tab', 
             name: 'Calendar',

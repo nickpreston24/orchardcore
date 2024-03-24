@@ -29,7 +29,10 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@@3.x.x/dist/cdn.min.js"></script>
 
     <!-- Alpine Plugins -->
-    <script defer src='https://cdn.jsdelivr.net/npm/@@alpinejs/persist@3.x.x/dist/cdn.min.js'></script>
+    @* <script defer src='https://cdn.jsdelivr.net/npm/@@alpinejs/persist@3.x.x/dist/cdn.min.js'></script> *@
+    <script
+        defer
+        src="https://cdn.jsdelivr.net/npm/@@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
 
     <script src='https://cdn.jsdelivr.net/npm/@@fullcalendar/core@6.1.11/index.global.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/@@fullcalendar/daygrid@6.1.11/index.global.min.js'></script>
@@ -52,47 +55,23 @@
     
     
     
-     function generate_calendar(){
-                   console.log('hello from generate_calendar()')
-                  var date = new Date();
-                  var d = date.getDate();
-                  var m = date.getMonth();
-                  var y = date.getFullYear();
-                
-                  var calendarEl = document.getElementById("calendar");
-                  var calendar = new FullCalendar.Calendar(calendarEl, { 
-                    nowIndicator: true,
-                    headerToolbar: {
-                      left: "prev,next today",
-                      center: "title",
-                      right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
-                    },
-                    events: [
-                      {
-                        title: "Sales Meeting",
-                        start: new Date(y, m, 2, 10, 30),
-                        end: new Date(y, m, 2, 11, 30),
-                        allDay: false
-                      },
-                      {
-                        title: "Marketing Meeting",
-                        start: new Date(y, m, 3, 11, 30),
-                        end: new Date(y, m, 3, 12, 30),
-                        allDay: false
-                      },
-                      {
-                        title: "Production Meeting",
-                        start: new Date(y, m, 4, 15, 30),
-                        end: new Date(y, m, 4, 16, 30),
-                        allDay: false
-                      }
-                    ]
-                });
-    
-                  calendar.render();
-                  calendar.setOption('height', 520);
-                }
-                
+     function generate_calendar(data = []){
+          console.log('hello from generate_calendar()')
+          var calendarEl = document.getElementById("calendar");
+          var calendar = new FullCalendar.Calendar(calendarEl, { 
+            nowIndicator: true,
+            headerToolbar: {
+              left: "prev,next today",
+              center: "title",
+              right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
+            },
+            events: data
+        });
+
+          calendar.render();
+          calendar.setOption('height', 520);
+        }
+        
                 
     // function GenerateCalendar(events = []) {
     //    
