@@ -1,11 +1,11 @@
-@using Hydro
+@* @using Hydro *@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 <!DOCTYPE html>
-<html lang="en" data-theme="cupcake">
+<html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="hydro-config"/>
+    @* <meta name="hydro-config"/> *@
 
     @* <script defer src="~/hydro/hydro.js" asp-append-version="true"></script> *@
     @* <script defer src="~/hydro/alpine.js" asp-append-version="true"></script> *@
@@ -25,7 +25,6 @@
 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css"/>
 
-
     <!-- Alpine Core -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@@3.x.x/dist/cdn.min.js"></script>
 
@@ -38,42 +37,27 @@
     @* <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script> *@
 
 </head>
-<body class="border-2 border-primary">
+
+<script >
+ function layout_setup(){
+    return {
+        current_theme: 'dark'
+    }
+ }
+</script>
+<body :data-theme="current_theme" x-data="layout_setup()" class="border-2 border-primary">
 <header>
-    @* <hydro-nav> *@
-    @*     <slot name="links"> *@
-    @*         <li> *@
-    @*             <a href="/">Homepage</a> *@
-    @*         </li> *@
-    @*         <li> *@
-    @*             <a href="sandbox">Sandbox</a> *@
-    @*         </li> *@
-    @*         <li> *@
-    @*             <a href="about">About</a> *@
-    @*         </li> *@
-    @*     </slot> *@
-    @* </hydro-nav> *@
+    <partial name="_OrchardNav"></partial>
 </header>
-<div class="container">
+<div class="">
     <main role="main" class="m-4">
-        @* <breadcrumbs></breadcrumbs> *@
         @RenderBody()
     </main>
 </div>
 
-@* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
-@* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
 <script src="~/js/site.js" asp-append-version="true"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
-@* <hydro-footer> *@
-@*     <slot name="links"> *@
-@*         <a class="link link-accent" href="/">Homepage</a> *@
-@*         <a class="link link-accent" href="sandbox">Sandbox</a> *@
-@*         <a class="link link-accent" href="about">About</a> *@
-@*     </slot> *@
-@*     $1$ <hydro-toast></hydro-toast> // TODO: find something that works! #1# *@
-@* *@
-@* </hydro-footer> *@
+
 </body>
 </html>

@@ -1,0 +1,13 @@
+@model int
+
+@{
+    string count = Model.AsJS();
+}
+
+<div x-data="{
+     count: @count
+}" class="flex flex-row">
+    <label for="count">Current count: <span x-text="count"></span></label>
+    <button class="btn-primary btn" x-on:click="count++">Add</button>
+    <button class="btn-primary btn" x-on:click="count--">Subtract</button>
+</div>

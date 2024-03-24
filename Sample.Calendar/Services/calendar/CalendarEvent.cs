@@ -1,6 +1,6 @@
 using System;
 
-namespace OrchardCore.Services;
+namespace OrchardCore.Models;
 
 public class CalendarEvent
 {
@@ -8,7 +8,7 @@ public class CalendarEvent
     public string description { get; set; } = string.Empty;
     public string status { get; set; } = string.Empty;
     public int id { get; set; }
-    public DateTime start_date { get; set; }
+    public DateTime start_date { get; set; } = DateTime.UtcNow;
     public DateTime end_date { get; set; }
     public TimeSpan duration { get; set; }
     public DateTime created_at { get; set; }

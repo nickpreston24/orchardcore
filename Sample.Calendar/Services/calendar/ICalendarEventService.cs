@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using OrchardCore.Models;
 
 namespace OrchardCore.Services;
 
@@ -10,7 +11,7 @@ public interface ICalendarEventService
     Task<int> Create(string sql_file_path, params CalendarEvent[] records);
     Task<List<CalendarEvent>> Search(CalendarEvent search);
     Task Update(int id, CalendarEvent model);
-    Task Delete(int id);
+    Task<int> Delete(int id);
     Task<int> SeedCalendar(int limit = 20);
     Task<int> CountExistingEvents();
     Task<int> DeleteAll();

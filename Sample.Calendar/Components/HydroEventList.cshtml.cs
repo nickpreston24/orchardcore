@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Hydro;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using OrchardCore.Models;
 using OrchardCore.Services;
 using OrchardCore.Services;
 

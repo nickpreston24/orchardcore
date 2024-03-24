@@ -1,0 +1,64 @@
+@model OrchardCore.UISettings
+
+@{
+    var settings = Model;
+    var themes = settings.Themes;
+}
+
+
+<div class="card bg-base-200 w-80">
+    <div class="card-body">
+
+        <label for="">Calendar View</label>
+
+        <div class="join join-vertical lg:join-horizontal">
+            <button class="btn join-item">Week</button>
+            <button class="btn join-item">Month</button>
+            <button class="btn join-item">Year</button>
+            <button class="btn join-item">List</button>
+        </div>
+
+        <select disabled class="select select-secondary w-full max-w-xs">
+            <option disabled selected>Pick your favorite theme</option>
+
+            @foreach (var theme in themes)
+            {
+                <option x-on:click="current_theme=@theme">@theme</option>
+            }
+        </select>
+    </div>
+</div>
+
+@* SCRAPS *@
+
+
+@* <input placeholder="Email" class="input input-bordered"/> *@
+@* <label class="label cursor-pointer"> *@
+@*     Accept terms of use zzz *@
+@*     <input type="checkbox" class="toggle"/> *@
+@* </label> *@
+@* <label class="label cursor-pointer"> *@
+@*     Submit to newsletter zzz *@
+@*     <input type="checkbox" class="toggle"/> *@
+@* </label> *@
+@* *@
+
+@* <button *@
+@*     hx-get *@
+@*     hx-page="Index" *@
+@*     hx-page-handler="@save" *@
+@*     class="btn btn-neutral"> *@
+@*     Save *@
+@* </button> *@
+
+
+@* <button *@
+@*     x-show="edits_enabled" *@
+@*     hx-get *@
+@*     hx-page="Index" *@
+@*     hx-page-handler="Edit" *@
+@*     class="btn btn-neutral"> *@
+@*     Update *@
+@* </button> *@
+@* <label for="">edits on?</label> *@
+@* <span x-text="edits_enabled"></span> *@

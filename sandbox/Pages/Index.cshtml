@@ -1,6 +1,9 @@
 ﻿@page
 @using Orchard.Sandbox.Services
 @using Hydro.TagHelpers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Orchard.Sandbox.Pages.Shared
+@using Htmx.TagHelpers
 @model IndexModel
 @inject ICalendarEventService calendar_service
 
@@ -67,7 +70,7 @@
             </button>
             <button class="btn join-item"
                     :class="options_panel.dangerbutton.classname"
-                    x-on:click="options_panel.dangerbutton.show=!options_panel.dangerbutton.show">
+                js    x-on:click="options_panel.dangerbutton.show=!options_panel.dangerbutton.show">
                 Danger Zone
             </button>
 

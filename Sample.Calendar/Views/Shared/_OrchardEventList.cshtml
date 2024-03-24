@@ -1,0 +1,70 @@
+@using OrchardCore.Models
+@using OrchardCore.Services
+@using Htmx.TagHelpers
+@model List<CalendarEvent>
+@inject ICalendarEventService calendar
+@{
+    var calendar_events = Model ?? (await calendar.GetAll()).ToList();
+@*     Console.WriteLine("event count :>> " + calendar_events.Count); *@
+}
+
+@* Story:  "I can see a list of all events"  *@
+
+<section
+    id="event_list">
+
+    <h1>Total Events: @calendar_events.Count</h1>
+
+    <div
+        class="grid grid-cols-2 gap-4">
+        @* <h1 x-text="current_tab.name"></h1> *@
+        @* <h2 x-text="current_tab.active"></h2> *@
+
+        @foreach (var item in calendar_events)
+        {
+            <div class="card w-72 bg-base-100 shadow-xl">
+                <div class="card-body">
+                    <h1 class="card-title">
+                        @item.event_name
+                    </h1>
+
+                    <p>@item.description</p>
+                    <label class="badge" for="">
+                        <b>
+                            Starts:
+                        </b>
+                        <span>@item.start_date</span>
+                    </label>
+
+                    <label class="badge" for="">
+                        <b>
+                            Ends:
+                        </b>
+                        <span>@item.end_date</span>
+                    </label>
+
+                </div>
+                <div class="card-actions justify-end">
+                    <button
+                        class="btn btn-ghost border-2 border-info">
+                        👍
+                        Edit
+                    </button>
+                    <button
+                        hx-get
+                        hx-controller="Admin"
+                        hx-action="OnDeleteRemoveEvent"
+                        hx-route-id="@item.id"
+                        hx-swap="outerHTML"
+                        hx-target="#event_list"
+                        class="btn btn-ghost border-2 border-error">
+                        🗑️
+                        Delete
+                    </button>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</section>

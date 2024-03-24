@@ -5,6 +5,15 @@
         <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     </PropertyGroup>
 
+
+    <ItemGroup>
+        <Watch Include="**\*.cshtml"></Watch>
+        <Watch Include="**\*.html"></Watch>
+        <Watch Include="**\*.css"></Watch>
+        <Watch Include="**\*.js"></Watch>
+        <Watch Include="**\*.cs"></Watch>
+    </ItemGroup>
+
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="Bogus" Version="35.5.0" />
@@ -28,10 +37,13 @@
         <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
     </ItemGroup>
 
-
     <ItemGroup>
-        <Content Include="Views\Sandbox\Index.cshtml" />
-        <Content Include="Views\Shared\_Layout.cshtml" />
+      <Content Include="Views\Shared\_CreateEventForm.cshtml" />
+      <Content Include="Views\Shared\_OrchardCalendar.cshtml" />
+      <Content Include="Views\Shared\_OrchardEventList.cshtml" />
+      <Content Include="Views\Shared\_OrchardNav.cshtml" />
+      <Content Include="Views\Shared\_UI_Settings_Panel.cshtml" />
     </ItemGroup>
+
 
 </Project>

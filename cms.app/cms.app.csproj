@@ -13,6 +13,21 @@
         https://stackoverflow.com/questions/69258345/add-all-files-in-folder-including-sub-dir-as-embedded-resource
         -->
         <EmbeddedResource Include="**\*.sql"></EmbeddedResource>
+        <EmbeddedResource Update="sql\create_calendar_event.sql">
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </EmbeddedResource>
+        <EmbeddedResource Update="sql\get_all_calendar_events.sql">
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </EmbeddedResource>
+        <EmbeddedResource Update="sql\SEED_CalendarEvents.sql">
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </EmbeddedResource>
+        <EmbeddedResource Update="sql\search_events.sql">
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </EmbeddedResource>
+        <EmbeddedResource Update="sql\find_all_tablenames.sql">
+          <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </EmbeddedResource>
     </ItemGroup>
 
 
@@ -24,11 +39,11 @@
         <Watch Include="..\Sample.Calendar\**\*.cs"></Watch>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.8.2"/>
+        <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.8.2" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Sample.Calendar\Sample.Calendar.csproj"/>
+        <ProjectReference Include="..\Sample.Calendar\Sample.Calendar.csproj" />
     </ItemGroup>
 
 </Project>

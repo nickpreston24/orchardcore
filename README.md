@@ -79,8 +79,9 @@ o As an Admin User
     I want a calendar module where I can add Events to show up on my Front-End Calendar So that end-users can see what activities are coming up and have passed 
     And I will know that I am done when 
     - [ ] I have a calendar content type on the /Admin that I can enter a new Event 
-        *** This will require knowledge I don't have yet.
     - [ ] I can Edit an Event 
+      - [ ] Todo: Show the Edit panel
+      - [ ] then allow edits.
     - [x] I can Add New Events 
     - [ ] I can Delete an event 
     - [x] I can see a list of all events 
@@ -88,6 +89,16 @@ o As a Front-End User
     I want a calendar module where I can view all Events 
     So that I can see what activities are coming up and have passed 
     And I will know that I am done when 
-    - [ ] I can visit a page /calendar and see a calendar with all published events
+    - [x] I can visit a page /calendar and see a calendar with all published events
     - [ ] When I can view the calendar in Month, Week, Day, and [Agenda Views](https://fullcalendar.io/docs/v3/agenda-view) 
     - [x] When Navigate Forward and Backward on the Calendar to see Past Events and  upcoming events 
+
+
+# Features
+
+* Full CRUD functionality for `/Admin` page.
+* Calendar view and list view may be toggled in the `Admin` page!
+* List, month, day and year views for `/Calendar` page.
+* Self-seeding database (requires a `LocalDatabase.db`).  
+  * If no table exists, one may be created by running `SeedCalendar(int limit)`, where the limit is the max rows you wish to seed.  I used the Bogus library to create fake seeded events.
+* Events can be Searched by name, description via the `Search()` method in `ICalendarService`.

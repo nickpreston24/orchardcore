@@ -14,7 +14,9 @@ using CodeMechanic.Types;
 using Dapper;
 using Microsoft.Data.Sqlite;
 using NSpecifications;
+using OrchardCore.Models;
 using OrchardCore.Services;
+using YesSql.Services;
 
 namespace OrchardCore.Services;
 
@@ -28,7 +30,7 @@ public class CalendarEventService : ICalendarEventService
     }
 
     public async Task<int> CountExistingEvents()
-    {   
+    {
         using var connection = CreateConnection();
 
         string sql = "select count (id) from CalendarEvents;";
@@ -184,20 +186,26 @@ public class CalendarEventService : ICalendarEventService
         throw new NotImplementedException();
     }
 
-    public async Task Delete(int id)
+    public async Task<int> Delete(int id)
     {
-        var events_found = await GetById(id);
-        bool valid_event = events_found.Is(has_valid_id);
+        Console.WriteLine("Removing event with id: " + id);
+        // CalendarEvent events_found = await GetById(id);
+        // events_found.Dump(nameof(events_found));
+        // bool valid_event = events_found.Is(has_valid_id);
 
-        var connection = CreateConnection();
+        // Console.WriteLine($"valid event? {valid_event}");
 
         // Perform the actual deletion
-        if (valid_event)
-        {
-            var result =
-                await connection.ExecuteAsync("delete from CalendarEvents where id = @id", new { id = id });
-            // return result;
-        }
+        // if (valid_event)
+        // {
+        var connection = CreateConnection();
+        var delete_count =
+            await connection.ExecuteAsync("delete from CalendarEvents where id = @id", new { id = id });
+        delete_count.Dump(nameof(delete_count));
+        return delete_count;
+        // }
+
+        // return 0;
     }
 
     public async Task<int> DeleteAll()

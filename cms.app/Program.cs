@@ -8,8 +8,6 @@ var configuration = builder.Configuration;
 
 builder.Services.AddSingleton(configuration).AddOrchardCms();
 
-
-
 var main_assembly = Assembly.GetExecutingAssembly();
 builder.Services.AddSingleton<IEmbeddedResourceQuery>(
     new EmbeddedResourceService(

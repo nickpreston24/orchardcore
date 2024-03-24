@@ -1,0 +1,90 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using OrchardCore.Models
+@model CalendarEvent
+
+
+@* resources: 
+    https://alpinejs.dev/directives/on
+    https://alpinejs.dev/essentials/events
+ *@
+<section>
+
+    <div>
+        @* <span x-text="index"></span> *@
+        <span x-text="next_event.title"></span>
+    </div>
+    @* @@submit.prevent="console.log('submitted')" *@
+    <form
+        hx-post method="post"
+        hx-swap="innerHTML"
+        hx-target="#calendar_container"
+        hx-controller="Calendar">
+
+        <div class="mb-3">
+            <label
+                x-model="next_event.title"
+                :value="next_event.title"
+                class="form-label" asp-for="event_name">
+            </label>
+            <input type="text" class="form-control" asp-for="event_name">
+            <div class="invalid-feedback">
+                <span asp-validation-for="event_name"></span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="start_date"></label>
+            <input type="datetime-local" class="form-control" asp-for="start_date">
+            <div class="invalid-feedback">
+                <span asp-validation-for="start_date"></span>
+            </div>
+        </div>
+
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="description"></label>
+            <input type="text" class="form-control" asp-for="description">
+            <div class="invalid-feedback">
+                <span asp-validation-for="description"></span>
+            </div>
+        </div>
+
+        <button
+            hx-swap="outerHTML"
+            class="btn btn-primary"
+            hx-controller="Admin"
+            hx-get
+            hx-action="OnGetCreateEvent">
+            <span x-text="current_handler"></span>
+        </button>
+
+    </form>
+
+</section>
+
+
+@* SCRaps *@
+
+@* hx-select-oob="#calendar_container" *@
+@* hx-select="#calendar_container" *@
+
+@* @@click.stop *@
+@* <button *@
+@*     x-on:click="options_panel.show_add_form=false" *@
+@*     class="btn btn-secondary"> *@
+@*     Cancel *@
+@* </button> *@
+
+
+@* hx-select-oob="#calendar_container" *@
+@* hx-select="#calendar_container" *@
+@* <button *@
+@*     class="btn btn-primary" *@
+@*     hx-get *@
+@*     hx-swap-oob="true" *@
+@* *@
+@*     hx-target="#calendar_container" *@
+@*     hx-page-handler="Save"> *@
+@* *@
+@*     OOB Swap *@
+@* </button> *@

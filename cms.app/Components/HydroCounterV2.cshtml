@@ -1,0 +1,14 @@
+<!-- ~/Pages/Components/Counter2.cshtml -->
+
+
+@* I'm testing this  to see if I can load Components from cms.app and still load Modules.
+ 
+ *@
+@model HydroCounterV2
+
+<div>
+    Count: <strong>@Model.Count</strong>
+    <button hydro-on:click="@(() => Model.Add())">
+        Add
+    </button>
+</div>
