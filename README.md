@@ -37,8 +37,8 @@ I'm unsure of the events I'll need for this and what authentication will be requ
 
 * Slite3 - Scaffolded it myself, not sure if that's how OC does it, but it works!
 * DaisyUI - For pretty visuals similar to bootstrap and for ease of copy/pasted UI components that work out of the box.  Can do Bootstrap 4, but this was a faster way to iterate and test.
-* Alpinejs - supports hydro
-* HTMX - in place of CMS events (for now).
+* Alpinejs - Basically does jQuery's job, but with Reactivity we'd see in Blazor.
+* HTMX -  Basically does the job of Ajax + DOM swaps, all in a few simple commands.  I'm using it in place of CMS events (for now) because I don't know much about ItemTypes, etc. and how they work.
   * Also, the calendar has some premium events for their boxes, so to get around that, I can give those boxes super-powers and still have events in vanilla Razor Pages.  🎉
 * CodeMechanic  - my personal set of Nuget packages I used to iterate quickly.  A `nuget.config` is provided, so all you have to do is a `dotnet restore` or `dotnet add package <packagename>` for any missing `CodeMechanic.*` dependencies.
 
