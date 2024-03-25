@@ -52,7 +52,7 @@ I'm unsure of the events I'll need for this and what authentication will be requ
   - [x] Get all events w/ 'published' status; Requirement: "I can visit a page /calendar and see a calendar with all published events"
   - [x] Delete
   - [x] Bulk create (or single)
-- [x] copy/paste the event calendar into a Hydro Component [!afraidtoask]()
+- [x] copy/paste the event calendar into a Hydro Component
   - [x] Create a Hydro viewelement `hydro-event` with `hx-get` support
   - [x] Wite the basic CRUD events described [here](https://docs.google.com/document/d/1JIHROJFNqIXdeoulxHi9pbp4Nphp2BuzLGBeGz-kyMo/edit)
   - [x] Wire the eventcalender service into the calendar
