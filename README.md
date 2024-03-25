@@ -44,12 +44,12 @@ I'm unsure of the events I'll need for this and what authentication will be requ
 
 ## Todos
 
-- [ ] Integrate the calendar into a CMS Module
+- [x] Integrate the calendar into a CMS Module
   - [x] Invesigate how the calendar library wants you to use it.
     - [ ] https://fullcalendar.io/docs/date-clicking-selecting
   - [ ] Figure out how a CMS Module event lifecycle works.
 - [x] Crud to finish and test:
-  - [ ] Get all events w/ 'published' status; Requirement: "I can visit a page /calendar and see a calendar with all published events"
+  - [x] Get all events w/ 'published' status; Requirement: "I can visit a page /calendar and see a calendar with all published events"
   - [x] Delete
   - [x] Bulk create (or single)
 - [x] copy/paste the event calendar into a Hydro Component [!afraidtoask]()
@@ -64,8 +64,8 @@ I'm unsure of the events I'll need for this and what authentication will be requ
       - [x] Add
       - [x] Danger Zone
 - [ ] Published Events:
-  - [ ] Update your Add form with a select
-  - [ ] Update your edit form with a select
+  - [x] Update your Add form with a select
+  - [x] Update your edit form with a select
   - [ ] *optional* add a chip filter or toggle to the calendar?
   
 ## User Stories 
