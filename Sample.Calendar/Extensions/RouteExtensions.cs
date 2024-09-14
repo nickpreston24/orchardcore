@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Text.RegularExpressions;
-using CodeMechanic.Advanced.Regex;
+using CodeMechanic.RegularExpressions;
 using Microsoft.AspNetCore.Http;
 
 namespace OrchardCore.Models;

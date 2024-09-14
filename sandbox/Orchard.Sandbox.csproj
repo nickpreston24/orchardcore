@@ -24,7 +24,7 @@
     <ItemGroup>
         <PackageReference Include="Bogus" Version="35.5.0" />
         <PackageReference Include="CodeMechanic.RazorHAT" Version="1.0.8" />
-        <PackageReference Include="CodeMechanic.Regex" Version="1.0.2" />
+        <PackageReference Include="CodeMechanic.RegularExpressions" Version="1.0.1" />
         <PackageReference Include="Dapper" Version="2.1.35" />
         <PackageReference Include="Htmx" Version="1.7.0" />
         <PackageReference Include="Htmx.TagHelpers" Version="1.7.0" />
